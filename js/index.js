@@ -17,7 +17,7 @@ $(function(){
     var insTime = $('#ins-time');              // 鼠标移动至进度条上面，显示的信息部分
     var sHover = $('#s-hover');                // 鼠标移动至进度条上面，前面变暗的进度条部分
     var seekBar = $('#seek-bar');              // 播放进度条部分
-    
+    1
     // 一些计算所需的变量
     var seekT, seekLoc, seekBarPos, cM, ctMinutes, ctSeconds, curMinutes, curSeconds, durMinutes, durSeconds, playProgress, bTime, nTime = 0
     var musicImgsData = ['img/bg.jpg']    // 图片地址数组
