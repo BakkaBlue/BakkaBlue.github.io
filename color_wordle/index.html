@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Color Wordle</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="light">
+  <div id="difficulty-select">
+    <h1>Color Wordle</h1>
+    <p>Select Difficulty and Mode</p>
+    <button onclick="startGame('easy', false)">Easy</button>
+    <button onclick="startGame('medium', false)">Medium</button>
+    <button onclick="startGame('hard', false)">Hard</button>
+    <br/><br/>
+    <button onclick="startGame('easy', true)">Easy - Hardcore</button>
+    <button onclick="startGame('medium', true)">Medium - Hardcore</button>
+    <button onclick="startGame('hard', true)">Hard - Hardcore</button>
+    <br/><br/>
+    <button onclick="toggleTheme()">🌓 Toggle Dark Mode</button>
+  </div>
+
+  <div id="game-container" style="display:none;">
+    <h2 id="status">Make your guess</h2>
+    <div id="board"></div>
+    <div id="palette"></div>
+    <button id="submit" onclick="submitGuess()">Submit</button>
+    <button onclick="goBack()">⬅️ Back</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
