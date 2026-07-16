@@ -2,9 +2,9 @@
   "symbols": {
     "index.html": {
       "ipo_ts": 1784238188062,
-      "edit_count": 3,
+      "edit_count": 5,
       "last_lines": 120,
-      "last_ts": 1784239891931,
+      "last_ts": 1784240299353,
       "delisted": false,
       "last_source": "onEdit",
       "last_content_hash": "b7517cfa"
@@ -1303,12 +1303,12 @@
     },
     ".github/workflows/deploy.yml": {
       "ipo_ts": 1784238517103,
-      "edit_count": 1,
-      "last_lines": 52,
-      "last_ts": 1784238517103,
+      "edit_count": 4,
+      "last_lines": 66,
+      "last_ts": 1784244543555,
       "delisted": false,
       "last_source": "onEdit",
-      "last_content_hash": "0"
+      "last_content_hash": "e034ff20"
     },
     "1/index.html": {
       "ipo_ts": 1784239454170,
@@ -15241,25 +15241,21 @@
     },
     "README.md": {
       "ipo_ts": 1784239464617,
-      "edit_count": 1,
+      "edit_count": 2,
       "last_lines": 657,
-      "last_ts": 1784239464617,
-      "delisted": true,
+      "last_ts": 1784240252707,
+      "delisted": false,
       "last_source": "onEdit",
-      "last_content_hash": "d413fa0f",
-      "delisted_at": 1784239836087,
-      "delist_rounds": 0
+      "last_content_hash": "d413fa0f"
     },
     "env.d.ts": {
       "ipo_ts": 1784239464621,
-      "edit_count": 1,
+      "edit_count": 2,
       "last_lines": 7,
-      "last_ts": 1784239464621,
-      "delisted": true,
+      "last_ts": 1784240252714,
+      "delisted": false,
       "last_source": "onEdit",
-      "last_content_hash": "950d502e",
-      "delisted_at": 1784239836087,
-      "delist_rounds": 0
+      "last_content_hash": "950d502e"
     },
     "node_modules/vue-i18n/vetur/attributes.json": {
       "ipo_ts": 1784239464628,
@@ -15439,34 +15435,30 @@
     },
     "package-lock.json": {
       "ipo_ts": 1784239464679,
-      "edit_count": 2,
-      "last_lines": 2064,
-      "last_ts": 1784240083822,
+      "edit_count": 4,
+      "last_lines": 6,
+      "last_ts": 1784244349629,
       "delisted": false,
       "last_source": "onEdit",
-      "last_content_hash": "b7c68eaf"
+      "last_content_hash": "9f8ecaf9"
     },
     "package.json": {
       "ipo_ts": 1784239464683,
-      "edit_count": 1,
+      "edit_count": 2,
       "last_lines": 31,
-      "last_ts": 1784239464683,
-      "delisted": true,
+      "last_ts": 1784240252725,
+      "delisted": false,
       "last_source": "onEdit",
-      "last_content_hash": "5a88fdf1",
-      "delisted_at": 1784239836087,
-      "delist_rounds": 0
+      "last_content_hash": "5a88fdf1"
     },
     "settingsdemo.html": {
       "ipo_ts": 1784239464688,
-      "edit_count": 1,
+      "edit_count": 2,
       "last_lines": 319,
-      "last_ts": 1784239464688,
-      "delisted": true,
+      "last_ts": 1784240252729,
+      "delisted": false,
       "last_source": "onEdit",
-      "last_content_hash": "c61698c8",
-      "delisted_at": 1784239836087,
-      "delist_rounds": 0
+      "last_content_hash": "c61698c8"
     },
     "src/App.vue": {
       "ipo_ts": 1784239464690,
@@ -16746,47 +16738,39 @@
     },
     "tsconfig.json": {
       "ipo_ts": 1784239465068,
-      "edit_count": 1,
+      "edit_count": 2,
       "last_lines": 25,
-      "last_ts": 1784239465068,
-      "delisted": true,
+      "last_ts": 1784240252732,
+      "delisted": false,
       "last_source": "onEdit",
-      "last_content_hash": "95250edc",
-      "delisted_at": 1784239836087,
-      "delist_rounds": 0
+      "last_content_hash": "95250edc"
     },
     "tsconfig.tsbuildinfo": {
       "ipo_ts": 1784239465071,
-      "edit_count": 1,
+      "edit_count": 2,
       "last_lines": 1,
-      "last_ts": 1784239465071,
-      "delisted": true,
+      "last_ts": 1784240252735,
+      "delisted": false,
       "last_source": "onEdit",
-      "last_content_hash": "b1c5660",
-      "delisted_at": 1784239836087,
-      "delist_rounds": 0
+      "last_content_hash": "b1c5660"
     },
     "vite.config.ts": {
       "ipo_ts": 1784239465074,
-      "edit_count": 1,
+      "edit_count": 2,
       "last_lines": 17,
-      "last_ts": 1784239465074,
-      "delisted": true,
+      "last_ts": 1784240252738,
+      "delisted": false,
       "last_source": "onEdit",
-      "last_content_hash": "e509e09e",
-      "delisted_at": 1784239836087,
-      "delist_rounds": 0
+      "last_content_hash": "e509e09e"
     },
     "vitest.config.ts": {
       "ipo_ts": 1784239465077,
-      "edit_count": 1,
+      "edit_count": 2,
       "last_lines": 14,
-      "last_ts": 1784239465077,
-      "delisted": true,
+      "last_ts": 1784240252742,
+      "delisted": false,
       "last_source": "onEdit",
-      "last_content_hash": "4f1337b",
-      "delisted_at": 1784239836087,
-      "delist_rounds": 0
+      "last_content_hash": "956032fb"
     },
     "color_wordle/index.html": {
       "ipo_ts": 1784239891884,
@@ -17030,6 +17014,1185 @@
       "delisted": false,
       "last_source": "onEdit",
       "last_content_hash": "b7c68eaf"
+    },
+    "dev_manager.bat": {
+      "ipo_ts": 1784240252711,
+      "edit_count": 1,
+      "last_lines": 70,
+      "last_ts": 1784240252711,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "b3a77575"
+    },
+    "idle_realms/README.md": {
+      "ipo_ts": 1784240409278,
+      "edit_count": 1,
+      "last_lines": 657,
+      "last_ts": 1784240409278,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "d413fa0f"
+    },
+    "idle_realms/env.d.ts": {
+      "ipo_ts": 1784240409282,
+      "edit_count": 1,
+      "last_lines": 7,
+      "last_ts": 1784240409282,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "950d502e"
+    },
+    "idle_realms/index.html": {
+      "ipo_ts": 1784240409287,
+      "edit_count": 3,
+      "last_lines": 18,
+      "last_ts": 1784244510700,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "1e96ffba"
+    },
+    "idle_realms/package-lock.json": {
+      "ipo_ts": 1784240409290,
+      "edit_count": 1,
+      "last_lines": 2064,
+      "last_ts": 1784240409290,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "b7c68eaf"
+    },
+    "idle_realms/package.json": {
+      "ipo_ts": 1784240409294,
+      "edit_count": 1,
+      "last_lines": 31,
+      "last_ts": 1784240409294,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "5a88fdf1"
+    },
+    "idle_realms/settingsdemo.html": {
+      "ipo_ts": 1784240409297,
+      "edit_count": 1,
+      "last_lines": 319,
+      "last_ts": 1784240409297,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "c61698c8"
+    },
+    "idle_realms/src/App.vue": {
+      "ipo_ts": 1784240409300,
+      "edit_count": 1,
+      "last_lines": 74,
+      "last_ts": 1784240409300,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "51765200"
+    },
+    "idle_realms/src/assets/styles/animations.css": {
+      "ipo_ts": 1784240409303,
+      "edit_count": 1,
+      "last_lines": 51,
+      "last_ts": 1784240409303,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2356dc54"
+    },
+    "idle_realms/src/assets/styles/base.css": {
+      "ipo_ts": 1784240409307,
+      "edit_count": 1,
+      "last_lines": 66,
+      "last_ts": 1784240409307,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ac00e595"
+    },
+    "idle_realms/src/assets/styles/variables.css": {
+      "ipo_ts": 1784240409310,
+      "edit_count": 1,
+      "last_lines": 47,
+      "last_ts": 1784240409310,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "1f1e82d3"
+    },
+    "idle_realms/src/assets/themes/default.json": {
+      "ipo_ts": 1784240409313,
+      "edit_count": 1,
+      "last_lines": 20,
+      "last_ts": 1784240409313,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "7f972b0d"
+    },
+    "idle_realms/src/assets/themes/forest.json": {
+      "ipo_ts": 1784240409316,
+      "edit_count": 1,
+      "last_lines": 11,
+      "last_ts": 1784240409316,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "bba8aeeb"
+    },
+    "idle_realms/src/assets/themes/magic.json": {
+      "ipo_ts": 1784240409319,
+      "edit_count": 1,
+      "last_lines": 11,
+      "last_ts": 1784240409319,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f3532728"
+    },
+    "idle_realms/src/data/buildings.ts": {
+      "ipo_ts": 1784240409322,
+      "edit_count": 1,
+      "last_lines": 55,
+      "last_ts": 1784240409322,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ab18b93e"
+    },
+    "idle_realms/src/data/facilities.ts": {
+      "ipo_ts": 1784240409326,
+      "edit_count": 1,
+      "last_lines": 42,
+      "last_ts": 1784240409326,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "643f7722"
+    },
+    "idle_realms/src/data/farming.ts": {
+      "ipo_ts": 1784240409329,
+      "edit_count": 1,
+      "last_lines": 87,
+      "last_ts": 1784240409329,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8eaea7c8"
+    },
+    "idle_realms/src/data/formulas.ts": {
+      "ipo_ts": 1784240409333,
+      "edit_count": 1,
+      "last_lines": 58,
+      "last_ts": 1784240409333,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8ddb081a"
+    },
+    "idle_realms/src/data/items.ts": {
+      "ipo_ts": 1784240409336,
+      "edit_count": 1,
+      "last_lines": 118,
+      "last_ts": 1784240409336,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "974385a6"
+    },
+    "idle_realms/src/data/monsters.ts": {
+      "ipo_ts": 1784240409341,
+      "edit_count": 1,
+      "last_lines": 78,
+      "last_ts": 1784240409341,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8eb4f06e"
+    },
+    "idle_realms/src/data/settings.ts": {
+      "ipo_ts": 1784240409344,
+      "edit_count": 1,
+      "last_lines": 54,
+      "last_ts": 1784240409344,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ac1a3d61"
+    },
+    "idle_realms/src/data/shop.ts": {
+      "ipo_ts": 1784240409348,
+      "edit_count": 1,
+      "last_lines": 31,
+      "last_ts": 1784240409348,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "3f6fcf01"
+    },
+    "idle_realms/src/data/skills.ts": {
+      "ipo_ts": 1784240409351,
+      "edit_count": 1,
+      "last_lines": 410,
+      "last_ts": 1784240409351,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e4871e83"
+    },
+    "idle_realms/src/data/slayer.ts": {
+      "ipo_ts": 1784240409354,
+      "edit_count": 1,
+      "last_lines": 149,
+      "last_ts": 1784240409354,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "b653221e"
+    },
+    "idle_realms/src/data/town-shop.ts": {
+      "ipo_ts": 1784240409358,
+      "edit_count": 1,
+      "last_lines": 60,
+      "last_ts": 1784240409358,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "61ca9265"
+    },
+    "idle_realms/src/engine/EngineBootstrap.ts": {
+      "ipo_ts": 1784240409361,
+      "edit_count": 1,
+      "last_lines": 23,
+      "last_ts": 1784240409361,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "1f3f0e0"
+    },
+    "idle_realms/src/engine/bootstrap/GameEngine.ts": {
+      "ipo_ts": 1784240409364,
+      "edit_count": 1,
+      "last_lines": 101,
+      "last_ts": 1784240409364,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "4ced252f"
+    },
+    "idle_realms/src/engine/bootstrap/OfflineEngine.ts": {
+      "ipo_ts": 1784240409367,
+      "edit_count": 1,
+      "last_lines": 203,
+      "last_ts": 1784240409367,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "58756623"
+    },
+    "idle_realms/src/engine/events/EventBus.ts": {
+      "ipo_ts": 1784240409370,
+      "edit_count": 1,
+      "last_lines": 99,
+      "last_ts": 1784240409370,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ace6460d"
+    },
+    "idle_realms/src/engine/events/EventTypes.ts": {
+      "ipo_ts": 1784240409373,
+      "edit_count": 1,
+      "last_lines": 185,
+      "last_ts": 1784240409373,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "dbe28a54"
+    },
+    "idle_realms/src/engine/index.ts": {
+      "ipo_ts": 1784240409376,
+      "edit_count": 1,
+      "last_lines": 30,
+      "last_ts": 1784240409376,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "bed184fd"
+    },
+    "idle_realms/src/engine/services/ConfigManager.ts": {
+      "ipo_ts": 1784240409379,
+      "edit_count": 1,
+      "last_lines": 57,
+      "last_ts": 1784240409379,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "6fef4a33"
+    },
+    "idle_realms/src/engine/services/ConfigMigration.ts": {
+      "ipo_ts": 1784240409383,
+      "edit_count": 1,
+      "last_lines": 19,
+      "last_ts": 1784240409383,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "dca026fd"
+    },
+    "idle_realms/src/engine/services/ConfigSchema.ts": {
+      "ipo_ts": 1784240409386,
+      "edit_count": 1,
+      "last_lines": 62,
+      "last_ts": 1784240409386,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2ed4f42d"
+    },
+    "idle_realms/src/engine/services/ConfigStorage.ts": {
+      "ipo_ts": 1784240409389,
+      "edit_count": 1,
+      "last_lines": 20,
+      "last_ts": 1784240409389,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "3e28d1ef"
+    },
+    "idle_realms/src/engine/services/Dependencies.ts": {
+      "ipo_ts": 1784240409393,
+      "edit_count": 1,
+      "last_lines": 19,
+      "last_ts": 1784240409393,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "c5d02f5c"
+    },
+    "idle_realms/src/engine/services/SaveManager.ts": {
+      "ipo_ts": 1784240409396,
+      "edit_count": 1,
+      "last_lines": 45,
+      "last_ts": 1784240409396,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "3b2c1f4c"
+    },
+    "idle_realms/src/engine/services/SaveStorage.ts": {
+      "ipo_ts": 1784240409399,
+      "edit_count": 1,
+      "last_lines": 24,
+      "last_ts": 1784240409399,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "c17bd24c"
+    },
+    "idle_realms/src/engine/services/SaveSystem.ts": {
+      "ipo_ts": 1784240409403,
+      "edit_count": 1,
+      "last_lines": 141,
+      "last_ts": 1784240409403,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "38a62c68"
+    },
+    "idle_realms/src/engine/state/GameState.ts": {
+      "ipo_ts": 1784240409406,
+      "edit_count": 1,
+      "last_lines": 114,
+      "last_ts": 1784240409406,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f0188193"
+    },
+    "idle_realms/src/engine/state/types.ts": {
+      "ipo_ts": 1784240409409,
+      "edit_count": 1,
+      "last_lines": 147,
+      "last_ts": 1784240409409,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "4bf7bb35"
+    },
+    "idle_realms/src/engine/systems/CombatSystem.test.ts": {
+      "ipo_ts": 1784240409413,
+      "edit_count": 1,
+      "last_lines": 260,
+      "last_ts": 1784240409413,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "1ef04074"
+    },
+    "idle_realms/src/engine/systems/CombatSystem.ts": {
+      "ipo_ts": 1784240409416,
+      "edit_count": 1,
+      "last_lines": 178,
+      "last_ts": 1784240409416,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e8df8054"
+    },
+    "idle_realms/src/engine/systems/EconomySystem.ts": {
+      "ipo_ts": 1784240409419,
+      "edit_count": 1,
+      "last_lines": 25,
+      "last_ts": 1784240409419,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "7159dada"
+    },
+    "idle_realms/src/engine/systems/EquipmentSystem.test.ts": {
+      "ipo_ts": 1784240409423,
+      "edit_count": 1,
+      "last_lines": 92,
+      "last_ts": 1784240409423,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2db2f29e"
+    },
+    "idle_realms/src/engine/systems/EquipmentSystem.ts": {
+      "ipo_ts": 1784240409426,
+      "edit_count": 1,
+      "last_lines": 69,
+      "last_ts": 1784240409426,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "35b8ffb1"
+    },
+    "idle_realms/src/engine/systems/ExperienceSystem.test.ts": {
+      "ipo_ts": 1784240409430,
+      "edit_count": 1,
+      "last_lines": 91,
+      "last_ts": 1784240409430,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "cfa007ce"
+    },
+    "idle_realms/src/engine/systems/ExperienceSystem.ts": {
+      "ipo_ts": 1784240409433,
+      "edit_count": 1,
+      "last_lines": 56,
+      "last_ts": 1784240409433,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "51fba3ec"
+    },
+    "idle_realms/src/engine/systems/FarmingSystem.ts": {
+      "ipo_ts": 1784240409436,
+      "edit_count": 1,
+      "last_lines": 127,
+      "last_ts": 1784240409436,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "cfb1b339"
+    },
+    "idle_realms/src/engine/systems/FoodSystem.ts": {
+      "ipo_ts": 1784240409439,
+      "edit_count": 1,
+      "last_lines": 21,
+      "last_ts": 1784240409439,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8decb1a9"
+    },
+    "idle_realms/src/engine/systems/InventorySystem.ts": {
+      "ipo_ts": 1784240409443,
+      "edit_count": 1,
+      "last_lines": 30,
+      "last_ts": 1784240409443,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "527ed893"
+    },
+    "idle_realms/src/engine/systems/SkillSystem.ts": {
+      "ipo_ts": 1784240409447,
+      "edit_count": 1,
+      "last_lines": 104,
+      "last_ts": 1784240409447,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "695b3d85"
+    },
+    "idle_realms/src/engine/systems/SlayerSystem.test.ts": {
+      "ipo_ts": 1784240409451,
+      "edit_count": 1,
+      "last_lines": 212,
+      "last_ts": 1784240409451,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "82ef47af"
+    },
+    "idle_realms/src/engine/systems/SlayerSystem.ts": {
+      "ipo_ts": 1784240409454,
+      "edit_count": 1,
+      "last_lines": 216,
+      "last_ts": 1784240409454,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "c939e321"
+    },
+    "idle_realms/src/engine/systems/TownSystem.ts": {
+      "ipo_ts": 1784240409457,
+      "edit_count": 1,
+      "last_lines": 168,
+      "last_ts": 1784240409457,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e38746f3"
+    },
+    "idle_realms/src/infrastructure/assets/AssetManager.ts": {
+      "ipo_ts": 1784240409461,
+      "edit_count": 1,
+      "last_lines": 146,
+      "last_ts": 1784240409461,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "223031f6"
+    },
+    "idle_realms/src/infrastructure/assets/Registry.ts": {
+      "ipo_ts": 1784240409465,
+      "edit_count": 1,
+      "last_lines": 135,
+      "last_ts": 1784240409465,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "a6dd60a4"
+    },
+    "idle_realms/src/infrastructure/assets/loaders/BaseDataProvider.ts": {
+      "ipo_ts": 1784240409468,
+      "edit_count": 1,
+      "last_lines": 97,
+      "last_ts": 1784240409468,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f3ad8498"
+    },
+    "idle_realms/src/infrastructure/assets/loaders/types.ts": {
+      "ipo_ts": 1784240409471,
+      "edit_count": 1,
+      "last_lines": 45,
+      "last_ts": 1784240409471,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "6d4b97b6"
+    },
+    "idle_realms/src/infrastructure/browser/NotificationService.ts": {
+      "ipo_ts": 1784240409474,
+      "edit_count": 1,
+      "last_lines": 58,
+      "last_ts": 1784240409474,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e6e4e443"
+    },
+    "idle_realms/src/infrastructure/logging/Formatter.ts": {
+      "ipo_ts": 1784240409477,
+      "edit_count": 1,
+      "last_lines": 53,
+      "last_ts": 1784240409477,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "380c1913"
+    },
+    "idle_realms/src/infrastructure/logging/LogManager.ts": {
+      "ipo_ts": 1784240409481,
+      "edit_count": 1,
+      "last_lines": 146,
+      "last_ts": 1784240409481,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "4424862b"
+    },
+    "idle_realms/src/infrastructure/logging/Logger.ts": {
+      "ipo_ts": 1784240409484,
+      "edit_count": 1,
+      "last_lines": 90,
+      "last_ts": 1784240409484,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "20c075d7"
+    },
+    "idle_realms/src/infrastructure/logging/Sink.ts": {
+      "ipo_ts": 1784240409488,
+      "edit_count": 1,
+      "last_lines": 146,
+      "last_ts": 1784240409488,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e6da75bc"
+    },
+    "idle_realms/src/infrastructure/storage/BrowserFileSystemProvider.ts": {
+      "ipo_ts": 1784240409491,
+      "edit_count": 1,
+      "last_lines": 59,
+      "last_ts": 1784240409491,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "a39b2582"
+    },
+    "idle_realms/src/infrastructure/storage/DesktopConfigStorage.ts": {
+      "ipo_ts": 1784240409495,
+      "edit_count": 1,
+      "last_lines": 44,
+      "last_ts": 1784240409495,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "48c0048c"
+    },
+    "idle_realms/src/infrastructure/storage/DesktopSaveStorage.ts": {
+      "ipo_ts": 1784240409498,
+      "edit_count": 1,
+      "last_lines": 83,
+      "last_ts": 1784240409498,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "dedba5db"
+    },
+    "idle_realms/src/infrastructure/storage/FileSystemProvider.ts": {
+      "ipo_ts": 1784240409501,
+      "edit_count": 1,
+      "last_lines": 10,
+      "last_ts": 1784240409501,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2858b759"
+    },
+    "idle_realms/src/infrastructure/storage/SaveCodec.ts": {
+      "ipo_ts": 1784240409504,
+      "edit_count": 1,
+      "last_lines": 18,
+      "last_ts": 1784240409504,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ca31f8e5"
+    },
+    "idle_realms/src/main.ts": {
+      "ipo_ts": 1784240409508,
+      "edit_count": 1,
+      "last_lines": 56,
+      "last_ts": 1784240409508,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "abb2d95d"
+    },
+    "idle_realms/src/shared/constants/index.ts": {
+      "ipo_ts": 1784240409511,
+      "edit_count": 1,
+      "last_lines": 4,
+      "last_ts": 1784240409511,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "d98caa48"
+    },
+    "idle_realms/src/shared/i18n/index.ts": {
+      "ipo_ts": 1784240409515,
+      "edit_count": 1,
+      "last_lines": 22,
+      "last_ts": 1784240409515,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8c24f8b4"
+    },
+    "idle_realms/src/shared/i18n/locales/en-US/index.ts": {
+      "ipo_ts": 1784240409518,
+      "edit_count": 1,
+      "last_lines": 66,
+      "last_ts": 1784240409518,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8fad78a5"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/buildings.ts": {
+      "ipo_ts": 1784240409521,
+      "edit_count": 1,
+      "last_lines": 22,
+      "last_ts": 1784240409521,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "420be43d"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/common.ts": {
+      "ipo_ts": 1784240409526,
+      "edit_count": 1,
+      "last_lines": 39,
+      "last_ts": 1784240409526,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "67290e4f"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/facilities.ts": {
+      "ipo_ts": 1784240409529,
+      "edit_count": 1,
+      "last_lines": 12,
+      "last_ts": 1784240409529,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "4fdb20f7"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/farming.ts": {
+      "ipo_ts": 1784240409532,
+      "edit_count": 1,
+      "last_lines": 17,
+      "last_ts": 1784240409532,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "82fd3d69"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/index.ts": {
+      "ipo_ts": 1784240409536,
+      "edit_count": 1,
+      "last_lines": 29,
+      "last_ts": 1784240409536,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "51481667"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/items.ts": {
+      "ipo_ts": 1784240409539,
+      "edit_count": 1,
+      "last_lines": 48,
+      "last_ts": 1784240409539,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "34bce315"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/monsters.ts": {
+      "ipo_ts": 1784240409543,
+      "edit_count": 1,
+      "last_lines": 8,
+      "last_ts": 1784240409543,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2d517cf8"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/settings.ts": {
+      "ipo_ts": 1784240409546,
+      "edit_count": 1,
+      "last_lines": 3,
+      "last_ts": 1784240409546,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e2c7ed94"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/skills.ts": {
+      "ipo_ts": 1784240409550,
+      "edit_count": 1,
+      "last_lines": 43,
+      "last_ts": 1784240409550,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "d28a70b2"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/slayer.ts": {
+      "ipo_ts": 1784240409554,
+      "edit_count": 1,
+      "last_lines": 23,
+      "last_ts": 1784240409554,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "690f2ea3"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/toasts.ts": {
+      "ipo_ts": 1784240409557,
+      "edit_count": 1,
+      "last_lines": 43,
+      "last_ts": 1784240409557,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "71bacc4c"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/town-shop.ts": {
+      "ipo_ts": 1784240409561,
+      "edit_count": 1,
+      "last_lines": 8,
+      "last_ts": 1784240409561,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "84a94af3"
+    },
+    "idle_realms/src/shared/i18n/locales/zh-CN/ui.ts": {
+      "ipo_ts": 1784240409564,
+      "edit_count": 1,
+      "last_lines": 268,
+      "last_ts": 1784240409564,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "5784a0e1"
+    },
+    "idle_realms/src/shared/i18n/types.ts": {
+      "ipo_ts": 1784240409567,
+      "edit_count": 1,
+      "last_lines": 3,
+      "last_ts": 1784240409567,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "930b5ff8"
+    },
+    "idle_realms/src/shared/types/index.ts": {
+      "ipo_ts": 1784240409572,
+      "edit_count": 1,
+      "last_lines": 4,
+      "last_ts": 1784240409572,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e22f84d1"
+    },
+    "idle_realms/src/shared/utils/format.ts": {
+      "ipo_ts": 1784240409575,
+      "edit_count": 1,
+      "last_lines": 47,
+      "last_ts": 1784240409575,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f633840e"
+    },
+    "idle_realms/src/shared/utils/random.ts": {
+      "ipo_ts": 1784240409578,
+      "edit_count": 1,
+      "last_lines": 26,
+      "last_ts": 1784240409578,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ef07d8d8"
+    },
+    "idle_realms/src/shared/utils/storage.ts": {
+      "ipo_ts": 1784240409582,
+      "edit_count": 1,
+      "last_lines": 27,
+      "last_ts": 1784240409582,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e89a6178"
+    },
+    "idle_realms/src/ui/adapters/GameAPI.ts": {
+      "ipo_ts": 1784240409585,
+      "edit_count": 1,
+      "last_lines": 10,
+      "last_ts": 1784240409585,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "7f46b0e4"
+    },
+    "idle_realms/src/ui/adapters/useGameState.ts": {
+      "ipo_ts": 1784240409589,
+      "edit_count": 1,
+      "last_lines": 23,
+      "last_ts": 1784240409589,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e49d0278"
+    },
+    "idle_realms/src/ui/components/ContextMenu.vue": {
+      "ipo_ts": 1784240409593,
+      "edit_count": 1,
+      "last_lines": 165,
+      "last_ts": 1784240409593,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8908a075"
+    },
+    "idle_realms/src/ui/components/ItemCard.vue": {
+      "ipo_ts": 1784240409596,
+      "edit_count": 1,
+      "last_lines": 95,
+      "last_ts": 1784240409596,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "df592c29"
+    },
+    "idle_realms/src/ui/components/ItemDetail.vue": {
+      "ipo_ts": 1784240409600,
+      "edit_count": 1,
+      "last_lines": 159,
+      "last_ts": 1784240409600,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "4b928ab0"
+    },
+    "idle_realms/src/ui/components/ProgressBar.vue": {
+      "ipo_ts": 1784240409604,
+      "edit_count": 1,
+      "last_lines": 47,
+      "last_ts": 1784240409604,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f8c161ed"
+    },
+    "idle_realms/src/ui/components/SkillCard.vue": {
+      "ipo_ts": 1784240409608,
+      "edit_count": 1,
+      "last_lines": 370,
+      "last_ts": 1784240409608,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8e1c14f1"
+    },
+    "idle_realms/src/ui/components/StatChip.vue": {
+      "ipo_ts": 1784240409611,
+      "edit_count": 1,
+      "last_lines": 34,
+      "last_ts": 1784240409611,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "a07b6697"
+    },
+    "idle_realms/src/ui/components/Toast.vue": {
+      "ipo_ts": 1784240409615,
+      "edit_count": 1,
+      "last_lines": 73,
+      "last_ts": 1784240409615,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f9b0c14f"
+    },
+    "idle_realms/src/ui/composables/useDependencies.ts": {
+      "ipo_ts": 1784240409619,
+      "edit_count": 1,
+      "last_lines": 21,
+      "last_ts": 1784240409619,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "d69f595c"
+    },
+    "idle_realms/src/ui/composables/useSkillCard.ts": {
+      "ipo_ts": 1784240409623,
+      "edit_count": 1,
+      "last_lines": 128,
+      "last_ts": 1784240409623,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "608bad77"
+    },
+    "idle_realms/src/ui/composables/useSkillGrid.ts": {
+      "ipo_ts": 1784240409627,
+      "edit_count": 1,
+      "last_lines": 34,
+      "last_ts": 1784240409627,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f60990b2"
+    },
+    "idle_realms/src/ui/layouts/AppLayout.vue": {
+      "ipo_ts": 1784240409630,
+      "edit_count": 1,
+      "last_lines": 40,
+      "last_ts": 1784240409630,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "1d902807"
+    },
+    "idle_realms/src/ui/layouts/OfflineModal.vue": {
+      "ipo_ts": 1784240409634,
+      "edit_count": 1,
+      "last_lines": 155,
+      "last_ts": 1784240409634,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "89396c72"
+    },
+    "idle_realms/src/ui/layouts/RightPanel.vue": {
+      "ipo_ts": 1784240409638,
+      "edit_count": 1,
+      "last_lines": 138,
+      "last_ts": 1784240409638,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "32f398f3"
+    },
+    "idle_realms/src/ui/layouts/SaveMenu.vue": {
+      "ipo_ts": 1784240409641,
+      "edit_count": 1,
+      "last_lines": 120,
+      "last_ts": 1784240409641,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "784d78d2"
+    },
+    "idle_realms/src/ui/layouts/Sidebar.vue": {
+      "ipo_ts": 1784240409645,
+      "edit_count": 1,
+      "last_lines": 125,
+      "last_ts": 1784240409645,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "950a7606"
+    },
+    "idle_realms/src/ui/layouts/TopBar.vue": {
+      "ipo_ts": 1784240409649,
+      "edit_count": 1,
+      "last_lines": 84,
+      "last_ts": 1784240409649,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "bd14f777"
+    },
+    "idle_realms/src/ui/services/SettingsState.ts": {
+      "ipo_ts": 1784240409652,
+      "edit_count": 1,
+      "last_lines": 52,
+      "last_ts": 1784240409652,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "5eb9ac7a"
+    },
+    "idle_realms/src/ui/services/ThemeService.ts": {
+      "ipo_ts": 1784240409656,
+      "edit_count": 1,
+      "last_lines": 70,
+      "last_ts": 1784240409656,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f6137855"
+    },
+    "idle_realms/src/ui/state/UIState.ts": {
+      "ipo_ts": 1784240409660,
+      "edit_count": 1,
+      "last_lines": 23,
+      "last_ts": 1784240409660,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "23a241cd"
+    },
+    "idle_realms/src/ui/views/CombatView.vue": {
+      "ipo_ts": 1784240409664,
+      "edit_count": 1,
+      "last_lines": 536,
+      "last_ts": 1784240409664,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2c81ff96"
+    },
+    "idle_realms/src/ui/views/EquipmentView.vue": {
+      "ipo_ts": 1784240409667,
+      "edit_count": 1,
+      "last_lines": 197,
+      "last_ts": 1784240409667,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e75b4bd7"
+    },
+    "idle_realms/src/ui/views/FarmingView.vue": {
+      "ipo_ts": 1784240409671,
+      "edit_count": 1,
+      "last_lines": 229,
+      "last_ts": 1784240409671,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "89baa5e7"
+    },
+    "idle_realms/src/ui/views/InventoryView.vue": {
+      "ipo_ts": 1784240409674,
+      "edit_count": 1,
+      "last_lines": 139,
+      "last_ts": 1784240409674,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "9b61db61"
+    },
+    "idle_realms/src/ui/views/SettingsView.vue": {
+      "ipo_ts": 1784240409678,
+      "edit_count": 1,
+      "last_lines": 302,
+      "last_ts": 1784240409678,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f2b00614"
+    },
+    "idle_realms/src/ui/views/ShopView.vue": {
+      "ipo_ts": 1784240409682,
+      "edit_count": 1,
+      "last_lines": 69,
+      "last_ts": 1784240409682,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "998881f3"
+    },
+    "idle_realms/src/ui/views/SkillGridView.vue": {
+      "ipo_ts": 1784240409685,
+      "edit_count": 1,
+      "last_lines": 76,
+      "last_ts": 1784240409685,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "a2e0b05f"
+    },
+    "idle_realms/src/ui/views/SkillView.vue": {
+      "ipo_ts": 1784240409689,
+      "edit_count": 1,
+      "last_lines": 327,
+      "last_ts": 1784240409689,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "9bc94f54"
+    },
+    "idle_realms/src/ui/views/SlayerView.vue": {
+      "ipo_ts": 1784240409692,
+      "edit_count": 1,
+      "last_lines": 441,
+      "last_ts": 1784240409692,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "cc139fd8"
+    },
+    "idle_realms/src/ui/views/TownShopView.vue": {
+      "ipo_ts": 1784240409696,
+      "edit_count": 1,
+      "last_lines": 110,
+      "last_ts": 1784240409696,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "914fcbde"
+    },
+    "idle_realms/src/ui/views/TownView.vue": {
+      "ipo_ts": 1784240409700,
+      "edit_count": 1,
+      "last_lines": 163,
+      "last_ts": 1784240409700,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "32ddd78d"
+    },
+    "idle_realms/tsconfig.json": {
+      "ipo_ts": 1784240409704,
+      "edit_count": 1,
+      "last_lines": 25,
+      "last_ts": 1784240409704,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "95250edc"
+    },
+    "idle_realms/tsconfig.tsbuildinfo": {
+      "ipo_ts": 1784240409707,
+      "edit_count": 1,
+      "last_lines": 1,
+      "last_ts": 1784240409707,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "b1c5660"
+    },
+    "idle_realms/vite.config.ts": {
+      "ipo_ts": 1784240409711,
+      "edit_count": 1,
+      "last_lines": 17,
+      "last_ts": 1784240409711,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e509e09e"
+    },
+    "idle_realms/vitest.config.ts": {
+      "ipo_ts": 1784240409715,
+      "edit_count": 1,
+      "last_lines": 14,
+      "last_ts": 1784240409715,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "956032fb"
+    },
+    "projects/idle_realms/src/main.ts": {
+      "ipo_ts": 1784244337004,
+      "edit_count": 2,
+      "last_lines": 56,
+      "last_ts": 1784244386322,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "abb2d95d"
+    },
+    "projects/idle_realms/vitest.config.ts": {
+      "ipo_ts": 1784244409359,
+      "edit_count": 2,
+      "last_lines": 14,
+      "last_ts": 1784244412473,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2ef246fb"
+    },
+    "idle_realms/assets/index-DeSttvKB.css": {
+      "ipo_ts": 1784244510691,
+      "edit_count": 1,
+      "last_lines": 1,
+      "last_ts": 1784244510691,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e96d376f"
+    },
+    "idle_realms/assets/index-DtOxvalE.js": {
+      "ipo_ts": 1784244510696,
+      "edit_count": 1,
+      "last_lines": 42,
+      "last_ts": 1784244510696,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ab2caaf3"
     }
   }
 }

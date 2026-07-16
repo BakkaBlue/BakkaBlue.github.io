@@ -1,0 +1,20 @@
+{
+  "--gold": "#e6b566",
+  "--gold-hi": "#f4cb7e",
+  "--gold-dim": "#a07c3a",
+  "--bg-deep": "#14100c",
+  "--bg-base": "#1c1610",
+  "--bg-card": "#2a2018",
+  "--bg-card-hi": "#342821",
+  "--border": "#4a3826",
+  "--border-hi": "#6b4f33",
+  "--text": "#f0e4d0",
+  "--text-dim": "#a89880",
+  "--text-faint": "#6b5d4a",
+  "--success": "#7cb342",
+  "--danger": "#e53935",
+  "--danger-hi": "#ef5350",
+  "--xp": "#f39c12",
+  "--hp": "#e53935",
+  "--mp": "#5c9ce6"
+}

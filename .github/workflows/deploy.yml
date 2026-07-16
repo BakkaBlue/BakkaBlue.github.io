@@ -1,52 +1,66 @@
-name: Deploy Vite
+name: Build & Deploy Idle Realms
 
 on:
   push:
     branches:
       - main
+    paths:
+      - "projects/idle_realms/**"
+      - ".github/workflows/deploy-idle-realms.yml"
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+    defaults:
+      run:
+        working-directory: projects/idle_realms
 
-      - uses: actions/setup-node@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          node-version: 20
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
           cache: npm
+          cache-dependency-path: projects/idle_realms/package-lock.json
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      - run: npm run build
+      - name: Build
+        run: npm run build
 
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+      - name: Clean deploy directory
+        working-directory: .
+        run: |
+          rm -rf idle_realms
+          mkdir idle_realms
 
-  deploy:
-    needs: build
+      - name: Copy build output
+        working-directory: .
+        run: |
+          cp -R projects/idle_realms/dist/. idle_realms/
 
-    runs-on: ubuntu-latest
+      - name: Commit deployment
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+          git add idle_realms
 
-    permissions:
-      pages: write
-      id-token: write
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
 
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          git commit -m "Deploy Idle Realms"
+
+          git push
