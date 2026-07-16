@@ -17023,6 +17023,15 @@
       "delisted": false,
       "last_source": "onEdit",
       "last_content_hash": "64bdbab"
+    },
+    "dist/package-lock.json": {
+      "ipo_ts": 1784240018106,
+      "edit_count": 1,
+      "last_lines": 2064,
+      "last_ts": 1784240018106,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "b7c68eaf"
     }
   }
 }
