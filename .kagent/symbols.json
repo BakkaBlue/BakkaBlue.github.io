@@ -218,12 +218,12 @@
     },
     "Idle_Realms/vitest.config.ts": {
       "ipo_ts": 1784238372556,
-      "edit_count": 1,
+      "edit_count": 2,
       "last_lines": 14,
-      "last_ts": 1784238372556,
+      "last_ts": 1784238763504,
       "delisted": false,
       "last_source": "onEdit",
-      "last_content_hash": "956032fb"
+      "last_content_hash": "4f1337b"
     },
     "Idle_Realms/src/App.vue": {
       "ipo_ts": 1784238375780,
