@@ -1,0 +1,47 @@
+/* ==================== CSS 变量：暗黑奇幻主题 ==================== */
+
+:root {
+  /* 背景 */
+  --bg-deep:    #14100c;
+  --bg-base:    #1c1610;
+  --bg-card:    #2a2018;
+  --bg-card-hi: #342821;
+
+  /* 边框 */
+  --border:     #4a3826;
+  --border-hi:  #6b4f33;
+
+  /* 金色（主色调） */
+  --gold:       #e6b566;
+  --gold-hi:    #f4cb7e;
+  --gold-dim:   #a07c3a;
+
+  /* 文字 */
+  --text:       #f0e4d0;
+  --text-dim:   #a89880;
+  --text-faint: #6b5d4a;
+
+  /* 功能色 */
+  --success:    #7cb342;
+  --danger:     #e53935;
+  --danger-hi:  #ef5350;
+  --xp:         #f39c12;
+  --hp:         #e53935;
+  --mp:         #5c9ce6;
+
+  /* 字体 */
+  --font-title: 'Cinzel', serif;
+  --font-body:  'Noto Sans SC', sans-serif;
+  --font-size:  14px;
+
+  /* 间距 */
+  --topbar-h:   64px;
+  --sidebar-w:  200px;
+  --right-panel-w: 280px;
+
+  /* 圆角 */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
+}

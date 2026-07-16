@@ -1,0 +1,1282 @@
+{
+  "symbols": {
+    "index.html": {
+      "ipo_ts": 1784238188062,
+      "edit_count": 1,
+      "last_lines": 120,
+      "last_ts": 1784238188062,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "b7517cfa"
+    },
+    "Idle_Realms/.claude/CLAUDE.md": {
+      "ipo_ts": 1784238372486,
+      "edit_count": 1,
+      "last_lines": 152,
+      "last_ts": 1784238372486,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "14b6530"
+    },
+    "Idle_Realms/.claude/settings.json": {
+      "ipo_ts": 1784238372488,
+      "edit_count": 1,
+      "last_lines": 15,
+      "last_ts": 1784238372488,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "85c4ec51"
+    },
+    "Idle_Realms/.claude/settings.local.json": {
+      "ipo_ts": 1784238372490,
+      "edit_count": 1,
+      "last_lines": 30,
+      "last_ts": 1784238372490,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ab6d18fe"
+    },
+    "Idle_Realms/.codegraph/.gitignore": {
+      "ipo_ts": 1784238372492,
+      "edit_count": 1,
+      "last_lines": 16,
+      "last_ts": 1784238372492,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "237881e"
+    },
+    "Idle_Realms/.codegraph/codegraph.db": {
+      "ipo_ts": 1784238372517,
+      "edit_count": 1,
+      "last_lines": 7799,
+      "last_ts": 1784238372517,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "7ba88b96"
+    },
+    "Idle_Realms/.codegraph/daemon.log": {
+      "ipo_ts": 1784238372519,
+      "edit_count": 1,
+      "last_lines": 236,
+      "last_ts": 1784238372519,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f584b674"
+    },
+    "Idle_Realms/README.md": {
+      "ipo_ts": 1784238372521,
+      "edit_count": 1,
+      "last_lines": 657,
+      "last_ts": 1784238372521,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "d413fa0f"
+    },
+    "Idle_Realms/dev_manager.bat": {
+      "ipo_ts": 1784238372524,
+      "edit_count": 1,
+      "last_lines": 70,
+      "last_ts": 1784238372524,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "b3a77575"
+    },
+    "Idle_Realms/docs/superpowers/plans/2026-07-12-skill-redesign-plan.md": {
+      "ipo_ts": 1784238372527,
+      "edit_count": 1,
+      "last_lines": 900,
+      "last_ts": 1784238372527,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8e653395"
+    },
+    "Idle_Realms/docs/superpowers/plans/2026-07-12-tauri-phase-a-plan.md": {
+      "ipo_ts": 1784238372529,
+      "edit_count": 1,
+      "last_lines": 408,
+      "last_ts": 1784238372529,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2200c492"
+    },
+    "Idle_Realms/docs/superpowers/plans/2026-07-12-tauri-phase-b-plan.md": {
+      "ipo_ts": 1784238372531,
+      "edit_count": 1,
+      "last_lines": 394,
+      "last_ts": 1784238372531,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "eaa0e05a"
+    },
+    "Idle_Realms/docs/superpowers/specs/2026-07-09-idle-realms-gdd.md": {
+      "ipo_ts": 1784238372533,
+      "edit_count": 1,
+      "last_lines": 903,
+      "last_ts": 1784238372533,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "90977f83"
+    },
+    "Idle_Realms/docs/superpowers/specs/2026-07-12-skill-redesign.md": {
+      "ipo_ts": 1784238372535,
+      "edit_count": 1,
+      "last_lines": 813,
+      "last_ts": 1784238372535,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "7c12af93"
+    },
+    "Idle_Realms/docs/superpowers/specs/2026-07-12-tauri-phase-a-design.md": {
+      "ipo_ts": 1784238372537,
+      "edit_count": 1,
+      "last_lines": 504,
+      "last_ts": 1784238372537,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "bb07d826"
+    },
+    "Idle_Realms/docs/superpowers/specs/2026-07-12-tauri-phase-b-design.md": {
+      "ipo_ts": 1784238372540,
+      "edit_count": 1,
+      "last_lines": 397,
+      "last_ts": 1784238372540,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "9e250e7d"
+    },
+    "Idle_Realms/env.d.ts": {
+      "ipo_ts": 1784238372541,
+      "edit_count": 1,
+      "last_lines": 7,
+      "last_ts": 1784238372541,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "950d502e"
+    },
+    "Idle_Realms/index.html": {
+      "ipo_ts": 1784238372543,
+      "edit_count": 1,
+      "last_lines": 17,
+      "last_ts": 1784238372543,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "fbf55dfa"
+    },
+    "Idle_Realms/package-lock.json": {
+      "ipo_ts": 1784238372545,
+      "edit_count": 1,
+      "last_lines": 2064,
+      "last_ts": 1784238372545,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "b7c68eaf"
+    },
+    "Idle_Realms/package.json": {
+      "ipo_ts": 1784238372547,
+      "edit_count": 1,
+      "last_lines": 31,
+      "last_ts": 1784238372547,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "5a88fdf1"
+    },
+    "Idle_Realms/settingsdemo.html": {
+      "ipo_ts": 1784238372549,
+      "edit_count": 1,
+      "last_lines": 319,
+      "last_ts": 1784238372549,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "c61698c8"
+    },
+    "Idle_Realms/tsconfig.json": {
+      "ipo_ts": 1784238372551,
+      "edit_count": 1,
+      "last_lines": 25,
+      "last_ts": 1784238372551,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "95250edc"
+    },
+    "Idle_Realms/tsconfig.tsbuildinfo": {
+      "ipo_ts": 1784238372553,
+      "edit_count": 1,
+      "last_lines": 1,
+      "last_ts": 1784238372553,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "b1c5660"
+    },
+    "Idle_Realms/vite.config.ts": {
+      "ipo_ts": 1784238372554,
+      "edit_count": 1,
+      "last_lines": 17,
+      "last_ts": 1784238372554,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e509e09e"
+    },
+    "Idle_Realms/vitest.config.ts": {
+      "ipo_ts": 1784238372556,
+      "edit_count": 1,
+      "last_lines": 14,
+      "last_ts": 1784238372556,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "956032fb"
+    },
+    "Idle_Realms/src/App.vue": {
+      "ipo_ts": 1784238375780,
+      "edit_count": 1,
+      "last_lines": 74,
+      "last_ts": 1784238375780,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "51765200"
+    },
+    "Idle_Realms/src/assets/styles/animations.css": {
+      "ipo_ts": 1784238375782,
+      "edit_count": 1,
+      "last_lines": 51,
+      "last_ts": 1784238375782,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2356dc54"
+    },
+    "Idle_Realms/src/assets/styles/base.css": {
+      "ipo_ts": 1784238375783,
+      "edit_count": 1,
+      "last_lines": 66,
+      "last_ts": 1784238375783,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ac00e595"
+    },
+    "Idle_Realms/src/assets/styles/variables.css": {
+      "ipo_ts": 1784238375785,
+      "edit_count": 1,
+      "last_lines": 47,
+      "last_ts": 1784238375785,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "1f1e82d3"
+    },
+    "Idle_Realms/src/assets/themes/default.json": {
+      "ipo_ts": 1784238375786,
+      "edit_count": 1,
+      "last_lines": 20,
+      "last_ts": 1784238375786,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "7f972b0d"
+    },
+    "Idle_Realms/src/assets/themes/forest.json": {
+      "ipo_ts": 1784238375788,
+      "edit_count": 1,
+      "last_lines": 11,
+      "last_ts": 1784238375788,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "bba8aeeb"
+    },
+    "Idle_Realms/src/assets/themes/magic.json": {
+      "ipo_ts": 1784238375789,
+      "edit_count": 1,
+      "last_lines": 11,
+      "last_ts": 1784238375789,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f3532728"
+    },
+    "Idle_Realms/src/data/buildings.ts": {
+      "ipo_ts": 1784238375791,
+      "edit_count": 1,
+      "last_lines": 55,
+      "last_ts": 1784238375791,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ab18b93e"
+    },
+    "Idle_Realms/src/data/facilities.ts": {
+      "ipo_ts": 1784238375792,
+      "edit_count": 1,
+      "last_lines": 42,
+      "last_ts": 1784238375792,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "643f7722"
+    },
+    "Idle_Realms/src/data/farming.ts": {
+      "ipo_ts": 1784238375794,
+      "edit_count": 1,
+      "last_lines": 87,
+      "last_ts": 1784238375794,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8eaea7c8"
+    },
+    "Idle_Realms/src/data/formulas.ts": {
+      "ipo_ts": 1784238375795,
+      "edit_count": 1,
+      "last_lines": 58,
+      "last_ts": 1784238375795,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8ddb081a"
+    },
+    "Idle_Realms/src/data/items.ts": {
+      "ipo_ts": 1784238375797,
+      "edit_count": 1,
+      "last_lines": 118,
+      "last_ts": 1784238375797,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "974385a6"
+    },
+    "Idle_Realms/src/data/monsters.ts": {
+      "ipo_ts": 1784238375798,
+      "edit_count": 1,
+      "last_lines": 78,
+      "last_ts": 1784238375798,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8eb4f06e"
+    },
+    "Idle_Realms/src/data/settings.ts": {
+      "ipo_ts": 1784238375800,
+      "edit_count": 1,
+      "last_lines": 54,
+      "last_ts": 1784238375800,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ac1a3d61"
+    },
+    "Idle_Realms/src/data/shop.ts": {
+      "ipo_ts": 1784238375801,
+      "edit_count": 1,
+      "last_lines": 31,
+      "last_ts": 1784238375801,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "3f6fcf01"
+    },
+    "Idle_Realms/src/data/skills.ts": {
+      "ipo_ts": 1784238375803,
+      "edit_count": 1,
+      "last_lines": 410,
+      "last_ts": 1784238375803,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e4871e83"
+    },
+    "Idle_Realms/src/data/slayer.ts": {
+      "ipo_ts": 1784238375804,
+      "edit_count": 1,
+      "last_lines": 149,
+      "last_ts": 1784238375804,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "b653221e"
+    },
+    "Idle_Realms/src/data/town-shop.ts": {
+      "ipo_ts": 1784238375805,
+      "edit_count": 1,
+      "last_lines": 60,
+      "last_ts": 1784238375805,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "61ca9265"
+    },
+    "Idle_Realms/src/engine/EngineBootstrap.ts": {
+      "ipo_ts": 1784238375807,
+      "edit_count": 1,
+      "last_lines": 23,
+      "last_ts": 1784238375807,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "1f3f0e0"
+    },
+    "Idle_Realms/src/engine/bootstrap/GameEngine.ts": {
+      "ipo_ts": 1784238375808,
+      "edit_count": 1,
+      "last_lines": 101,
+      "last_ts": 1784238375808,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "4ced252f"
+    },
+    "Idle_Realms/src/engine/bootstrap/OfflineEngine.ts": {
+      "ipo_ts": 1784238375810,
+      "edit_count": 1,
+      "last_lines": 203,
+      "last_ts": 1784238375810,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "58756623"
+    },
+    "Idle_Realms/src/engine/events/EventBus.ts": {
+      "ipo_ts": 1784238375812,
+      "edit_count": 1,
+      "last_lines": 99,
+      "last_ts": 1784238375812,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ace6460d"
+    },
+    "Idle_Realms/src/engine/events/EventTypes.ts": {
+      "ipo_ts": 1784238375813,
+      "edit_count": 1,
+      "last_lines": 185,
+      "last_ts": 1784238375813,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "dbe28a54"
+    },
+    "Idle_Realms/src/engine/index.ts": {
+      "ipo_ts": 1784238375814,
+      "edit_count": 1,
+      "last_lines": 30,
+      "last_ts": 1784238375814,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "bed184fd"
+    },
+    "Idle_Realms/src/engine/services/ConfigManager.ts": {
+      "ipo_ts": 1784238375816,
+      "edit_count": 1,
+      "last_lines": 57,
+      "last_ts": 1784238375816,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "6fef4a33"
+    },
+    "Idle_Realms/src/engine/services/ConfigMigration.ts": {
+      "ipo_ts": 1784238375818,
+      "edit_count": 1,
+      "last_lines": 19,
+      "last_ts": 1784238375818,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "dca026fd"
+    },
+    "Idle_Realms/src/engine/services/ConfigSchema.ts": {
+      "ipo_ts": 1784238375819,
+      "edit_count": 1,
+      "last_lines": 62,
+      "last_ts": 1784238375819,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2ed4f42d"
+    },
+    "Idle_Realms/src/engine/services/ConfigStorage.ts": {
+      "ipo_ts": 1784238375821,
+      "edit_count": 1,
+      "last_lines": 20,
+      "last_ts": 1784238375821,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "3e28d1ef"
+    },
+    "Idle_Realms/src/engine/services/Dependencies.ts": {
+      "ipo_ts": 1784238375822,
+      "edit_count": 1,
+      "last_lines": 19,
+      "last_ts": 1784238375822,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "c5d02f5c"
+    },
+    "Idle_Realms/src/engine/services/SaveManager.ts": {
+      "ipo_ts": 1784238375824,
+      "edit_count": 1,
+      "last_lines": 45,
+      "last_ts": 1784238375824,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "3b2c1f4c"
+    },
+    "Idle_Realms/src/engine/services/SaveStorage.ts": {
+      "ipo_ts": 1784238375825,
+      "edit_count": 1,
+      "last_lines": 24,
+      "last_ts": 1784238375825,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "c17bd24c"
+    },
+    "Idle_Realms/src/engine/services/SaveSystem.ts": {
+      "ipo_ts": 1784238375827,
+      "edit_count": 1,
+      "last_lines": 141,
+      "last_ts": 1784238375827,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "38a62c68"
+    },
+    "Idle_Realms/src/engine/state/GameState.ts": {
+      "ipo_ts": 1784238375829,
+      "edit_count": 1,
+      "last_lines": 114,
+      "last_ts": 1784238375829,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f0188193"
+    },
+    "Idle_Realms/src/engine/state/types.ts": {
+      "ipo_ts": 1784238375830,
+      "edit_count": 1,
+      "last_lines": 147,
+      "last_ts": 1784238375830,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "4bf7bb35"
+    },
+    "Idle_Realms/src/engine/systems/CombatSystem.test.ts": {
+      "ipo_ts": 1784238375832,
+      "edit_count": 1,
+      "last_lines": 260,
+      "last_ts": 1784238375832,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "1ef04074"
+    },
+    "Idle_Realms/src/engine/systems/CombatSystem.ts": {
+      "ipo_ts": 1784238375833,
+      "edit_count": 1,
+      "last_lines": 178,
+      "last_ts": 1784238375833,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e8df8054"
+    },
+    "Idle_Realms/src/engine/systems/EconomySystem.ts": {
+      "ipo_ts": 1784238375835,
+      "edit_count": 1,
+      "last_lines": 25,
+      "last_ts": 1784238375835,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "7159dada"
+    },
+    "Idle_Realms/src/engine/systems/EquipmentSystem.test.ts": {
+      "ipo_ts": 1784238375836,
+      "edit_count": 1,
+      "last_lines": 92,
+      "last_ts": 1784238375836,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2db2f29e"
+    },
+    "Idle_Realms/src/engine/systems/EquipmentSystem.ts": {
+      "ipo_ts": 1784238375838,
+      "edit_count": 1,
+      "last_lines": 69,
+      "last_ts": 1784238375838,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "35b8ffb1"
+    },
+    "Idle_Realms/src/engine/systems/ExperienceSystem.test.ts": {
+      "ipo_ts": 1784238375840,
+      "edit_count": 1,
+      "last_lines": 91,
+      "last_ts": 1784238375840,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "cfa007ce"
+    },
+    "Idle_Realms/src/engine/systems/ExperienceSystem.ts": {
+      "ipo_ts": 1784238375841,
+      "edit_count": 1,
+      "last_lines": 56,
+      "last_ts": 1784238375841,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "51fba3ec"
+    },
+    "Idle_Realms/src/engine/systems/FarmingSystem.ts": {
+      "ipo_ts": 1784238375843,
+      "edit_count": 1,
+      "last_lines": 127,
+      "last_ts": 1784238375843,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "cfb1b339"
+    },
+    "Idle_Realms/src/engine/systems/FoodSystem.ts": {
+      "ipo_ts": 1784238375844,
+      "edit_count": 1,
+      "last_lines": 21,
+      "last_ts": 1784238375844,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8decb1a9"
+    },
+    "Idle_Realms/src/engine/systems/InventorySystem.ts": {
+      "ipo_ts": 1784238375846,
+      "edit_count": 1,
+      "last_lines": 30,
+      "last_ts": 1784238375846,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "527ed893"
+    },
+    "Idle_Realms/src/engine/systems/SkillSystem.ts": {
+      "ipo_ts": 1784238375847,
+      "edit_count": 1,
+      "last_lines": 104,
+      "last_ts": 1784238375847,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "695b3d85"
+    },
+    "Idle_Realms/src/engine/systems/SlayerSystem.test.ts": {
+      "ipo_ts": 1784238375849,
+      "edit_count": 1,
+      "last_lines": 212,
+      "last_ts": 1784238375849,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "82ef47af"
+    },
+    "Idle_Realms/src/engine/systems/SlayerSystem.ts": {
+      "ipo_ts": 1784238375850,
+      "edit_count": 1,
+      "last_lines": 216,
+      "last_ts": 1784238375850,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "c939e321"
+    },
+    "Idle_Realms/src/engine/systems/TownSystem.ts": {
+      "ipo_ts": 1784238375852,
+      "edit_count": 1,
+      "last_lines": 168,
+      "last_ts": 1784238375852,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e38746f3"
+    },
+    "Idle_Realms/src/infrastructure/assets/AssetManager.ts": {
+      "ipo_ts": 1784238375853,
+      "edit_count": 1,
+      "last_lines": 146,
+      "last_ts": 1784238375853,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "223031f6"
+    },
+    "Idle_Realms/src/infrastructure/assets/Registry.ts": {
+      "ipo_ts": 1784238375855,
+      "edit_count": 1,
+      "last_lines": 135,
+      "last_ts": 1784238375855,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "a6dd60a4"
+    },
+    "Idle_Realms/src/infrastructure/assets/loaders/BaseDataProvider.ts": {
+      "ipo_ts": 1784238375856,
+      "edit_count": 1,
+      "last_lines": 97,
+      "last_ts": 1784238375856,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f3ad8498"
+    },
+    "Idle_Realms/src/infrastructure/assets/loaders/types.ts": {
+      "ipo_ts": 1784238375858,
+      "edit_count": 1,
+      "last_lines": 45,
+      "last_ts": 1784238375858,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "6d4b97b6"
+    },
+    "Idle_Realms/src/infrastructure/browser/NotificationService.ts": {
+      "ipo_ts": 1784238375860,
+      "edit_count": 1,
+      "last_lines": 58,
+      "last_ts": 1784238375860,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e6e4e443"
+    },
+    "Idle_Realms/src/infrastructure/logging/Formatter.ts": {
+      "ipo_ts": 1784238375861,
+      "edit_count": 1,
+      "last_lines": 53,
+      "last_ts": 1784238375861,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "380c1913"
+    },
+    "Idle_Realms/src/infrastructure/logging/LogManager.ts": {
+      "ipo_ts": 1784238375863,
+      "edit_count": 1,
+      "last_lines": 146,
+      "last_ts": 1784238375863,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "4424862b"
+    },
+    "Idle_Realms/src/infrastructure/logging/Logger.ts": {
+      "ipo_ts": 1784238375864,
+      "edit_count": 1,
+      "last_lines": 90,
+      "last_ts": 1784238375864,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "20c075d7"
+    },
+    "Idle_Realms/src/infrastructure/logging/Sink.ts": {
+      "ipo_ts": 1784238375865,
+      "edit_count": 1,
+      "last_lines": 146,
+      "last_ts": 1784238375865,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e6da75bc"
+    },
+    "Idle_Realms/src/infrastructure/storage/BrowserFileSystemProvider.ts": {
+      "ipo_ts": 1784238375867,
+      "edit_count": 1,
+      "last_lines": 59,
+      "last_ts": 1784238375867,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "a39b2582"
+    },
+    "Idle_Realms/src/infrastructure/storage/DesktopConfigStorage.ts": {
+      "ipo_ts": 1784238375868,
+      "edit_count": 1,
+      "last_lines": 44,
+      "last_ts": 1784238375868,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "48c0048c"
+    },
+    "Idle_Realms/src/infrastructure/storage/DesktopSaveStorage.ts": {
+      "ipo_ts": 1784238375870,
+      "edit_count": 1,
+      "last_lines": 83,
+      "last_ts": 1784238375870,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "dedba5db"
+    },
+    "Idle_Realms/src/infrastructure/storage/FileSystemProvider.ts": {
+      "ipo_ts": 1784238375871,
+      "edit_count": 1,
+      "last_lines": 10,
+      "last_ts": 1784238375871,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2858b759"
+    },
+    "Idle_Realms/src/infrastructure/storage/SaveCodec.ts": {
+      "ipo_ts": 1784238375873,
+      "edit_count": 1,
+      "last_lines": 18,
+      "last_ts": 1784238375873,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ca31f8e5"
+    },
+    "Idle_Realms/src/main.ts": {
+      "ipo_ts": 1784238375875,
+      "edit_count": 1,
+      "last_lines": 56,
+      "last_ts": 1784238375875,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "abb2d95d"
+    },
+    "Idle_Realms/src/shared/constants/index.ts": {
+      "ipo_ts": 1784238375876,
+      "edit_count": 1,
+      "last_lines": 4,
+      "last_ts": 1784238375876,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "d98caa48"
+    },
+    "Idle_Realms/src/shared/i18n/index.ts": {
+      "ipo_ts": 1784238375878,
+      "edit_count": 1,
+      "last_lines": 22,
+      "last_ts": 1784238375878,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8c24f8b4"
+    },
+    "Idle_Realms/src/shared/i18n/locales/en-US/index.ts": {
+      "ipo_ts": 1784238375879,
+      "edit_count": 1,
+      "last_lines": 66,
+      "last_ts": 1784238375879,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8fad78a5"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/buildings.ts": {
+      "ipo_ts": 1784238375881,
+      "edit_count": 1,
+      "last_lines": 22,
+      "last_ts": 1784238375881,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "420be43d"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/common.ts": {
+      "ipo_ts": 1784238375882,
+      "edit_count": 1,
+      "last_lines": 39,
+      "last_ts": 1784238375882,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "67290e4f"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/facilities.ts": {
+      "ipo_ts": 1784238375884,
+      "edit_count": 1,
+      "last_lines": 12,
+      "last_ts": 1784238375884,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "4fdb20f7"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/farming.ts": {
+      "ipo_ts": 1784238375885,
+      "edit_count": 1,
+      "last_lines": 17,
+      "last_ts": 1784238375885,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "82fd3d69"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/index.ts": {
+      "ipo_ts": 1784238375887,
+      "edit_count": 1,
+      "last_lines": 29,
+      "last_ts": 1784238375887,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "51481667"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/items.ts": {
+      "ipo_ts": 1784238375889,
+      "edit_count": 1,
+      "last_lines": 48,
+      "last_ts": 1784238375889,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "34bce315"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/monsters.ts": {
+      "ipo_ts": 1784238375890,
+      "edit_count": 1,
+      "last_lines": 8,
+      "last_ts": 1784238375890,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2d517cf8"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/settings.ts": {
+      "ipo_ts": 1784238375892,
+      "edit_count": 1,
+      "last_lines": 3,
+      "last_ts": 1784238375892,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e2c7ed94"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/skills.ts": {
+      "ipo_ts": 1784238375894,
+      "edit_count": 1,
+      "last_lines": 43,
+      "last_ts": 1784238375894,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "d28a70b2"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/slayer.ts": {
+      "ipo_ts": 1784238375895,
+      "edit_count": 1,
+      "last_lines": 23,
+      "last_ts": 1784238375895,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "690f2ea3"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/toasts.ts": {
+      "ipo_ts": 1784238375897,
+      "edit_count": 1,
+      "last_lines": 43,
+      "last_ts": 1784238375897,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "71bacc4c"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/town-shop.ts": {
+      "ipo_ts": 1784238375898,
+      "edit_count": 1,
+      "last_lines": 8,
+      "last_ts": 1784238375898,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "84a94af3"
+    },
+    "Idle_Realms/src/shared/i18n/locales/zh-CN/ui.ts": {
+      "ipo_ts": 1784238375900,
+      "edit_count": 1,
+      "last_lines": 268,
+      "last_ts": 1784238375900,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "5784a0e1"
+    },
+    "Idle_Realms/src/shared/i18n/types.ts": {
+      "ipo_ts": 1784238375901,
+      "edit_count": 1,
+      "last_lines": 3,
+      "last_ts": 1784238375901,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "930b5ff8"
+    },
+    "Idle_Realms/src/shared/types/index.ts": {
+      "ipo_ts": 1784238375903,
+      "edit_count": 1,
+      "last_lines": 4,
+      "last_ts": 1784238375903,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e22f84d1"
+    },
+    "Idle_Realms/src/shared/utils/format.ts": {
+      "ipo_ts": 1784238375904,
+      "edit_count": 1,
+      "last_lines": 47,
+      "last_ts": 1784238375904,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f633840e"
+    },
+    "Idle_Realms/src/shared/utils/random.ts": {
+      "ipo_ts": 1784238375906,
+      "edit_count": 1,
+      "last_lines": 26,
+      "last_ts": 1784238375906,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "ef07d8d8"
+    },
+    "Idle_Realms/src/shared/utils/storage.ts": {
+      "ipo_ts": 1784238375907,
+      "edit_count": 1,
+      "last_lines": 27,
+      "last_ts": 1784238375907,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e89a6178"
+    },
+    "Idle_Realms/src/ui/adapters/GameAPI.ts": {
+      "ipo_ts": 1784238375909,
+      "edit_count": 1,
+      "last_lines": 10,
+      "last_ts": 1784238375909,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "7f46b0e4"
+    },
+    "Idle_Realms/src/ui/adapters/useGameState.ts": {
+      "ipo_ts": 1784238375910,
+      "edit_count": 1,
+      "last_lines": 23,
+      "last_ts": 1784238375910,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e49d0278"
+    },
+    "Idle_Realms/src/ui/components/ContextMenu.vue": {
+      "ipo_ts": 1784238375912,
+      "edit_count": 1,
+      "last_lines": 165,
+      "last_ts": 1784238375912,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8908a075"
+    },
+    "Idle_Realms/src/ui/components/ItemCard.vue": {
+      "ipo_ts": 1784238375914,
+      "edit_count": 1,
+      "last_lines": 95,
+      "last_ts": 1784238375914,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "df592c29"
+    },
+    "Idle_Realms/src/ui/components/ItemDetail.vue": {
+      "ipo_ts": 1784238375915,
+      "edit_count": 1,
+      "last_lines": 159,
+      "last_ts": 1784238375915,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "4b928ab0"
+    },
+    "Idle_Realms/src/ui/components/ProgressBar.vue": {
+      "ipo_ts": 1784238375917,
+      "edit_count": 1,
+      "last_lines": 47,
+      "last_ts": 1784238375917,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f8c161ed"
+    },
+    "Idle_Realms/src/ui/components/SkillCard.vue": {
+      "ipo_ts": 1784238375918,
+      "edit_count": 1,
+      "last_lines": 370,
+      "last_ts": 1784238375918,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "8e1c14f1"
+    },
+    "Idle_Realms/src/ui/components/StatChip.vue": {
+      "ipo_ts": 1784238375920,
+      "edit_count": 1,
+      "last_lines": 34,
+      "last_ts": 1784238375920,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "a07b6697"
+    },
+    "Idle_Realms/src/ui/components/Toast.vue": {
+      "ipo_ts": 1784238375921,
+      "edit_count": 1,
+      "last_lines": 73,
+      "last_ts": 1784238375921,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f9b0c14f"
+    },
+    "Idle_Realms/src/ui/composables/useDependencies.ts": {
+      "ipo_ts": 1784238375923,
+      "edit_count": 1,
+      "last_lines": 21,
+      "last_ts": 1784238375923,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "d69f595c"
+    },
+    "Idle_Realms/src/ui/composables/useSkillCard.ts": {
+      "ipo_ts": 1784238375924,
+      "edit_count": 1,
+      "last_lines": 128,
+      "last_ts": 1784238375924,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "608bad77"
+    },
+    "Idle_Realms/src/ui/composables/useSkillGrid.ts": {
+      "ipo_ts": 1784238375926,
+      "edit_count": 1,
+      "last_lines": 34,
+      "last_ts": 1784238375926,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f60990b2"
+    },
+    "Idle_Realms/src/ui/layouts/AppLayout.vue": {
+      "ipo_ts": 1784238375927,
+      "edit_count": 1,
+      "last_lines": 40,
+      "last_ts": 1784238375927,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "1d902807"
+    },
+    "Idle_Realms/src/ui/layouts/OfflineModal.vue": {
+      "ipo_ts": 1784238375929,
+      "edit_count": 1,
+      "last_lines": 155,
+      "last_ts": 1784238375929,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "89396c72"
+    },
+    "Idle_Realms/src/ui/layouts/RightPanel.vue": {
+      "ipo_ts": 1784238375930,
+      "edit_count": 1,
+      "last_lines": 138,
+      "last_ts": 1784238375930,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "32f398f3"
+    },
+    "Idle_Realms/src/ui/layouts/SaveMenu.vue": {
+      "ipo_ts": 1784238375931,
+      "edit_count": 1,
+      "last_lines": 120,
+      "last_ts": 1784238375931,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "784d78d2"
+    },
+    "Idle_Realms/src/ui/layouts/Sidebar.vue": {
+      "ipo_ts": 1784238375933,
+      "edit_count": 1,
+      "last_lines": 125,
+      "last_ts": 1784238375933,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "950a7606"
+    },
+    "Idle_Realms/src/ui/layouts/TopBar.vue": {
+      "ipo_ts": 1784238375935,
+      "edit_count": 1,
+      "last_lines": 84,
+      "last_ts": 1784238375935,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "bd14f777"
+    },
+    "Idle_Realms/src/ui/services/SettingsState.ts": {
+      "ipo_ts": 1784238375936,
+      "edit_count": 1,
+      "last_lines": 52,
+      "last_ts": 1784238375936,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "5eb9ac7a"
+    },
+    "Idle_Realms/src/ui/services/ThemeService.ts": {
+      "ipo_ts": 1784238375938,
+      "edit_count": 1,
+      "last_lines": 70,
+      "last_ts": 1784238375938,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f6137855"
+    },
+    "Idle_Realms/src/ui/state/UIState.ts": {
+      "ipo_ts": 1784238375939,
+      "edit_count": 1,
+      "last_lines": 23,
+      "last_ts": 1784238375939,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "23a241cd"
+    },
+    "Idle_Realms/src/ui/views/CombatView.vue": {
+      "ipo_ts": 1784238375941,
+      "edit_count": 1,
+      "last_lines": 536,
+      "last_ts": 1784238375941,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "2c81ff96"
+    },
+    "Idle_Realms/src/ui/views/EquipmentView.vue": {
+      "ipo_ts": 1784238375942,
+      "edit_count": 1,
+      "last_lines": 197,
+      "last_ts": 1784238375942,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "e75b4bd7"
+    },
+    "Idle_Realms/src/ui/views/FarmingView.vue": {
+      "ipo_ts": 1784238375944,
+      "edit_count": 1,
+      "last_lines": 229,
+      "last_ts": 1784238375944,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "89baa5e7"
+    },
+    "Idle_Realms/src/ui/views/InventoryView.vue": {
+      "ipo_ts": 1784238375945,
+      "edit_count": 1,
+      "last_lines": 139,
+      "last_ts": 1784238375945,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "9b61db61"
+    },
+    "Idle_Realms/src/ui/views/SettingsView.vue": {
+      "ipo_ts": 1784238375947,
+      "edit_count": 1,
+      "last_lines": 302,
+      "last_ts": 1784238375947,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "f2b00614"
+    },
+    "Idle_Realms/src/ui/views/ShopView.vue": {
+      "ipo_ts": 1784238375948,
+      "edit_count": 1,
+      "last_lines": 69,
+      "last_ts": 1784238375948,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "998881f3"
+    },
+    "Idle_Realms/src/ui/views/SkillGridView.vue": {
+      "ipo_ts": 1784238375950,
+      "edit_count": 1,
+      "last_lines": 76,
+      "last_ts": 1784238375950,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "a2e0b05f"
+    },
+    "Idle_Realms/src/ui/views/SkillView.vue": {
+      "ipo_ts": 1784238375952,
+      "edit_count": 1,
+      "last_lines": 327,
+      "last_ts": 1784238375952,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "9bc94f54"
+    },
+    "Idle_Realms/src/ui/views/SlayerView.vue": {
+      "ipo_ts": 1784238375953,
+      "edit_count": 1,
+      "last_lines": 441,
+      "last_ts": 1784238375953,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "cc139fd8"
+    },
+    "Idle_Realms/src/ui/views/TownShopView.vue": {
+      "ipo_ts": 1784238375955,
+      "edit_count": 1,
+      "last_lines": 110,
+      "last_ts": 1784238375955,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "914fcbde"
+    },
+    "Idle_Realms/src/ui/views/TownView.vue": {
+      "ipo_ts": 1784238375956,
+      "edit_count": 1,
+      "last_lines": 163,
+      "last_ts": 1784238375956,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "32ddd78d"
+    },
+    ".github/workflows/deploy.yml": {
+      "ipo_ts": 1784238517103,
+      "edit_count": 1,
+      "last_lines": 52,
+      "last_ts": 1784238517103,
+      "delisted": false,
+      "last_source": "onEdit",
+      "last_content_hash": "0"
+    }
+  }
+}

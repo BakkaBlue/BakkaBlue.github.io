@@ -1,0 +1,11 @@
+{
+  "--gold": "#66bb6a",
+  "--gold-hi": "#81c784",
+  "--gold-dim": "#4b8a4f",
+  "--bg-deep": "#0e1410",
+  "--bg-base": "#141d18",
+  "--bg-card": "#1c2820",
+  "--bg-card-hi": "#243329",
+  "--border": "#2e4235",
+  "--border-hi": "#3f5c48"
+}
