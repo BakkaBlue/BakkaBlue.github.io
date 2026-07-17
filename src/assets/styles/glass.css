@@ -1,0 +1,115 @@
+/* ===== 玻璃效果基础 ===== */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: var(--shadow);
+  transition: background var(--transition-speed) ease,
+              transform var(--transition-speed) ease,
+              border-color var(--transition-speed) ease;
+}
+
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-4px);
+}
+
+.glass-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 10px 20px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: background var(--transition-speed) ease,
+              border-color var(--transition-speed) ease,
+              transform var(--transition-speed) ease;
+}
+
+.glass-btn:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-2px);
+}
+
+.glass-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background var(--transition-speed) ease,
+              border-color var(--transition-speed) ease,
+              transform var(--transition-speed) ease,
+              box-shadow var(--transition-speed) ease;
+}
+
+.glass-icon-btn:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+/* ===== 导航栏变体 ===== */
+.glass-nav {
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid transparent;
+  transition: background var(--transition-speed) ease,
+              border-color var(--transition-speed) ease;
+}
+
+.glass-nav.scrolled {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+}
+
+/* ===== 区块容器 ===== */
+.section {
+  padding: var(--section-padding);
+  position: relative;
+  z-index: 1;
+}
+
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 48px;
+  letter-spacing: -0.02em;
+}
