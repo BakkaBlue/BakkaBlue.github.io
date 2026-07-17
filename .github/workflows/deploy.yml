@@ -1,9 +1,8 @@
-name: Deploy site to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -19,48 +18,59 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: projects/idle_realms/package-lock.json
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
-      - name: Install dependencies
+      # ===== 构建主页 (Glassmorphism Vue 首页) =====
+      - name: Install homepage dependencies
+        run: npm ci
+
+      - name: Build homepage
+        run: npm run build
+
+      # ===== 构建 idle_realms =====
+      - name: Install idle_realms dependencies
         run: npm ci
         working-directory: projects/idle_realms
 
-      - name: Run tests
-        run: npm test
-        working-directory: projects/idle_realms
-
-      - name: Build Idle Realms
+      - name: Build idle_realms
         run: npm run build
         working-directory: projects/idle_realms
 
-      - name: Assemble site
+      # ===== 组装部署目录 =====
+      - name: Assemble deploy directory
         run: |
-          mkdir _site
-          rsync -a \
-            --exclude '_site' \
-            --exclude '.git' \
-            --exclude '.github' \
-            --exclude '.kagent' \
-            --exclude 'docs' \
-            --exclude 'projects' \
-            --exclude '.gitignore' \
-            --exclude 'package-lock.json' \
-            ./ _site/
-          mkdir -p _site/idle_realms
-          cp -R projects/idle_realms/dist/. _site/idle_realms/
+          DEPLOY_DIR=_deploy
+          mkdir -p "$DEPLOY_DIR"
 
-      - name: Upload Pages artifact
+          # 主页构建产物 → 根目录
+          cp -r dist/* "$DEPLOY_DIR/"
+
+          # 静态子项目直接复制
+          cp -r color_wordle "$DEPLOY_DIR/color_wordle"
+          cp -r laohei-music "$DEPLOY_DIR/laohei-music"
+
+          # idle_realms 构建产物
+          mkdir -p "$DEPLOY_DIR/idle_realms"
+          cp -r projects/idle_realms/dist/* "$DEPLOY_DIR/idle_realms"
+
+          echo "=== 部署目录结构 ==="
+          find "$DEPLOY_DIR" -type f | sort
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: _deploy
 
   deploy:
     needs: build
