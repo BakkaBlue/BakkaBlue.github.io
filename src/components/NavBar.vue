@@ -47,7 +47,7 @@ onUnmounted(() => {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid transparent;
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
 }
 
 .nav-bar.scrolled {
@@ -79,7 +79,7 @@ onUnmounted(() => {
   padding: 8px 14px;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
   line-height: 1;
 }
 

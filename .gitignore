@@ -5,3 +5,4 @@ _site/
 /dist/
 demo
 tsconfig.tsbuildinfo
+.codegraph/
