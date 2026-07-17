@@ -1,29 +1,26 @@
-name: Build & Deploy Idle Realms
+name: Deploy site to GitHub Pages
 
 on:
   push:
     branches:
       - main
-    paths:
-      - "projects/idle_realms/**"
-      - ".github/workflows/deploy-idle-realms.yml"
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: projects/idle_realms
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,33 +31,44 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        working-directory: projects/idle_realms
 
-      - name: Build
+      - name: Run tests
+        run: npm test
+        working-directory: projects/idle_realms
+
+      - name: Build Idle Realms
         run: npm run build
+        working-directory: projects/idle_realms
 
-      - name: Clean deploy directory
-        working-directory: .
+      - name: Assemble site
         run: |
-          rm -rf idle_realms
-          mkdir idle_realms
+          mkdir _site
+          rsync -a \
+            --exclude '_site' \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '.kagent' \
+            --exclude 'docs' \
+            --exclude 'projects' \
+            --exclude '.gitignore' \
+            --exclude 'package-lock.json' \
+            ./ _site/
+          mkdir -p _site/idle_realms
+          cp -R projects/idle_realms/dist/. _site/idle_realms/
 
-      - name: Copy build output
-        working-directory: .
-        run: |
-          cp -R projects/idle_realms/dist/. idle_realms/
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
 
-      - name: Commit deployment
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add idle_realms
-
-          if git diff --cached --quiet; then
-            echo "No changes."
-            exit 0
-          fi
-
-          git commit -m "Deploy Idle Realms"
-
-          git push
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
