@@ -1,85 +1,94 @@
-/* ===== 玻璃效果基础 ===== */
+/* ===== Glass primitives — quiet luxury ===== */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
   border: 1px solid var(--glass-border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
 }
 
 .glass-card {
   background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
   border: 1px solid var(--glass-border);
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
   padding: 32px;
   box-shadow: var(--shadow);
-  transition: background var(--transition-speed) ease,
-              transform var(--transition-speed) ease,
-              border-color var(--transition-speed) ease,
-              box-shadow var(--transition-speed) ease;
+  transition:
+    background var(--transition-speed) ease,
+    border-color var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease,
+    transform var(--transition-speed) cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .glass-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
-  box-shadow: var(--shadow), 0 0 40px var(--accent-glow);
+  box-shadow: var(--shadow), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+  transform: translateY(-3px);
 }
 
 .glass-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  padding: 10px 20px;
+  border-radius: 999px;
+  padding: 11px 20px;
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-family: var(--font-family);
+  font-weight: 500;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: background var(--transition-speed) ease,
-              border-color var(--transition-speed) ease,
-              transform var(--transition-speed) ease;
+  transition:
+    background var(--transition-speed) ease,
+    border-color var(--transition-speed) ease,
+    transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
 }
 
 .glass-btn:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .glass-icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--glass-border);
   border-radius: 14px;
   color: var(--text-primary);
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   cursor: pointer;
-  transition: background var(--transition-speed) ease,
-              border-color var(--transition-speed) ease,
-              transform var(--transition-speed) ease,
-              box-shadow var(--transition-speed) ease;
+  transition:
+    background var(--transition-speed) ease,
+    border-color var(--transition-speed) ease,
+    transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
 }
 
 .glass-icon-btn:hover {
   background: var(--glass-bg-hover);
-  border-color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--glass-border));
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px var(--accent-glow);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
 }
 
-/* ===== 区块容器 ===== */
+/* ===== Layout rhythm ===== */
 .section {
   padding: var(--section-padding);
   position: relative;
@@ -91,79 +100,46 @@
   margin: 0 auto;
 }
 
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 40px;
+  max-width: 640px;
+}
+
+.section-kicker {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+}
+
 .section-title {
-  font-size: clamp(1.7rem, 3vw, 2.2rem);
-  font-weight: 700;
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+  font-weight: 600;
   color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.section-desc {
+  font-size: 1.02rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 46ch;
+}
+
+.section-title-center {
   text-align: center;
-  margin-bottom: 48px;
-  letter-spacing: -0.02em;
-  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
 }
 
-.section-title::after {
-  content: '';
-  display: block;
-  width: 64px;
-  height: 3px;
-  margin: 14px auto 0;
-  border-radius: 999px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  box-shadow: 0 0 16px var(--accent-glow);
-}
-
-.glitch-title {
-  position: relative;
-}
-
-.glitch-title::before,
-.glitch-title::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  overflow: hidden;
-  opacity: 0.75;
-  pointer-events: none;
-}
-
-.glitch-title::before {
-  color: #60a5fa;
-  transform: translate(1px, 0);
-  clip-path: inset(0 0 55% 0);
-  animation: glitch-a 3.2s infinite linear alternate-reverse;
-}
-
-.glitch-title::after {
-  color: #22d3ee;
-  transform: translate(-1px, 0);
-  clip-path: inset(45% 0 0 0);
-  animation: glitch-b 2.4s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-a {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(-2px, 1px); }
-  40% { transform: translate(2px, -1px); }
-  60% { transform: translate(-1px, 0); }
-  80% { transform: translate(1px, 1px); }
-  100% { transform: translate(0, 0); }
-}
-
-@keyframes glitch-b {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(2px, -1px); }
-  40% { transform: translate(-2px, 1px); }
-  60% { transform: translate(1px, 0); }
-  80% { transform: translate(-1px, -1px); }
-  100% { transform: translate(0, 0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .glitch-title::before,
-  .glitch-title::after {
-    animation: none;
-    opacity: 0;
-  }
+.section-title-center .section-desc {
+  text-align: center;
 }

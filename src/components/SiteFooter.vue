@@ -1,39 +1,46 @@
 <template>
   <footer class="site-footer">
     <div class="section-inner footer-inner">
-      <p class="footer-text">© 2024 Cyren. Built with Vue + Glassmorphism + too much caffeine.</p>
-      <p class="footer-sub">Particles · Magnetic Cursor · 3D Tilt · Typewriter · Glitch Titles</p>
+      <p class="footer-text">© 2024 Cyren</p>
+      <p class="footer-sub">Vue · Glassmorphism · Quiet details</p>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
-// 纯展示组件
+// presentation only
 </script>
 
 <style scoped>
 .site-footer {
-  padding: 48px 24px 56px;
   position: relative;
   z-index: 1;
-  text-align: center;
+  padding: 28px 28px 56px;
 }
 
 .footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   border-top: 1px solid var(--glass-border);
-  padding-top: 28px;
+  padding-top: 24px;
 }
 
-.footer-text {
+.footer-text,
+.footer-sub {
   color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 8px;
+  font-size: 0.86rem;
 }
 
 .footer-sub {
-  color: color-mix(in srgb, var(--text-muted) 80%, transparent);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 640px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 </style>

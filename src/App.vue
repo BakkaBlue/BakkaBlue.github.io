@@ -4,7 +4,6 @@
     <FloatingShapes />
     <NoiseOverlay />
     <ScrollProgress />
-    <CursorFx />
     <NavBar />
 
     <main>
@@ -25,7 +24,6 @@ import FloatingShapes from './components/FloatingShapes.vue'
 import ParticleField from './components/ParticleField.vue'
 import NoiseOverlay from './components/NoiseOverlay.vue'
 import ScrollProgress from './components/ScrollProgress.vue'
-import CursorFx from './components/CursorFx.vue'
 import NavBar from './components/NavBar.vue'
 import HeroSection from './components/HeroSection.vue'
 import SkillCards from './components/SkillCards.vue'
@@ -46,7 +44,7 @@ function observeReveals() {
         }
       })
     },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+    { threshold: 0.14, rootMargin: '0px 0px -48px 0px' },
   )
 
   document.querySelectorAll('.reveal:not(.visible)').forEach((el) => {

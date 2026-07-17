@@ -1,10 +1,7 @@
 <template>
   <nav class="nav-bar" :class="{ scrolled: isScrolled }">
     <div class="nav-inner">
-      <a href="#top" class="nav-brand">
-        <span class="brand-mark" aria-hidden="true"></span>
-        Cyren
-      </a>
+      <a href="#top" class="nav-brand">Cyren</a>
       <div class="nav-links">
         <a v-for="item in links" :key="item.href" :href="item.href" class="nav-link">{{ item.label }}</a>
       </div>
@@ -14,8 +11,7 @@
         :aria-label="isDark ? '切换到日间模式' : '切换到夜间模式'"
         :title="isDark ? '切换到日间模式' : '切换到夜间模式'"
       >
-        <span class="theme-toggle__glow" aria-hidden="true"></span>
-        {{ isDark ? '☀️' : '🌙' }}
+        {{ isDark ? '日' : '夜' }}
       </button>
     </div>
   </nav>
@@ -36,7 +32,7 @@ const links = [
 ]
 
 function onScroll() {
-  isScrolled.value = window.scrollY > 40
+  isScrolled.value = window.scrollY > 24
 }
 
 onMounted(() => {
@@ -52,125 +48,89 @@ onUnmounted(() => {
 <style scoped>
 .nav-bar {
   position: fixed;
-  top: 16px;
-  left: 16px;
-  right: 16px;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(calc(100% - 32px), 1080px);
   z-index: 100;
-  border-radius: 20px;
+  border-radius: 999px;
   background: transparent;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
   border: 1px solid transparent;
-  transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .nav-bar.scrolled {
-  background: color-mix(in srgb, var(--glass-bg) 90%, transparent);
+  background: color-mix(in srgb, var(--glass-bg) 88%, transparent);
   border-color: var(--glass-border);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
 }
 
 .nav-inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 12px 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 18px 12px 22px;
 }
 
 .nav-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 700;
-  font-size: 1.05rem;
+  font-weight: 600;
+  font-size: 0.98rem;
+  letter-spacing: 0.04em;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
-}
-
-.brand-mark {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 0 var(--accent-glow);
-  animation: brand-pulse 2s ease-out infinite;
-}
-
-@keyframes brand-pulse {
-  0% { box-shadow: 0 0 0 0 var(--accent-glow); }
-  70% { box-shadow: 0 0 0 12px transparent; }
-  100% { box-shadow: 0 0 0 0 transparent; }
 }
 
 .nav-links {
   display: flex;
-  gap: 6px;
-  flex: 1;
-  justify-content: center;
+  align-items: center;
+  gap: 4px;
 }
 
 .nav-link {
   padding: 8px 12px;
-  border-radius: 10px;
+  border-radius: 999px;
   color: var(--text-secondary);
-  font-size: 0.92rem;
-  transition: color 0.2s ease, background 0.2s ease;
+  font-size: 0.9rem;
+  transition: color 0.25s ease, background 0.25s ease;
 }
 
 .nav-link:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .theme-toggle {
-  position: relative;
-  background: var(--glass-bg);
+  min-width: 42px;
+  height: 36px;
+  border-radius: 999px;
   border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  padding: 8px 14px;
-  font-size: 1.1rem;
+  background: var(--glass-bg);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
   cursor: pointer;
-  transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, transform 0.2s ease;
-  line-height: 1;
-  overflow: hidden;
-}
-
-.theme-toggle__glow {
-  position: absolute;
-  inset: -40%;
-  background: radial-gradient(circle, var(--accent-glow), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 .theme-toggle:hover {
+  color: var(--text-primary);
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
-  transform: translateY(-1px) scale(1.03);
 }
 
-.theme-toggle:hover .theme-toggle__glow {
-  opacity: 1;
-}
-
-@media (max-width: 720px) {
+@media (max-width: 760px) {
   .nav-links {
     display: none;
   }
-}
 
-@media (max-width: 480px) {
   .nav-bar {
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    border-radius: 14px;
-  }
-  .nav-inner {
-    padding: 10px 14px;
+    top: 12px;
+    width: calc(100% - 24px);
   }
 }
 </style>

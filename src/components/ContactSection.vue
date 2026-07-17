@@ -1,20 +1,23 @@
 <template>
   <section id="contact" class="section">
-    <div class="section-inner">
-      <h2 class="section-title glitch-title" data-text="找到我">找到我</h2>
-      <div class="contact-row">
+    <div class="section-inner contact-grid">
+      <header class="section-header">
+        <p class="section-kicker">Connect</p>
+        <h2 class="section-title">找到我</h2>
+        <p class="section-desc">欢迎闲聊、提想法，或者只是路过打个招呼。</p>
+      </header>
+
+      <div class="contact-links reveal">
         <a
           v-for="link in contactLinks"
           :key="link.label"
           :href="link.url"
-          :aria-label="link.label"
-          :title="link.label"
           target="_blank"
           rel="noopener noreferrer"
-          class="glass-icon-btn contact-icon"
+          class="contact-item glass-card"
         >
-          <span class="contact-icon__ring" aria-hidden="true"></span>
-          {{ link.icon }}
+          <span class="contact-label">{{ link.label }}</span>
+          <span class="contact-handle">{{ link.handle }}</span>
         </a>
       </div>
     </div>
@@ -23,48 +26,61 @@
 
 <script setup lang="ts">
 const contactLinks = [
-  { icon: '𝕏', label: 'Twitter', url: 'https://x.com/BakkaTheBlue' },
-  { icon: '⬡', label: 'GitHub', url: 'https://github.com/BakkaBlue' },
-  { icon: '▶', label: 'Bilibili', url: 'https://space.bilibili.com/23218601' },
-  { icon: '◇', label: 'Discord', url: 'https://discord.gg/4XvsYHfk' },
+  { label: 'Twitter', handle: '@BakkaTheBlue', url: 'https://x.com/BakkaTheBlue' },
+  { label: 'GitHub', handle: 'BakkaBlue', url: 'https://github.com/BakkaBlue' },
+  { label: 'Bilibili', handle: 'space/23218601', url: 'https://space.bilibili.com/23218601' },
+  { label: 'Discord', handle: 'Join room', url: 'https://discord.gg/4XvsYHfk' },
 ]
 </script>
 
 <style scoped>
-.contact-row {
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.contact-item {
   display: flex;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 18px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 20px;
 }
 
-.contact-icon {
-  position: relative;
-  width: 60px;
-  height: 60px;
-  font-size: 1.35rem;
-  border-radius: 18px;
-  overflow: visible;
+.contact-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-.contact-icon__ring {
-  position: absolute;
-  inset: -4px;
-  border-radius: 22px;
-  border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
-  opacity: 0;
-  transform: scale(0.85);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+.contact-handle {
+  color: var(--text-secondary);
+  font-size: 0.98rem;
 }
 
-.contact-icon:hover .contact-icon__ring {
-  opacity: 1;
-  transform: scale(1);
-  animation: ring-pulse 1.2s ease-out infinite;
+.contact-item:hover .contact-handle {
+  color: var(--text-primary);
 }
 
-@keyframes ring-pulse {
-  0% { box-shadow: 0 0 0 0 var(--accent-glow); }
-  100% { box-shadow: 0 0 0 12px transparent; }
+@media (max-width: 860px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .contact-links {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
