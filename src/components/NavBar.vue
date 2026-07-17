@@ -27,6 +27,7 @@ const isScrolled = ref(false)
 const links = [
   { label: '技能', href: '#skills' },
   { label: '关于', href: '#about' },
+  { label: 'GitHub', href: '#github' },
   { label: '项目', href: '#projects' },
   { label: '联系', href: '#contact' },
 ]
