@@ -3,3 +3,5 @@ projects/idle_realms/dist/
 .kagent/
 _site/
 /dist/
+demo
+tsconfig.tsbuildinfo
