@@ -17,13 +17,14 @@
   box-shadow: var(--shadow);
   transition: background var(--transition-speed) ease,
               transform var(--transition-speed) ease,
-              border-color var(--transition-speed) ease;
+              border-color var(--transition-speed) ease,
+              box-shadow var(--transition-speed) ease;
 }
 
 .glass-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
-  transform: translateY(-4px);
+  box-shadow: var(--shadow), 0 0 40px var(--accent-glow);
 }
 
 .glass-btn {
@@ -91,10 +92,78 @@
 }
 
 .section-title {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  font-weight: 700;
   color: var(--text-primary);
   text-align: center;
   margin-bottom: 48px;
   letter-spacing: -0.02em;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 3px;
+  margin: 14px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.glitch-title {
+  position: relative;
+}
+
+.glitch-title::before,
+.glitch-title::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.glitch-title::before {
+  color: #60a5fa;
+  transform: translate(1px, 0);
+  clip-path: inset(0 0 55% 0);
+  animation: glitch-a 3.2s infinite linear alternate-reverse;
+}
+
+.glitch-title::after {
+  color: #22d3ee;
+  transform: translate(-1px, 0);
+  clip-path: inset(45% 0 0 0);
+  animation: glitch-b 2.4s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-a {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, 1px); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-1px, 0); }
+  80% { transform: translate(1px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes glitch-b {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(2px, -1px); }
+  40% { transform: translate(-2px, 1px); }
+  60% { transform: translate(1px, 0); }
+  80% { transform: translate(-1px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch-title::before,
+  .glitch-title::after {
+    animation: none;
+    opacity: 0;
+  }
 }

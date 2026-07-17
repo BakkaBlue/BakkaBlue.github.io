@@ -50,6 +50,7 @@ html {
   scroll-behavior: smooth;
   background-color: #0a1628;
   transition: background-color 0.5s ease;
+  scroll-padding-top: 96px;
 }
 
 html[data-theme="dark"] {
@@ -75,4 +76,34 @@ a {
 img {
   max-width: 100%;
   display: block;
+}
+
+/* 自定义光标时隐藏系统指针（仅桌面 fine pointer） */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+html.has-custom-cursor a,
+html.has-custom-cursor button {
+  cursor: none !important;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 45%, transparent);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
