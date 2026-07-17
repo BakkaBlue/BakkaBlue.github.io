@@ -1,0 +1,4 @@
+node_modules/
+projects/idle_realms/dist/
+.kagent/
+_site/
