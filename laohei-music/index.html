@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laohei Music</title>
+    <style>
+        /* ========== 全局 & 星空背景 ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @font-face {
+            font-family: 'Pixel';
+            src: local('Courier New');
+        }
+
+        body {
+            background: #0a0a1a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><text y='14' font-size='12'>👆</text></svg>"), auto;
+        }
+
+        /* 星空 */
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--dur) ease-in-out infinite;
+            animation-delay: var(--delay);
+            opacity: 0;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* 流星 */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+            animation: shoot var(--dur2) linear infinite;
+            animation-delay: var(--delay2);
+            opacity: 0;
+        }
+        @keyframes shoot {
+            0% { opacity: 0; transform: translate(0, 0) rotate(-45deg); }
+            5% { opacity: 1; }
+            10% { opacity: 0; transform: translate(-300px, 300px) rotate(-45deg); }
+            100% { opacity: 0; transform: translate(-300px, 300px) rotate(-45deg); }
+        }
+
+        /* ========== 霓虹标题 ========== */
+        .title-area {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .neon-title {
+            font-size: 48px;
+            font-weight: bold;
+            font-family: 'Comic Sans MS', 'Courier New', cursive;
+            color: #fff;
+            text-shadow:
+                0 0 7px #fff,
+                0 0 10px #fff,
+                0 0 21px #fff,
+                0 0 42px #ff00de,
+                0 0 82px #ff00de,
+                0 0 92px #ff00de,
+                0 0 102px #ff00de,
+                0 0 151px #ff00de;
+            animation: flicker 3s infinite alternate;
+        }
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow:
+                    0 0 7px #fff,
+                    0 0 10px #fff,
+                    0 0 21px #fff,
+                    0 0 42px #ff00de,
+                    0 0 82px #ff00de,
+                    0 0 92px #ff00de,
+                    0 0 102px #ff00de,
+                    0 0 151px #ff00de;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+        .subtitle {
+            color: #00ffcc;
+            font-size: 14px;
+            margin-top: 8px;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .subtitle span {
+            display: inline-block;
+            animation: marquee 8s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* ========== Winamp 播放器外壳 ========== */
+        .winamp {
+            position: relative;
+            z-index: 1;
+            width: 520px;
+            background: #2b2b2b;
+            border: 2px solid;
+            border-color: #555 #222 #111 #444;
+            box-shadow:
+                inset 1px 1px 0 #666,
+                inset -1px -1px 0 #111,
+                0 0 30px rgba(255, 0, 222, 0.15),
+                0 10px 40px rgba(0,0,0,0.5);
+        }
+        .winamp-titlebar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            padding: 3px 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: white;
+            font-weight: bold;
+            user-select: none;
+        }
+        .winamp-titlebar .dots {
+            display: flex;
+            gap: 2px;
+        }
+        .winamp-titlebar .dot {
+            width: 10px;
+            height: 10px;
+            background: #c0c0c0;
+            border: 1px solid;
+            border-color: #fff #555 #555 #fff;
+        }
+
+        /* ========== 均衡器 ========== */
+        .eq-bar {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 36px;
+            padding: 4px 8px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #444;
+        }
+        .eq-col {
+            width: 8px;
+            background: linear-gradient(to top, #00ff00, #39ff14);
+            border-radius: 1px;
+            animation: eqJump 0.5s ease-in-out infinite alternate;
+            animation-delay: var(--eq-delay);
+        }
+        @keyframes eqJump {
+            0% { height: 20%; }
+            100% { height: 90%; }
+        }
+
+        /* ========== 主内容区 ========== */
+        .player-body {
+            display: flex;
+            padding: 12px;
+            gap: 12px;
+        }
+
+        /* 左侧：封面 + 歌曲信息 */
+        .player-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .cover-wrap {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid;
+            border-color: #555 #222 #111 #444;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        .cover-wrap.spinning .cover-img {
+            animation: spin 4s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .cover-img {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 0.3s;
+        }
+        .song-info {
+            text-align: center;
+            color: #39ff14;
+        }
+        .song-name {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .song-artist {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 2px;
+        }
+
+        /* 右侧：播放列表 + 进度 */
+        .player-right {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* 进度条 */
+        .progress-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            color: #39ff14;
+        }
+        .progress-bar-wrap {
+            flex: 1;
+            height: 12px;
+            background: #111;
+            border: 1px solid #444;
+            cursor: pointer;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to bottom, #39ff14, #00aa00);
+            transition: width 0.1s linear;
+        }
+
+        /* 播放列表 */
+        .playlist-label {
+            font-size: 10px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 2px;
+        }
+        .playlist {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            max-height: 130px;
+            overflow-y: auto;
+        }
+        .playlist::-webkit-scrollbar { width: 8px; }
+        .playlist::-webkit-scrollbar-track { background: #1a1a1a; }
+        .playlist::-webkit-scrollbar-thumb { background: #444; }
+        .playlist li {
+            padding: 4px 8px;
+            font-size: 11px;
+            color: #ccc;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .playlist li:hover {
+            background: #333;
+            color: #fff;
+        }
+        .playlist li.active {
+            background: #003300;
+            color: #39ff14;
+            font-weight: bold;
+        }
+        .playlist li .num {
+            width: 20px;
+            text-align: center;
+        }
+        .playlist li .indicator {
+            font-size: 10px;
+            color: #39ff14;
+            animation: blink 0.8s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* ========== 控制按钮 ========== */
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            background: #1a1a1a;
+            border-top: 1px solid #444;
+        }
+        .ctrl-btn {
+            width: 36px;
+            height: 28px;
+            background: #3a3a3a;
+            border: 2px solid;
+            border-color: #666 #222 #111 #555;
+            color: #39ff14;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            transition: background 0.1s;
+        }
+        .ctrl-btn:active {
+            border-color: #111 #555 #666 #222;
+            background: #2a2a2a;
+        }
+        .ctrl-btn.play-btn {
+            width: 44px;
+            height: 32px;
+            font-size: 16px;
+        }
+
+        /* ========== 底部 ========== */
+        .footer-area {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 11px;
+        }
+        .counter {
+            display: inline-block;
+            background: #111;
+            border: 1px solid #444;
+            padding: 3px 10px;
+            color: #39ff14;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+        .badges {
+            margin-top: 10px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .badge {
+            border: 1px solid #444;
+            padding: 2px 8px;
+            font-size: 10px;
+            background: #111;
+            color: #888;
+        }
+
+        @media (max-width: 560px) {
+            .winamp { width: 95vw; }
+            .player-body { flex-direction: column; align-items: center; }
+            .neon-title { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 星空背景 -->
+<div class="stars" id="stars"></div>
+
+<!-- 标题 -->
+<div class="title-area">
+    <div class="neon-title">♪ Laohei Music ♪</div>
+    <div class="subtitle"><span>~ *:.｡. 还会见面吗 .｡.:* ~</span></div>
+</div>
+
+<!-- Winamp 播放器 -->
+<div class="winamp">
+    <div class="winamp-titlebar">
+        <span>Laohei Music — Winamp 2.91</span>
+        <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <!-- 均衡器 -->
+    <div class="eq-bar" id="eqBar"></div>
+
+    <!-- 主体 -->
+    <div class="player-body">
+        <div class="player-left">
+            <div class="cover-wrap" id="coverWrap">
+                <div class="cover-img" id="coverImg"></div>
+            </div>
+            <div class="song-info">
+                <div class="song-name" id="songName">1</div>
+                <div class="song-artist">还会见面吗</div>
+            </div>
+        </div>
+        <div class="player-right">
+            <div class="progress-area">
+                <span id="curTime">00:00</span>
+                <div class="progress-bar-wrap" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span id="durTime">00:00</span>
+            </div>
+            <div class="playlist-label">📋 播放列表</div>
+            <ul class="playlist" id="playlist"></ul>
+        </div>
+    </div>
+
+    <!-- 控制按钮 -->
+    <div class="controls">
+        <button class="ctrl-btn" id="prevBtn" title="上一首">⏮</button>
+        <button class="ctrl-btn play-btn" id="playBtn" title="播放/暂停">▶</button>
+        <button class="ctrl-btn" id="nextBtn" title="下一首">⏭</button>
+    </div>
+</div>
+
+<!-- 底部 -->
+<div class="footer-area">
+    <div class="counter" id="visitor">访客: 000042</div>
+    <div class="badges">
+        <span class="badge">Best viewed in 1024×768</span>
+        <span class="badge">Made with Notepad</span>
+        <span class="badge">© 2004</span>
+    </div>
+</div>
+
+<script>
+(function() {
+    // ========== 曲目数据 ==========
+    var tracks = [1,2,3,4,5].map(function(i) {
+        return {
+            name: String(i),
+            artist: '还会见面吗',
+            audio: 'music/' + i + '.mp3',
+            cover: 'img/' + i + '.jpg'
+        };
+    });
+
+    var currentIndex = 0;
+    var audio = new Audio();
+    var isPlaying = false;
+
+    // ========== DOM 引用 ==========
+    var coverWrap = document.getElementById('coverWrap');
+    var coverImg  = document.getElementById('coverImg');
+    var songName  = document.getElementById('songName');
+    var playlist  = document.getElementById('playlist');
+    var playBtn   = document.getElementById('playBtn');
+    var prevBtn   = document.getElementById('prevBtn');
+    var nextBtn   = document.getElementById('nextBtn');
+    var progressBar  = document.getElementById('progressBar');
+    var progressFill = document.getElementById('progressFill');
+    var curTimeEl   = document.getElementById('curTime');
+    var durTimeEl   = document.getElementById('durTime');
+
+    // ========== 星空生成 ==========
+    var starsEl = document.getElementById('stars');
+    for (var s = 0; s < 100; s++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.width = (Math.random() * 3 + 1) + 'px';
+        star.style.height = star.style.width;
+        star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+        star.style.setProperty('--delay', (Math.random() * 5) + 's');
+        starsEl.appendChild(star);
+    }
+    for (var sh = 0; sh < 3; sh++) {
+        var sstar = document.createElement('div');
+        sstar.className = 'shooting-star';
+        sstar.style.left = (Math.random() * 80 + 10) + '%';
+        sstar.style.top = (Math.random() * 40) + '%';
+        sstar.style.setProperty('--dur2', (Math.random() * 6 + 6) + 's');
+        sstar.style.setProperty('--delay2', (Math.random() * 10) + 's');
+        starsEl.appendChild(sstar);
+    }
+
+    // ========== 均衡器 ==========
+    var eqBar = document.getElementById('eqBar');
+    for (var e = 0; e < 32; e++) {
+        var col = document.createElement('div');
+        col.className = 'eq-col';
+        col.style.setProperty('--eq-delay', (Math.random() * 0.4).toFixed(2) + 's');
+        col.style.animationDuration = (Math.random() * 0.4 + 0.3).toFixed(2) + 's';
+        eqBar.appendChild(col);
+    }
+
+    // ========== 播放列表渲染 ==========
+    tracks.forEach(function(t, i) {
+        var li = document.createElement('li');
+        li.innerHTML = '<span class="num">' + (i + 1) + '</span>' + t.name + ' — ' + t.artist;
+        li.addEventListener('click', function() { loadTrack(i); play(); });
+        playlist.appendChild(li);
+    });
+
+    function updatePlaylist() {
+        var items = playlist.querySelectorAll('li');
+        items.forEach(function(li, i) {
+            li.classList.toggle('active', i === currentIndex);
+            var indicator = li.querySelector('.indicator');
+            if (i === currentIndex && isPlaying) {
+                if (!indicator) {
+                    var ind = document.createElement('span');
+                    ind.className = 'indicator';
+                    ind.textContent = '♪';
+                    li.insertBefore(ind, li.firstChild);
+                }
+            } else {
+                if (indicator) indicator.remove();
+            }
+        });
+    }
+
+    // ========== 格式化时间 ==========
+    function fmtTime(sec) {
+        if (isNaN(sec)) return '00:00';
+        var m = Math.floor(sec / 60);
+        var s = Math.floor(sec % 60);
+        return (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+    }
+
+    // ========== 加载曲目 ==========
+    function loadTrack(index) {
+        currentIndex = index;
+        var t = tracks[index];
+        songName.textContent = t.name;
+        coverImg.style.backgroundImage = 'url(' + t.cover + ')';
+        audio.src = t.audio;
+        audio.load();
+        progressFill.style.width = '0%';
+        curTimeEl.textContent = '00:00';
+        durTimeEl.textContent = '00:00';
+        updatePlaylist();
+    }
+
+    // ========== 播放 / 暂停 ==========
+    function play() {
+        audio.play().then(function() {
+            isPlaying = true;
+            playBtn.textContent = '⏸';
+            coverWrap.classList.add('spinning');
+            updatePlaylist();
+        }).catch(function() {});
+    }
+
+    function pause() {
+        audio.pause();
+        isPlaying = false;
+        playBtn.textContent = '▶';
+        coverWrap.classList.remove('spinning');
+        updatePlaylist();
+    }
+
+    playBtn.addEventListener('click', function() {
+        if (isPlaying) { pause(); } else { play(); }
+    });
+
+    // ========== 上下首 ==========
+    prevBtn.addEventListener('click', function() {
+        var idx = currentIndex - 1;
+        if (idx < 0) idx = tracks.length - 1;
+        loadTrack(idx);
+        play();
+    });
+    nextBtn.addEventListener('click', function() {
+        var idx = currentIndex + 1;
+        if (idx >= tracks.length) idx = 0;
+        loadTrack(idx);
+        play();
+    });
+
+    // ========== 进度条 ==========
+    audio.addEventListener('timeupdate', function() {
+        var pct = (audio.currentTime / audio.duration) * 100 || 0;
+        progressFill.style.width = pct + '%';
+        curTimeEl.textContent = fmtTime(audio.currentTime);
+        durTimeEl.textContent = fmtTime(audio.duration);
+    });
+
+    audio.addEventListener('loadedmetadata', function() {
+        durTimeEl.textContent = fmtTime(audio.duration);
+    });
+
+    audio.addEventListener('ended', function() {
+        nextBtn.click();
+    });
+
+    // 进度条点击
+    progressBar.addEventListener('click', function(e) {
+        var rect = progressBar.getBoundingClientRect();
+        var pct = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = pct * audio.duration;
+    });
+
+    // ========== 键盘快捷键 ==========
+    document.addEventListener('keydown', function(e) {
+        if (e.code === 'Space') { e.preventDefault(); playBtn.click(); }
+        if (e.code === 'ArrowLeft') { prevBtn.click(); }
+        if (e.code === 'ArrowRight') { nextBtn.click(); }
+    });
+
+    // ========== 访客计数器 ==========
+    var count = Math.floor(Math.random() * 9000) + 42000;
+    document.getElementById('visitor').textContent = '访客: ' + String(count).padStart(6, '0');
+
+    // ========== 初始化 ==========
+    loadTrack(0);
+})();
+</script>
+
+</body>
+</html>
