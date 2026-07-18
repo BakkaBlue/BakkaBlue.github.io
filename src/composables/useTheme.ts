@@ -2,7 +2,7 @@ import { ref, computed, onMounted } from 'vue'
 
 type Theme = 'light' | 'dark'
 
-const STORAGE_KEY = 'cyren-theme'
+const STORAGE_KEY = 'cyan-theme'
 const theme = ref<Theme>('light')
 
 export function useTheme() {

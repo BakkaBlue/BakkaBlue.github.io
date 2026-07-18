@@ -1,7 +1,7 @@
 <template>
   <footer class="site-footer">
     <div class="section-inner footer-inner">
-      <p class="footer-text">© 2024 Cyren</p>
+      <p class="footer-text">© 2024 Cyan</p>
       <p class="footer-sub">Vue · Glassmorphism · Quiet details</p>
     </div>
   </footer>

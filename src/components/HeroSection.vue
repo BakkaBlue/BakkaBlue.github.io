@@ -5,7 +5,7 @@
         <p class="hero-kicker">Portfolio · 2024</p>
         <h1 class="hero-title">
           你好，我是
-          <span class="hero-name">Cyren</span>
+          <span class="hero-name">Cyan</span>
         </h1>
         <p class="hero-subtitle">
           <span>{{ typed }}</span><span class="caret" aria-hidden="true">|</span>

@@ -1,8 +1,8 @@
 {
-  "name": "cyren-homepage",
+  "name": "cyan-homepage",
   "private": true,
   "version": "1.0.0",
-  "description": "Cyren 个人主页 — Glassmorphism 风格",
+  "description": "Cyan 个人主页 — Glassmorphism 风格",
   "type": "module",
   "scripts": {
     "dev": "vite",
