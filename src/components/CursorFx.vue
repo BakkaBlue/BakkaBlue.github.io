@@ -1,5 +1,5 @@
 <template>
-  <div class="cursor-fx" aria-hidden="true">
+  <div v-if="enabled" class="cursor-fx" aria-hidden="true">
     <div class="cursor-core" :style="coreStyle"></div>
     <div class="cursor-ring" :style="ringStyle"></div>
     <div class="cursor-trail" v-for="(t, i) in trail" :key="i" :style="t"></div>
@@ -7,12 +7,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { usePointer } from '@/composables/usePointer'
 import { usePrefersReducedMotion } from '@/composables/usePrefersReducedMotion'
+import { useStylePreset } from '@/composables/useStylePreset'
 
 const pointer = usePointer()
 const { reduced } = usePrefersReducedMotion()
+const { preset } = useStylePreset()
 const enabled = ref(false)
 const smooth = reactive({ x: 0, y: 0 })
 const trail = ref<Array<Record<string, string>>>([])
@@ -28,8 +30,14 @@ const ringStyle = computed(() => ({
   opacity: pointer.active ? '1' : '0',
 }))
 
+function updateEnabled() {
+  const fine = window.matchMedia('(pointer: fine)').matches
+  enabled.value = fine && !reduced.value && preset.value.cursor
+  document.documentElement.classList.toggle('has-custom-cursor', enabled.value)
+}
+
 function loop() {
-  if (!reduced.value) {
+  if (enabled.value && !reduced.value) {
     smooth.x += (pointer.x - smooth.x) * 0.18
     smooth.y += (pointer.y - smooth.y) * 0.18
 
@@ -47,13 +55,14 @@ function loop() {
   raf = requestAnimationFrame(loop)
 }
 
+watch(
+  () => [preset.value.cursor, reduced.value],
+  () => updateEnabled(),
+)
+
 onMounted(() => {
-  const fine = window.matchMedia('(pointer: fine)').matches
-  enabled.value = fine && !reduced.value
-  if (enabled.value) {
-    document.documentElement.classList.add('has-custom-cursor')
-    raf = requestAnimationFrame(loop)
-  }
+  updateEnabled()
+  raf = requestAnimationFrame(loop)
 })
 
 onUnmounted(() => {

@@ -3,8 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { usePrefersReducedMotion } from '@/composables/usePrefersReducedMotion'
+import { useStylePreset } from '@/composables/useStylePreset'
+import { usePointer } from '@/composables/usePointer'
 
 interface Particle {
   x: number
@@ -17,6 +19,8 @@ interface Particle {
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const { reduced } = usePrefersReducedMotion()
+const { preset } = useStylePreset()
+const pointer = usePointer()
 
 let ctx: CanvasRenderingContext2D | null = null
 let particles: Particle[] = []
@@ -25,10 +29,20 @@ let w = 0
 let h = 0
 let dpr = 1
 
+function densityFactor() {
+  const d = preset.value.particleDensity
+  if (d === 'dense') return 14000
+  if (d === 'normal') return 26000
+  return 42000
+}
+
 function countForSize() {
+  if (!preset.value.particles) return 0
   const area = w * h
-  // sparse, elegant density
-  return Math.max(18, Math.min(42, Math.floor(area / 42000)))
+  const base = Math.floor(area / densityFactor())
+  if (preset.value.particleDensity === 'dense') return Math.max(50, Math.min(140, base))
+  if (preset.value.particleDensity === 'normal') return Math.max(28, Math.min(70, base))
+  return Math.max(16, Math.min(42, base))
 }
 
 function resize() {
@@ -48,13 +62,25 @@ function resize() {
 
 function spawn() {
   const n = countForSize()
+  const speed =
+    preset.value.particleDensity === 'dense'
+      ? 0.28
+      : preset.value.particleDensity === 'normal'
+        ? 0.16
+        : 0.12
   particles = Array.from({ length: n }, () => ({
     x: Math.random() * w,
     y: Math.random() * h,
-    vx: (Math.random() - 0.5) * 0.12,
-    vy: (Math.random() - 0.5) * 0.12,
-    r: Math.random() * 1.2 + 0.4,
-    a: Math.random() * 0.28 + 0.08,
+    vx: (Math.random() - 0.5) * speed,
+    vy: (Math.random() - 0.5) * speed,
+    r:
+      Math.random() *
+        (preset.value.particleDensity === 'dense' ? 1.8 : 1.2) +
+      0.4,
+    a:
+      Math.random() *
+        (preset.value.particleDensity === 'dense' ? 0.42 : 0.28) +
+      0.08,
   }))
 }
 
@@ -65,7 +91,7 @@ function step() {
   }
 
   ctx.clearRect(0, 0, w, h)
-  if (reduced.value) {
+  if (reduced.value || !preset.value.particles) {
     raf = requestAnimationFrame(step)
     return
   }
@@ -73,11 +99,28 @@ function step() {
   const accent =
     getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() ||
     '#8eb6ff'
-  const linkDist = Math.min(120, w * 0.09)
+  const linkDist =
+    preset.value.particleDensity === 'dense'
+      ? Math.min(170, w * 0.13)
+      : Math.min(120, w * 0.09)
 
   for (const p of particles) {
+    if (preset.value.particlePointer && pointer.active) {
+      const dx = pointer.x - p.x
+      const dy = pointer.y - p.y
+      const dist = Math.hypot(dx, dy) || 1
+      if (dist < 180) {
+        const force = (180 - dist) / 180
+        p.vx -= (dx / dist) * force * 0.04
+        p.vy -= (dy / dist) * force * 0.04
+      }
+    }
+
     p.x += p.vx
     p.y += p.vy
+    p.vx *= 0.995
+    p.vy *= 0.995
+
     if (p.x < -10) p.x = w + 10
     if (p.x > w + 10) p.x = -10
     if (p.y < -10) p.y = h + 10
@@ -99,7 +142,9 @@ function step() {
       const dist = Math.hypot(dx, dy)
       if (dist < linkDist) {
         ctx.strokeStyle = accent
-        ctx.globalAlpha = (1 - dist / linkDist) * 0.12
+        ctx.globalAlpha =
+          (1 - dist / linkDist) *
+          (preset.value.particleDensity === 'dense' ? 0.22 : 0.12)
         ctx.lineWidth = 1
         ctx.beginPath()
         ctx.moveTo(a.x, a.y)
@@ -112,6 +157,11 @@ function step() {
   ctx.globalAlpha = 1
   raf = requestAnimationFrame(step)
 }
+
+watch(
+  () => [preset.value.particleDensity, preset.value.particles],
+  () => spawn(),
+)
 
 onMounted(() => {
   resize()
@@ -134,5 +184,13 @@ onUnmounted(() => {
   z-index: 0;
   pointer-events: none;
   opacity: 0.7;
+}
+
+:global(html[data-style='max']) .particle-field {
+  opacity: 0.9;
+}
+
+:global(html[data-style='glass']) .particle-field {
+  opacity: 0.55;
 }
 </style>

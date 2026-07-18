@@ -1,12 +1,14 @@
 <template>
-  <div class="scroll-progress" aria-hidden="true">
+  <div v-if="preset.progress" class="scroll-progress" aria-hidden="true">
     <div class="scroll-progress__bar" :style="{ width: progress + '%' }"></div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import { useStylePreset } from '@/composables/useStylePreset'
 
+const { preset } = useStylePreset()
 const progress = ref(0)
 
 function update() {

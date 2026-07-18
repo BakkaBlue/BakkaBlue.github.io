@@ -1,29 +1,38 @@
 <template>
-  <div id="top" class="app-shell">
+  <div class="app-shell">
     <ParticleField />
     <FloatingShapes />
     <NoiseOverlay />
     <ScrollProgress />
-    <NavBar />
+    <CursorFx />
 
-    <main>
-      <HeroSection />
-      <SkillCards />
-      <GithubHeatmap />
-      <ProjectCards />
-      <ContactSection />
-    </main>
+    <template v-if="isSettings">
+      <SettingsPage />
+    </template>
 
-    <SiteFooter />
+    <template v-else>
+      <div id="top">
+        <NavBar />
+        <main>
+          <HeroSection />
+          <SkillCards />
+          <GithubHeatmap />
+          <ProjectCards />
+          <ContactSection />
+        </main>
+        <SiteFooter />
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, onUnmounted } from 'vue'
+import { nextTick, onMounted, onUnmounted, watch } from 'vue'
 import FloatingShapes from './components/FloatingShapes.vue'
 import ParticleField from './components/ParticleField.vue'
 import NoiseOverlay from './components/NoiseOverlay.vue'
 import ScrollProgress from './components/ScrollProgress.vue'
+import CursorFx from './components/CursorFx.vue'
 import NavBar from './components/NavBar.vue'
 import HeroSection from './components/HeroSection.vue'
 import SkillCards from './components/SkillCards.vue'
@@ -31,6 +40,13 @@ import GithubHeatmap from './components/GithubHeatmap.vue'
 import ProjectCards from './components/ProjectCards.vue'
 import ContactSection from './components/ContactSection.vue'
 import SiteFooter from './components/SiteFooter.vue'
+import SettingsPage from './components/SettingsPage.vue'
+import { useAppRoute } from './composables/useAppRoute'
+import { useStylePreset } from './composables/useStylePreset'
+
+const { isSettings } = useAppRoute()
+// boot style preset early
+useStylePreset()
 
 let observer: IntersectionObserver | null = null
 
@@ -55,6 +71,13 @@ function observeReveals() {
 onMounted(async () => {
   await nextTick()
   observeReveals()
+})
+
+watch(isSettings, async (v) => {
+  if (!v) {
+    await nextTick()
+    observeReveals()
+  }
 })
 
 onUnmounted(() => {
