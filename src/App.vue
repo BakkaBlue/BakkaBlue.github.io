@@ -13,7 +13,7 @@
     <template v-else>
       <div id="top">
         <NavBar />
-        <main>
+        <main ref="mainRef">
           <HeroSection />
           <SkillCards />
           <GithubHeatmap />
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, nextTick, onMounted, onUnmounted, watch } from 'vue'
+import { defineAsyncComponent, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import FloatingShapes from './components/FloatingShapes.vue'
 import ParticleField from './components/ParticleField.vue'
 import NoiseOverlay from './components/NoiseOverlay.vue'
@@ -49,41 +49,93 @@ const SettingsPage = defineAsyncComponent(() => import('./components/SettingsPag
 const { isSettings } = useAppRoute()
 useStylePreset()
 
-let observer: IntersectionObserver | null = null
+const mainRef = ref<HTMLElement | null>(null)
 
-function observeReveals() {
-  observer?.disconnect()
-  observer = new IntersectionObserver(
+let io: IntersectionObserver | null = null
+let mo: MutationObserver | null = null
+const observed = new WeakSet<Element>()
+
+function ensureIo() {
+  if (io) return io
+  io = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting || entry.intersectionRatio > 0) {
           entry.target.classList.add('visible')
-          observer?.unobserve(entry.target)
+          io?.unobserve(entry.target)
         }
       }
     },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+    {
+      // generous margins so late-mounted async sections still get revealed
+      threshold: [0, 0.05, 0.1],
+      rootMargin: '120px 0px 120px 0px',
+    },
   )
+  return io
+}
 
-  document.querySelectorAll('.reveal:not(.visible)').forEach((el) => {
-    observer?.observe(el)
+function observeEl(el: Element) {
+  if (!(el instanceof HTMLElement)) return
+  if (el.classList.contains('visible')) return
+  if (observed.has(el)) return
+  observed.add(el)
+  ensureIo().observe(el)
+
+  // fallback: if already in/near viewport, force visible next frame
+  requestAnimationFrame(() => {
+    const rect = el.getBoundingClientRect()
+    const vh = window.innerHeight || document.documentElement.clientHeight
+    if (rect.top < vh + 160 && rect.bottom > -160) {
+      el.classList.add('visible')
+      io?.unobserve(el)
+    }
   })
+}
+
+function scanReveals(root: ParentNode = document) {
+  root.querySelectorAll?.('.reveal:not(.visible)').forEach((el) => observeEl(el))
+}
+
+function bootRevealSystem() {
+  scanReveals()
+
+  // async components mount later — watch DOM for new .reveal nodes
+  if (!mo) {
+    mo = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        m.addedNodes.forEach((node) => {
+          if (!(node instanceof HTMLElement)) return
+          if (node.classList?.contains('reveal')) observeEl(node)
+          scanReveals(node)
+        })
+      }
+    })
+    mo.observe(document.body, { childList: true, subtree: true })
+  }
 }
 
 onMounted(async () => {
   await nextTick()
-  observeReveals()
+  bootRevealSystem()
+  // one more pass after async chunks likely resolve
+  window.setTimeout(() => scanReveals(), 0)
+  window.setTimeout(() => scanReveals(), 300)
 })
 
 watch(isSettings, async (v) => {
   if (!v) {
     await nextTick()
-    observeReveals()
+    scanReveals()
+    window.setTimeout(() => scanReveals(), 100)
   }
 })
 
 onUnmounted(() => {
-  observer?.disconnect()
+  io?.disconnect()
+  io = null
+  mo?.disconnect()
+  mo = null
 })
 </script>
 

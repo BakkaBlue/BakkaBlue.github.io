@@ -18,5 +18,8 @@ try {
   document.documentElement.dataset.style = 'quiet'
 }
 
+// mark JS boot so reveal CSS only hides when animation system is active
+document.documentElement.classList.add('js')
+
 const app = createApp(App)
 app.mount('#app')

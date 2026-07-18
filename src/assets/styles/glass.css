@@ -93,8 +93,7 @@
   padding: var(--section-padding);
   position: relative;
   z-index: 1;
-  content-visibility: auto;
-  contain-intrinsic-size: auto 520px;
+  /* note: avoid content-visibility here — it fights scroll-reveal opacity */
 }
 
 /* cheaper glass on small screens / low-power */
