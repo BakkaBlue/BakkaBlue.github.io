@@ -264,9 +264,9 @@ function resetWindows() {
   border-radius: 28px;
   border: 1px solid var(--glass-border);
   background:
-    radial-gradient(700px 320px at 20% 15%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%),
-    radial-gradient(500px 280px at 80% 70%, rgba(120, 120, 130, 0.08), transparent 55%),
-    color-mix(in srgb, var(--glass-bg) 70%, transparent);
+    radial-gradient(700px 320px at 20% 15%, rgba(255, 255, 255, 0.03), transparent 60%),
+    radial-gradient(500px 280px at 80% 70%, rgba(255, 255, 255, 0.02), transparent 55%),
+    color-mix(in srgb, var(--glass-bg) 78%, transparent);
   box-shadow: var(--shadow);
   overflow: hidden;
   backdrop-filter: blur(10px);

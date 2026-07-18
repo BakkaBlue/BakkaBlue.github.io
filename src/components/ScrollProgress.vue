@@ -47,13 +47,13 @@ onUnmounted(() => {
   height: 1px;
   z-index: 200;
   pointer-events: none;
+  opacity: 0.55;
 }
 
 .scroll-progress__bar {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0.7;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
   will-change: width;
 }
 </style>

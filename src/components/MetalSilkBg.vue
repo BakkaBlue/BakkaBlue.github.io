@@ -1,272 +1,183 @@
 <template>
-  <div class="metal-silk" aria-hidden="true">
-    <div class="silk silk-base"></div>
-    <div class="silk silk-fold-a"></div>
-    <div class="silk silk-fold-b"></div>
-    <div class="silk silk-sheen"></div>
-    <div class="silk silk-pulse"></div>
-    <div class="silk silk-vignette"></div>
+  <div class="ambient" aria-hidden="true">
+    <div class="layer base"></div>
+    <div class="layer glow glow-a"></div>
+    <div class="layer glow glow-b"></div>
+    <div class="layer glow glow-c"></div>
+    <div class="layer film"></div>
+    <div class="layer vignette"></div>
   </div>
 </template>
 
 <style scoped>
-.metal-silk {
+/*
+  Premium ambient stage — inspired by high-end product/marketing sites:
+  deep black, sparse soft light, slow drift, no glitter stripes.
+*/
+.ambient {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
   contain: strict;
+  background: #050505;
 }
 
-.silk {
+.layer {
   position: absolute;
-  inset: -20%;
-  will-change: transform, opacity, background-position;
-}
-
-/* deep graphite field with liquid metal ridges */
-.silk-base {
   inset: 0;
-  background:
-    radial-gradient(ellipse 90% 60% at 20% 30%, rgba(70, 72, 82, 0.35), transparent 58%),
-    radial-gradient(ellipse 80% 55% at 78% 68%, rgba(48, 50, 58, 0.4), transparent 55%),
-    radial-gradient(ellipse 70% 50% at 55% 20%, rgba(90, 92, 102, 0.18), transparent 60%),
-    linear-gradient(165deg, #050506 0%, #0b0b0e 45%, #070708 100%);
-  opacity: 1;
 }
 
-/*
-  satin folds: many soft silver bands, large background-size so motion feels liquid
-*/
-.silk-fold-a {
-  background: repeating-linear-gradient(
-    118deg,
-    rgba(255, 255, 255, 0) 0px,
-    rgba(255, 255, 255, 0) 42px,
-    rgba(170, 172, 182, 0.018) 58px,
-    rgba(230, 232, 240, 0.07) 72px,
-    rgba(255, 255, 255, 0.12) 78px,
-    rgba(200, 202, 212, 0.05) 86px,
-    rgba(120, 122, 132, 0.02) 100px,
-    rgba(255, 255, 255, 0) 120px,
-    rgba(255, 255, 255, 0) 170px
-  );
-  background-size: 280% 280%;
-  filter: blur(1.2px);
-  mix-blend-mode: soft-light;
+.base {
+  background:
+    radial-gradient(120% 90% at 50% -10%, #141416 0%, transparent 55%),
+    radial-gradient(90% 70% at 100% 100%, #0c0c0e 0%, transparent 50%),
+    linear-gradient(180deg, #070708 0%, #050505 48%, #040404 100%);
+}
+
+/* large, soft luminance blooms — the “expensive” look */
+.glow {
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  filter: blur(80px);
   opacity: 0.55;
-  animation: silk-flow-a 28s ease-in-out infinite;
-}
-
-.silk-fold-b {
-  background: repeating-linear-gradient(
-    48deg,
-    rgba(255, 255, 255, 0) 0px,
-    rgba(255, 255, 255, 0) 50px,
-    rgba(140, 142, 152, 0.02) 70px,
-    rgba(210, 212, 222, 0.06) 88px,
-    rgba(255, 255, 255, 0.1) 96px,
-    rgba(180, 182, 192, 0.04) 108px,
-    rgba(255, 255, 255, 0) 130px,
-    rgba(255, 255, 255, 0) 190px
-  );
-  background-size: 320% 320%;
-  filter: blur(2px);
-  mix-blend-mode: overlay;
-  opacity: 0.35;
-  animation: silk-flow-b 36s ease-in-out infinite;
-  animation-delay: -8s;
-}
-
-/* primary caustic sheen — appears and vanishes */
-.silk-sheen {
-  background:
-    linear-gradient(
-      105deg,
-      transparent 0%,
-      transparent 36%,
-      rgba(255, 255, 255, 0.01) 44%,
-      rgba(220, 222, 232, 0.08) 49%,
-      rgba(255, 255, 255, 0.16) 50.5%,
-      rgba(190, 192, 204, 0.07) 52%,
-      rgba(255, 255, 255, 0.01) 58%,
-      transparent 68%,
-      transparent 100%
-    ),
-    radial-gradient(
-      ellipse 45% 30% at 50% 50%,
-      rgba(240, 240, 248, 0.1),
-      transparent 70%
-    );
-  background-size: 180% 180%, 120% 120%;
   mix-blend-mode: screen;
-  filter: blur(0.6px);
-  opacity: 0;
-  animation: silk-sheen 18s cubic-bezier(0.45, 0.05, 0.2, 1) infinite;
+  will-change: transform, opacity;
 }
 
-/* secondary delayed bloom so the fabric “breathes” */
-.silk-pulse {
-  background:
-    radial-gradient(ellipse 55% 40% at 30% 40%, rgba(200, 202, 214, 0.09), transparent 62%),
-    radial-gradient(ellipse 50% 35% at 72% 58%, rgba(170, 172, 184, 0.07), transparent 65%);
-  mix-blend-mode: soft-light;
-  opacity: 0;
-  animation: silk-pulse 24s ease-in-out infinite;
+.glow-a {
+  top: -28vmax;
+  left: -18vmax;
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(120, 124, 138, 0.28) 0%,
+    rgba(80, 84, 96, 0.1) 38%,
+    transparent 68%
+  );
+  animation: drift-a 42s ease-in-out infinite;
+}
+
+.glow-b {
+  right: -24vmax;
+  bottom: -22vmax;
+  width: 75vmax;
+  height: 75vmax;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(96, 100, 112, 0.22) 0%,
+    rgba(60, 62, 72, 0.08) 42%,
+    transparent 70%
+  );
+  animation: drift-b 54s ease-in-out infinite;
+  animation-delay: -12s;
+  opacity: 0.45;
+}
+
+.glow-c {
+  top: 28%;
+  left: 32%;
+  width: 55vmax;
+  height: 40vmax;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(160, 164, 176, 0.08) 0%,
+    rgba(110, 114, 126, 0.03) 40%,
+    transparent 70%
+  );
+  filter: blur(90px);
+  animation: breath 26s ease-in-out infinite;
   animation-delay: -6s;
+  opacity: 0.35;
 }
 
-/* keep edges ink-black so content stays grounded */
-.silk-vignette {
-  inset: 0;
+/* microscopic grain, barely there — reads as material, not effect */
+.film {
+  opacity: 0.035;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+.vignette {
   background:
-    radial-gradient(ellipse 85% 75% at 50% 45%, transparent 35%, rgba(0, 0, 0, 0.45) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, transparent 18%, transparent 82%, rgba(0, 0, 0, 0.35) 100%);
-  opacity: 1;
+    radial-gradient(ellipse 85% 75% at 50% 40%, transparent 30%, rgba(0, 0, 0, 0.55) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, transparent 16%, transparent 84%, rgba(0, 0, 0, 0.4) 100%);
 }
 
-@keyframes silk-flow-a {
-  0% {
-    background-position: 0% 30%;
-    transform: translate3d(-2%, -1%, 0) scale(1.02) rotate(-1.5deg);
-    opacity: 0.25;
-  }
-  25% {
-    opacity: 0.7;
-  }
-  50% {
-    background-position: 55% 70%;
-    transform: translate3d(1.5%, 1%, 0) scale(1.05) rotate(1deg);
+@keyframes drift-a {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
     opacity: 0.4;
-  }
-  75% {
-    opacity: 0.75;
-  }
-  100% {
-    background-position: 100% 40%;
-    transform: translate3d(-1%, 0.5%, 0) scale(1.02) rotate(-1.5deg);
-    opacity: 0.3;
-  }
-}
-
-@keyframes silk-flow-b {
-  0% {
-    background-position: 100% 20%;
-    transform: translate3d(2%, 1%, 0) scale(1.04) rotate(2deg);
-    opacity: 0.2;
   }
   40% {
-    opacity: 0.55;
+    transform: translate3d(6%, 4%, 0) scale(1.06);
+    opacity: 0.62;
+  }
+  70% {
+    transform: translate3d(2%, 7%, 0) scale(1.03);
+    opacity: 0.35;
+  }
+}
+
+@keyframes drift-b {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.32;
+  }
+  35% {
+    transform: translate3d(-5%, -3%, 0) scale(1.05);
+    opacity: 0.5;
+  }
+  65% {
+    transform: translate3d(-2%, -6%, 0) scale(1.02);
+    opacity: 0.28;
+  }
+}
+
+@keyframes breath {
+  0%, 100% {
+    opacity: 0.12;
+    transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    background-position: 40% 80%;
-    transform: translate3d(-1.5%, -1%, 0) scale(1.06) rotate(-1deg);
-    opacity: 0.35;
-  }
-  80% {
-    opacity: 0.6;
-  }
-  100% {
-    background-position: 0% 50%;
-    transform: translate3d(1%, 0.5%, 0) scale(1.04) rotate(2deg);
-    opacity: 0.22;
-  }
-}
-
-@keyframes silk-sheen {
-  0% {
-    background-position: -30% 40%, 40% 50%;
-    opacity: 0;
-    transform: translate3d(-8%, 0, 0) rotate(6deg) scale(1.1);
-  }
-  10% {
-    opacity: 0;
-  }
-  22% {
-    opacity: 0.55;
-  }
-  38% {
-    opacity: 0.18;
-  }
-  52% {
-    background-position: 50% 55%, 55% 45%;
-    opacity: 0.65;
-    transform: translate3d(0, -2%, 0) rotate(6deg) scale(1.12);
-  }
-  68% {
-    opacity: 0.12;
-  }
-  82% {
-    opacity: 0.4;
-  }
-  100% {
-    background-position: 130% 60%, 60% 50%;
-    opacity: 0;
-    transform: translate3d(8%, 1%, 0) rotate(6deg) scale(1.1);
-  }
-}
-
-@keyframes silk-pulse {
-  0%, 100% {
-    opacity: 0.05;
-    transform: scale(1);
-  }
-  30% {
-    opacity: 0.35;
-    transform: scale(1.04);
-  }
-  55% {
-    opacity: 0.1;
-    transform: scale(1.01);
-  }
-  78% {
-    opacity: 0.28;
-    transform: scale(1.03);
+    opacity: 0.32;
+    transform: translate3d(2%, -2%, 0) scale(1.08);
   }
 }
 
 @media (max-width: 768px) {
-  .silk-fold-a,
-  .silk-fold-b {
-    filter: blur(1.5px);
-    animation-duration: 36s, 44s;
+  .glow {
+    filter: blur(60px);
   }
 
-  .silk-sheen {
-    animation-duration: 24s;
+  .glow-c {
+    display: none;
   }
 
-  .silk-fold-b {
-    opacity: 0.22;
+  .film {
+    display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .silk-fold-a,
-  .silk-fold-b,
-  .silk-sheen,
-  .silk-pulse {
+  .glow-a,
+  .glow-b,
+  .glow-c {
     animation: none !important;
   }
 
-  .silk-fold-a {
+  .glow-a {
+    opacity: 0.45;
+  }
+
+  .glow-b {
     opacity: 0.35;
-    background-position: 40% 40%;
   }
 
-  .silk-fold-b {
-    opacity: 0.2;
-    background-position: 60% 50%;
-  }
-
-  .silk-sheen {
-    opacity: 0.12;
-    background-position: 50% 50%, 50% 50%;
-  }
-
-  .silk-pulse {
-    opacity: 0.12;
+  .glow-c {
+    opacity: 0.18;
   }
 }
 </style>

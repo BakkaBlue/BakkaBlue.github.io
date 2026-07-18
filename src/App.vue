@@ -1,9 +1,6 @@
 <template>
   <div class="app-shell">
     <MetalSilkBg />
-    <ParticleField />
-    <FloatingShapes />
-    <NoiseOverlay />
     <ScrollProgress />
 
     <div id="top">
@@ -23,9 +20,6 @@
 <script setup lang="ts">
 import { defineAsyncComponent, nextTick, onMounted, onUnmounted } from 'vue'
 import MetalSilkBg from './components/MetalSilkBg.vue'
-import FloatingShapes from './components/FloatingShapes.vue'
-import ParticleField from './components/ParticleField.vue'
-import NoiseOverlay from './components/NoiseOverlay.vue'
 import ScrollProgress from './components/ScrollProgress.vue'
 import NavBar from './components/NavBar.vue'
 import HeroSection from './components/HeroSection.vue'

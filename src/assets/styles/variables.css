@@ -1,21 +1,21 @@
-/* ===== Quiet luxury black + metal silk stage ===== */
+/* ===== Quiet luxury black — premium product-site tone ===== */
 :root {
-  --bg-base: #030304;
-  --bg-gradient: linear-gradient(180deg, #030304 0%, #08080a 52%, #050506 100%);
-  --glass-bg: rgba(255, 255, 255, 0.035);
-  --glass-bg-hover: rgba(255, 255, 255, 0.055);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.14);
-  --text-primary: rgba(245, 245, 247, 0.94);
-  --text-secondary: rgba(235, 235, 240, 0.58);
-  --text-muted: rgba(235, 235, 240, 0.34);
-  --accent: #c8c8d0;
-  --accent-soft: rgba(200, 200, 208, 0.1);
-  --accent-glow: rgba(200, 200, 208, 0.16);
-  --shape-opacity: 0.045;
+  --bg-base: #050505;
+  --bg-gradient: #050505;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg-hover: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.075);
+  --glass-border-hover: rgba(255, 255, 255, 0.13);
+  --text-primary: rgba(250, 250, 250, 0.94);
+  --text-secondary: rgba(235, 235, 240, 0.56);
+  --text-muted: rgba(235, 235, 240, 0.32);
+  --accent: #d0d0d6;
+  --accent-soft: rgba(208, 208, 214, 0.09);
+  --accent-glow: rgba(208, 208, 214, 0.12);
+  --shape-opacity: 0.03;
   --shape-mix-blend: screen;
-  --shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
-  --body-bg: #030304;
+  --shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+  --body-bg: #050505;
   --font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', sans-serif;
   --max-width: 1120px;
   --section-padding: 120px 28px;
@@ -60,7 +60,7 @@ img {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  background: rgba(255, 255, 255, 0.14);
   color: #fff;
 }
 
