@@ -4,6 +4,7 @@
     <div class="layer glow glow-a"></div>
     <div class="layer glow glow-b"></div>
     <div class="layer glow glow-c"></div>
+    <div class="layer beam"></div>
     <div class="layer film"></div>
     <div class="layer vignette"></div>
   </div>
@@ -11,8 +12,8 @@
 
 <style scoped>
 /*
-  Premium ambient stage — inspired by high-end product/marketing sites:
-  deep black, sparse soft light, slow drift, no glitter stripes.
+  Premium ambient stage with readable depth:
+  still quiet/luxury, but highlights are visible at a glance.
 */
 .ambient {
   position: fixed;
@@ -31,129 +32,187 @@
 
 .base {
   background:
-    radial-gradient(120% 90% at 50% -10%, #141416 0%, transparent 55%),
-    radial-gradient(90% 70% at 100% 100%, #0c0c0e 0%, transparent 50%),
-    linear-gradient(180deg, #070708 0%, #050505 48%, #040404 100%);
+    radial-gradient(110% 85% at 50% -8%, #1c1c20 0%, transparent 52%),
+    radial-gradient(85% 70% at 100% 100%, #121216 0%, transparent 52%),
+    radial-gradient(70% 55% at 0% 80%, #101014 0%, transparent 48%),
+    linear-gradient(180deg, #0a0a0c 0%, #050505 50%, #040404 100%);
 }
 
-/* large, soft luminance blooms — the “expensive” look */
 .glow {
-  width: 70vmax;
-  height: 70vmax;
+  width: 72vmax;
+  height: 72vmax;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.55;
+  filter: blur(70px);
   mix-blend-mode: screen;
   will-change: transform, opacity;
 }
 
+/* primary highlight — top-left, clearly brighter */
 .glow-a {
-  top: -28vmax;
-  left: -18vmax;
+  top: -26vmax;
+  left: -16vmax;
   background: radial-gradient(
-    circle at 40% 40%,
-    rgba(120, 124, 138, 0.28) 0%,
-    rgba(80, 84, 96, 0.1) 38%,
-    transparent 68%
+    circle at 42% 40%,
+    rgba(210, 214, 228, 0.42) 0%,
+    rgba(150, 156, 176, 0.18) 32%,
+    rgba(90, 94, 110, 0.06) 55%,
+    transparent 72%
   );
-  animation: drift-a 42s ease-in-out infinite;
+  opacity: 0.85;
+  animation: drift-a 36s ease-in-out infinite;
 }
 
+/* secondary counter-light — bottom-right */
 .glow-b {
-  right: -24vmax;
-  bottom: -22vmax;
-  width: 75vmax;
-  height: 75vmax;
+  right: -22vmax;
+  bottom: -20vmax;
+  width: 78vmax;
+  height: 78vmax;
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(96, 100, 112, 0.22) 0%,
-    rgba(60, 62, 72, 0.08) 42%,
-    transparent 70%
+    rgba(170, 176, 196, 0.28) 0%,
+    rgba(110, 116, 136, 0.12) 36%,
+    rgba(70, 74, 88, 0.05) 58%,
+    transparent 74%
   );
-  animation: drift-b 54s ease-in-out infinite;
-  animation-delay: -12s;
-  opacity: 0.45;
+  opacity: 0.7;
+  animation: drift-b 48s ease-in-out infinite;
+  animation-delay: -10s;
 }
 
+/* center breath — keeps mid canvas from going flat black */
 .glow-c {
-  top: 28%;
-  left: 32%;
-  width: 55vmax;
-  height: 40vmax;
+  top: 22%;
+  left: 28%;
+  width: 58vmax;
+  height: 42vmax;
   background: radial-gradient(
     ellipse at center,
-    rgba(160, 164, 176, 0.08) 0%,
-    rgba(110, 114, 126, 0.03) 40%,
-    transparent 70%
+    rgba(200, 204, 220, 0.16) 0%,
+    rgba(130, 136, 156, 0.06) 42%,
+    transparent 72%
   );
-  filter: blur(90px);
-  animation: breath 26s ease-in-out infinite;
-  animation-delay: -6s;
-  opacity: 0.35;
+  filter: blur(80px);
+  opacity: 0.55;
+  animation: breath 22s ease-in-out infinite;
+  animation-delay: -5s;
 }
 
-/* microscopic grain, barely there — reads as material, not effect */
+/* soft diagonal metal-silk highlight, intermittent but readable */
+.beam {
+  background: linear-gradient(
+    118deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(255, 255, 255, 0.015) 46%,
+    rgba(220, 224, 236, 0.08) 50%,
+    rgba(255, 255, 255, 0.015) 54%,
+    transparent 62%,
+    transparent 100%
+  );
+  background-size: 220% 220%;
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  animation: beam-sweep 20s cubic-bezier(0.4, 0.05, 0.2, 1) infinite;
+  filter: blur(1px);
+}
+
 .film {
-  opacity: 0.035;
+  opacity: 0.04;
   mix-blend-mode: soft-light;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   background-size: 180px 180px;
 }
 
+/* lighter vignette so highlights remain visible */
 .vignette {
   background:
-    radial-gradient(ellipse 85% 75% at 50% 40%, transparent 30%, rgba(0, 0, 0, 0.55) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, transparent 16%, transparent 84%, rgba(0, 0, 0, 0.4) 100%);
+    radial-gradient(ellipse 90% 80% at 50% 42%, transparent 42%, rgba(0, 0, 0, 0.38) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, transparent 14%, transparent 86%, rgba(0, 0, 0, 0.28) 100%);
 }
 
 @keyframes drift-a {
   0%, 100% {
     transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.4;
+    opacity: 0.7;
   }
   40% {
-    transform: translate3d(6%, 4%, 0) scale(1.06);
-    opacity: 0.62;
+    transform: translate3d(5%, 3%, 0) scale(1.05);
+    opacity: 0.95;
   }
   70% {
-    transform: translate3d(2%, 7%, 0) scale(1.03);
-    opacity: 0.35;
+    transform: translate3d(2%, 6%, 0) scale(1.02);
+    opacity: 0.62;
   }
 }
 
 @keyframes drift-b {
   0%, 100% {
     transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.32;
+    opacity: 0.55;
   }
   35% {
-    transform: translate3d(-5%, -3%, 0) scale(1.05);
-    opacity: 0.5;
+    transform: translate3d(-4%, -3%, 0) scale(1.04);
+    opacity: 0.82;
   }
   65% {
-    transform: translate3d(-2%, -6%, 0) scale(1.02);
-    opacity: 0.28;
+    transform: translate3d(-2%, -5%, 0) scale(1.02);
+    opacity: 0.5;
   }
 }
 
 @keyframes breath {
   0%, 100% {
-    opacity: 0.12;
+    opacity: 0.28;
     transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    opacity: 0.32;
-    transform: translate3d(2%, -2%, 0) scale(1.08);
+    opacity: 0.62;
+    transform: translate3d(2%, -2%, 0) scale(1.07);
+  }
+}
+
+@keyframes beam-sweep {
+  0% {
+    background-position: 0% 40%;
+    opacity: 0;
+  }
+  14% {
+    opacity: 0.15;
+  }
+  28% {
+    opacity: 0.55;
+  }
+  42% {
+    opacity: 0.18;
+  }
+  58% {
+    background-position: 55% 55%;
+    opacity: 0.62;
+  }
+  74% {
+    opacity: 0.12;
+  }
+  88% {
+    opacity: 0.35;
+  }
+  100% {
+    background-position: 100% 60%;
+    opacity: 0;
   }
 }
 
 @media (max-width: 768px) {
   .glow {
-    filter: blur(60px);
+    filter: blur(55px);
   }
 
   .glow-c {
-    display: none;
+    opacity: 0.4;
+  }
+
+  .beam {
+    animation-duration: 26s;
   }
 
   .film {
@@ -164,20 +223,17 @@
 @media (prefers-reduced-motion: reduce) {
   .glow-a,
   .glow-b,
-  .glow-c {
+  .glow-c,
+  .beam {
     animation: none !important;
   }
 
-  .glow-a {
-    opacity: 0.45;
-  }
-
-  .glow-b {
-    opacity: 0.35;
-  }
-
-  .glow-c {
-    opacity: 0.18;
+  .glow-a { opacity: 0.85; }
+  .glow-b { opacity: 0.65; }
+  .glow-c { opacity: 0.45; }
+  .beam {
+    opacity: 0.22;
+    background-position: 50% 50%;
   }
 }
 </style>
