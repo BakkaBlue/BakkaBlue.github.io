@@ -1,7 +1,7 @@
 <template>
   <nav class="nav-bar" :class="{ scrolled: isScrolled }">
     <div class="nav-inner">
-      <a href="#top" class="nav-brand">Cyren</a>
+      <a href="#top" class="nav-brand">Cyan</a>
       <div class="nav-links">
         <a v-for="item in links" :key="item.href" :href="item.href" class="nav-link">{{ item.label }}</a>
       </div>
@@ -26,7 +26,6 @@ const isScrolled = ref(false)
 
 const links = [
   { label: '技能', href: '#skills' },
-  { label: '关于', href: '#about' },
   { label: 'GitHub', href: '#github' },
   { label: '项目', href: '#projects' },
   { label: '联系', href: '#contact' },
