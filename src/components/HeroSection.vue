@@ -140,7 +140,8 @@
         </p>
         <div class="dock-actions">
           <a href="#projects" class="glass-btn">进入项目</a>
-          <a href="#github" class="dock-link">GitHub 热力图</a>
+          <a href="/blog" class="dock-link" @click.prevent="goBlog">博客</a>
+          <a href="#github" class="dock-link">GitHub</a>
           <button type="button" class="dock-link" @click="resetWindows">重置窗口</button>
         </div>
       </div>
@@ -152,6 +153,9 @@
 import { computed, ref } from 'vue'
 import TerminalWindow from './TerminalWindow.vue'
 import { useTerminalLines, type TermLine } from '@/composables/useTerminalLines'
+import { useAppRoute } from '@/composables/useAppRoute'
+
+const { goBlog } = useAppRoute()
 const winIntro = ref<{ setFocus: (v: boolean) => void; resetPosition: () => void } | null>(null)
 const winAi = ref<{ setFocus: (v: boolean) => void; resetPosition: () => void } | null>(null)
 const winStatus = ref<{ setFocus: (v: boolean) => void; resetPosition: () => void } | null>(null)

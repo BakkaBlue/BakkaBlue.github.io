@@ -5,30 +5,47 @@
 
     <div id="top">
       <NavBar />
-      <main>
+
+      <main v-if="isHome">
         <HeroSection />
         <SkillCards />
         <GithubHeatmap />
         <ProjectCards />
+        <BlogSection />
         <ContactSection />
       </main>
+
+      <main v-else-if="isBlog">
+        <BlogListPage />
+      </main>
+
+      <main v-else-if="isBlogPost">
+        <BlogPostPage :slug="blogSlug" />
+      </main>
+
       <SiteFooter />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, nextTick, onMounted, onUnmounted } from 'vue'
+import { defineAsyncComponent, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import MetalSilkBg from './components/MetalSilkBg.vue'
 import ScrollProgress from './components/ScrollProgress.vue'
 import NavBar from './components/NavBar.vue'
 import HeroSection from './components/HeroSection.vue'
+import { useAppRoute } from './composables/useAppRoute'
 
 const SkillCards = defineAsyncComponent(() => import('./components/SkillCards.vue'))
 const GithubHeatmap = defineAsyncComponent(() => import('./components/GithubHeatmap.vue'))
 const ProjectCards = defineAsyncComponent(() => import('./components/ProjectCards.vue'))
+const BlogSection = defineAsyncComponent(() => import('./components/BlogSection.vue'))
 const ContactSection = defineAsyncComponent(() => import('./components/ContactSection.vue'))
 const SiteFooter = defineAsyncComponent(() => import('./components/SiteFooter.vue'))
+const BlogListPage = defineAsyncComponent(() => import('./components/BlogListPage.vue'))
+const BlogPostPage = defineAsyncComponent(() => import('./components/BlogPostPage.vue'))
+
+const { isHome, isBlog, isBlogPost, blogSlug } = useAppRoute()
 
 let io: IntersectionObserver | null = null
 let mo: MutationObserver | null = null
@@ -90,11 +107,24 @@ function bootRevealSystem() {
   }
 }
 
+function syncTitle() {
+  if (isHome.value) document.title = 'Cyan · 个人主页'
+  else if (isBlog.value) document.title = '博客 · Cyan'
+}
+
 onMounted(async () => {
   await nextTick()
   bootRevealSystem()
+  syncTitle()
   window.setTimeout(() => scanReveals(), 0)
   window.setTimeout(() => scanReveals(), 300)
+})
+
+watch([isHome, isBlog, isBlogPost], async () => {
+  syncTitle()
+  await nextTick()
+  scanReveals()
+  window.setTimeout(() => scanReveals(), 100)
 })
 
 onUnmounted(() => {

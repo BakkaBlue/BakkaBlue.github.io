@@ -1,28 +1,70 @@
 <template>
   <nav class="nav-bar" :class="{ scrolled: isScrolled }">
     <div class="nav-inner">
-      <a href="#top" class="nav-brand">Cyan</a>
+      <a href="/" class="nav-brand" @click.prevent="onBrand">Cyan</a>
       <div class="nav-links">
-        <a v-for="item in links" :key="item.href" :href="item.href" class="nav-link">{{ item.label }}</a>
+        <a
+          v-for="item in links"
+          :key="item.href + item.label"
+          :href="item.href"
+          class="nav-link"
+          @click="onLinkClick($event, item)"
+        >{{ item.label }}</a>
       </div>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { useAppRoute } from '@/composables/useAppRoute'
 
+const { isHome, goHome, goBlog } = useAppRoute()
 const isScrolled = ref(false)
 
-const links = [
-  { label: '技能', href: '#skills' },
-  { label: 'GitHub', href: '#github' },
-  { label: '项目', href: '#projects' },
-  { label: '联系', href: '#contact' },
+const homeLinks = [
+  { label: '技能', href: '#skills', kind: 'hash' as const },
+  { label: 'GitHub', href: '#github', kind: 'hash' as const },
+  { label: '项目', href: '#projects', kind: 'hash' as const },
+  { label: '博客', href: '/blog', kind: 'blog' as const },
+  { label: '联系', href: '#contact', kind: 'hash' as const },
 ]
+
+const otherLinks = [
+  { label: '主页', href: '/', kind: 'home' as const },
+  { label: '博客', href: '/blog', kind: 'blog' as const },
+]
+
+const links = computed(() => (isHome.value ? homeLinks : otherLinks))
 
 function onScroll() {
   isScrolled.value = window.scrollY > 24
+}
+
+function onBrand() {
+  goHome()
+}
+
+function onLinkClick(e: Event, item: { kind: string; href: string }) {
+  if (item.kind === 'blog') {
+    e.preventDefault()
+    goBlog()
+    return
+  }
+  if (item.kind === 'home') {
+    e.preventDefault()
+    goHome()
+    return
+  }
+  // hash links: if not on home, go home first then scroll
+  if (item.kind === 'hash' && !isHome.value) {
+    e.preventDefault()
+    goHome()
+    window.setTimeout(() => {
+      const id = item.href.slice(1)
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    }, 50)
+  }
 }
 
 onMounted(() => {
