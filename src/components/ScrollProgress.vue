@@ -1,6 +1,6 @@
 <template>
   <div v-if="preset.progress" class="scroll-progress" aria-hidden="true">
-    <div class="scroll-progress__bar" :style="{ width: progress + '%' }"></div>
+    <div ref="barRef" class="scroll-progress__bar"></div>
   </div>
 </template>
 
@@ -9,24 +9,35 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import { useStylePreset } from '@/composables/useStylePreset'
 
 const { preset } = useStylePreset()
-const progress = ref(0)
+const barRef = ref<HTMLElement | null>(null)
+let ticking = false
 
 function update() {
+  ticking = false
+  const bar = barRef.value
+  if (!bar) return
   const doc = document.documentElement
   const scrollTop = window.scrollY || doc.scrollTop
   const max = Math.max(1, doc.scrollHeight - window.innerHeight)
-  progress.value = Math.min(100, (scrollTop / max) * 100)
+  const pct = Math.min(100, (scrollTop / max) * 100)
+  bar.style.width = pct + '%'
+}
+
+function onScroll() {
+  if (ticking) return
+  ticking = true
+  requestAnimationFrame(update)
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', update, { passive: true })
-  window.addEventListener('resize', update, { passive: true })
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onScroll, { passive: true })
   update()
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', update)
-  window.removeEventListener('resize', update)
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('resize', onScroll)
 })
 </script>
 
@@ -46,6 +57,6 @@ onUnmounted(() => {
   width: 0%;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
   box-shadow: 0 0 12px var(--accent-glow);
-  transition: width 0.08s linear;
+  will-change: width;
 }
 </style>

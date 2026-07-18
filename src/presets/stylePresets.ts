@@ -53,7 +53,7 @@ export const STYLE_PRESETS: Record<StylePresetId, StylePreset> = {
     id: 'max',
     name: '超级无敌特效',
     tagline: 'Maximum Flair',
-    description: '密粒子、磁吸光标、更强光斑与噪声。能炫就炫。',
+    description: '更密粒子、磁吸光标、更强光斑与噪声（已限流保帧）。',
     particles: true,
     particleDensity: 'dense',
     particlePointer: true,

@@ -17,12 +17,13 @@
 .shape {
   position: fixed;
   border-radius: 50%;
-  filter: blur(110px);
+  filter: blur(90px);
   opacity: var(--shape-opacity);
   mix-blend-mode: var(--shape-mix-blend);
   pointer-events: none;
   z-index: 0;
-  will-change: transform;
+  /* avoid permanent will-change — only promote while animating via compositor */
+  transform: translateZ(0);
 }
 
 .shape-1 {

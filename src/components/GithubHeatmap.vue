@@ -1,5 +1,5 @@
 <template>
-  <section id="github" class="section">
+  <section id="github" class="section" ref="sectionRef">
     <div class="section-inner">
       <header class="section-header heatmap-header">
         <div>
@@ -18,7 +18,9 @@
       </header>
 
       <div class="heatmap-panel glass-card reveal">
-        <div v-if="loading" class="heatmap-state">正在加载贡献数据…</div>
+        <div v-if="!activated || loading" class="heatmap-state">
+          {{ activated ? '正在加载贡献数据…' : '滚动到此处加载…' }}
+        </div>
 
         <div v-else-if="error && !useFallback" class="heatmap-state">
           暂时无法拉取热力图，
@@ -30,6 +32,7 @@
             :src="fallbackSrc"
             :alt="`${username} GitHub contributions`"
             loading="lazy"
+            decoding="async"
             class="fallback-img"
           />
         </div>
@@ -51,15 +54,12 @@
           </div>
 
           <div class="heatmap-scroll" ref="scrollRef">
-            <div class="heatmap-grid" :style="gridStyle">
-              <div
-                v-for="cell in cells"
-                :key="cell.date"
-                class="cell"
-                :class="'lv-' + cell.level"
-                :title="tooltip(cell)"
-              ></div>
-            </div>
+            <canvas
+              ref="canvasRef"
+              class="heatmap-canvas"
+              role="img"
+              :aria-label="`${totalContributions} contributions in the last year`"
+            ></canvas>
           </div>
 
           <div class="heatmap-legend">
@@ -78,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 
 interface DayCell {
   date: string
@@ -87,28 +87,26 @@ interface DayCell {
 }
 
 const username = 'BakkaBlue'
-const loading = ref(true)
+const CACHE_KEY = `cyan-gh-contrib-${username}-last`
+const CACHE_TTL = 6 * 60 * 60 * 1000 // 6h
+
+const sectionRef = ref<HTMLElement | null>(null)
+const canvasRef = ref<HTMLCanvasElement | null>(null)
+const scrollRef = ref<HTMLElement | null>(null)
+
+const activated = ref(false)
+const loading = ref(false)
 const error = ref(false)
 const useFallback = ref(false)
 const cells = ref<DayCell[]>([])
 const totalContributions = ref(0)
 const activeDays = ref(0)
 const maxStreak = ref(0)
-const scrollRef = ref<HTMLElement | null>(null)
 
-const weeks = computed(() => Math.max(1, Math.ceil(cells.value.length / 7)))
-const gridStyle = computed(() => ({
-  gridTemplateColumns: `repeat(${weeks.value}, 11px)`,
-}))
+const fallbackSrc = `https://ghchart.rshah.org/8eb6ff/${username}`
 
-const fallbackSrc = computed(
-  () => `https://ghchart.rshah.org/8eb6ff/${username}`,
-)
-
-function tooltip(cell: DayCell) {
-  const label = cell.count === 1 ? 'contribution' : 'contributions'
-  return `${cell.count} ${label} on ${cell.date}`
-}
+const CELL = 11
+const GAP = 3
 
 function levelFromCount(count: number) {
   if (count <= 0) return 0
@@ -132,10 +130,107 @@ function computeStreak(days: DayCell[]) {
   return best
 }
 
+function readCache(): DayCell[] | null {
+  try {
+    const raw = sessionStorage.getItem(CACHE_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as { t: number; cells: DayCell[] }
+    if (Date.now() - parsed.t > CACHE_TTL) return null
+    return parsed.cells
+  } catch {
+    return null
+  }
+}
+
+function writeCache(list: DayCell[]) {
+  try {
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), cells: list }))
+  } catch {
+    /* ignore quota */
+  }
+}
+
+function parseAccent(): { r: number; g: number; b: number } {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()
+  // #rrggbb
+  if (raw.startsWith('#') && raw.length >= 7) {
+    return {
+      r: parseInt(raw.slice(1, 3), 16),
+      g: parseInt(raw.slice(3, 5), 16),
+      b: parseInt(raw.slice(5, 7), 16),
+    }
+  }
+  return { r: 142, g: 182, b: 255 }
+}
+
+function paint() {
+  const canvas = canvasRef.value
+  if (!canvas || !cells.value.length) return
+
+  const weeks = Math.ceil(cells.value.length / 7)
+  const cssW = weeks * (CELL + GAP) - GAP
+  const cssH = 7 * (CELL + GAP) - GAP
+  const dpr = Math.min(window.devicePixelRatio || 1, 2)
+
+  canvas.width = Math.floor(cssW * dpr)
+  canvas.height = Math.floor(cssH * dpr)
+  canvas.style.width = `${cssW}px`
+  canvas.style.height = `${cssH}px`
+
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+  ctx.clearRect(0, 0, cssW, cssH)
+
+  const { r, g, b } = parseAccent()
+  const alphas = [0.045, 0.22, 0.4, 0.62, 0.88]
+
+  // data is typically chronological Mon-Sun columns
+  for (let i = 0; i < cells.value.length; i++) {
+    const week = (i / 7) | 0
+    const day = i % 7
+    const level = cells.value[i].level
+    const x = week * (CELL + GAP)
+    const y = day * (CELL + GAP)
+    if (level <= 0) {
+      ctx.fillStyle = 'rgba(255,255,255,0.045)'
+    } else {
+      ctx.fillStyle = `rgba(${r},${g},${b},${alphas[level]})`
+    }
+    // rounded rect-ish via path for small cost, or simple rect
+    ctx.beginPath()
+    const rr = 2
+    ctx.moveTo(x + rr, y)
+    ctx.arcTo(x + CELL, y, x + CELL, y + CELL, rr)
+    ctx.arcTo(x + CELL, y + CELL, x, y + CELL, rr)
+    ctx.arcTo(x, y + CELL, x, y, rr)
+    ctx.arcTo(x, y, x + CELL, y, rr)
+    ctx.closePath()
+    ctx.fill()
+  }
+}
+
+function applyCells(mapped: DayCell[]) {
+  cells.value = mapped
+  totalContributions.value = mapped.reduce((sum, d) => sum + d.count, 0)
+  activeDays.value = mapped.filter((d) => d.count > 0).length
+  maxStreak.value = computeStreak(mapped)
+}
+
 async function load() {
   loading.value = true
   error.value = false
   useFallback.value = false
+
+  const cached = readCache()
+  if (cached?.length) {
+    applyCells(cached)
+    loading.value = false
+    await nextTick()
+    paint()
+    if (scrollRef.value) scrollRef.value.scrollLeft = scrollRef.value.scrollWidth
+    // still refresh in background
+  }
 
   try {
     const res = await fetch(
@@ -155,30 +250,60 @@ async function load() {
       date: d.date,
       count: d.count ?? 0,
       level:
-        typeof d.level === 'number' ? Math.min(4, Math.max(0, d.level)) : levelFromCount(d.count ?? 0),
+        typeof d.level === 'number'
+          ? Math.min(4, Math.max(0, d.level))
+          : levelFromCount(d.count ?? 0),
     }))
 
     if (!mapped.length) throw new Error('empty contributions')
 
-    cells.value = mapped
-    totalContributions.value = mapped.reduce((sum, d) => sum + d.count, 0)
-    activeDays.value = mapped.filter((d) => d.count > 0).length
-    maxStreak.value = computeStreak(mapped)
+    applyCells(mapped)
+    writeCache(mapped)
     loading.value = false
-
     await nextTick()
-    if (scrollRef.value) {
-      scrollRef.value.scrollLeft = scrollRef.value.scrollWidth
-    }
+    paint()
+    if (scrollRef.value) scrollRef.value.scrollLeft = scrollRef.value.scrollWidth
   } catch {
-    // graceful fallback to public SVG chart
-    useFallback.value = true
-    error.value = true
+    if (!cells.value.length) {
+      useFallback.value = true
+      error.value = true
+    }
     loading.value = false
   }
 }
 
-onMounted(load)
+let io: IntersectionObserver | null = null
+let mo: MutationObserver | null = null
+
+onMounted(() => {
+  // lazy-activate when near viewport
+  io = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        activated.value = true
+        load()
+        io?.disconnect()
+        io = null
+      }
+    },
+    { rootMargin: '200px 0px' },
+  )
+  if (sectionRef.value) io.observe(sectionRef.value)
+
+  // repaint on theme change
+  mo = new MutationObserver(() => {
+    if (cells.value.length) paint()
+  })
+  mo.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme', 'data-style'],
+  })
+})
+
+onUnmounted(() => {
+  io?.disconnect()
+  mo?.disconnect()
+})
 </script>
 
 <style scoped>
@@ -265,14 +390,10 @@ onMounted(load)
   scrollbar-color: color-mix(in srgb, var(--accent) 30%, transparent) transparent;
 }
 
-.heatmap-grid {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(7, 11px);
-  gap: 3px;
-  width: max-content;
+.heatmap-canvas {
+  display: block;
   min-height: 95px;
-  padding: 2px 4px 6px;
+  margin: 2px 4px 6px;
 }
 
 .cell {
@@ -286,10 +407,7 @@ onMounted(load)
 .lv-1 { background: color-mix(in srgb, var(--accent) 22%, rgba(255,255,255,0.04)); }
 .lv-2 { background: color-mix(in srgb, var(--accent) 40%, rgba(255,255,255,0.04)); }
 .lv-3 { background: color-mix(in srgb, var(--accent) 62%, rgba(255,255,255,0.04)); }
-.lv-4 {
-  background: color-mix(in srgb, var(--accent) 88%, white 8%);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--accent-glow) 70%, transparent);
-}
+.lv-4 { background: color-mix(in srgb, var(--accent) 88%, white 8%); }
 
 .heatmap-legend {
   display: flex;
@@ -314,7 +432,6 @@ onMounted(load)
 .fallback-img {
   width: min(100%, 820px);
   height: auto;
-  filter: saturate(0.9) contrast(1.05);
   opacity: 0.95;
 }
 

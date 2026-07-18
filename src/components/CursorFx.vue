@@ -1,13 +1,12 @@
 <template>
-  <div v-if="enabled" class="cursor-fx" aria-hidden="true">
-    <div class="cursor-core" :style="coreStyle"></div>
-    <div class="cursor-ring" :style="ringStyle"></div>
-    <div class="cursor-trail" v-for="(t, i) in trail" :key="i" :style="t"></div>
+  <div v-show="enabled" ref="rootRef" class="cursor-fx" aria-hidden="true">
+    <div ref="coreRef" class="cursor-core"></div>
+    <div ref="ringRef" class="cursor-ring"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { usePointer } from '@/composables/usePointer'
 import { usePrefersReducedMotion } from '@/composables/usePrefersReducedMotion'
 import { useStylePreset } from '@/composables/useStylePreset'
@@ -15,44 +14,74 @@ import { useStylePreset } from '@/composables/useStylePreset'
 const pointer = usePointer()
 const { reduced } = usePrefersReducedMotion()
 const { preset } = useStylePreset()
+
 const enabled = ref(false)
-const smooth = reactive({ x: 0, y: 0 })
-const trail = ref<Array<Record<string, string>>>([])
+const rootRef = ref<HTMLElement | null>(null)
+const coreRef = ref<HTMLElement | null>(null)
+const ringRef = ref<HTMLElement | null>(null)
+
 let raf = 0
-
-const coreStyle = computed(() => ({
-  transform: `translate3d(${pointer.x}px, ${pointer.y}px, 0)`,
-  opacity: pointer.active ? '1' : '0',
-}))
-
-const ringStyle = computed(() => ({
-  transform: `translate3d(${smooth.x}px, ${smooth.y}px, 0)`,
-  opacity: pointer.active ? '1' : '0',
-}))
+let running = false
+let smoothX = 0
+let smoothY = 0
 
 function updateEnabled() {
   const fine = window.matchMedia('(pointer: fine)').matches
-  enabled.value = fine && !reduced.value && preset.value.cursor
-  document.documentElement.classList.toggle('has-custom-cursor', enabled.value)
+  const next = fine && !reduced.value && preset.value.cursor
+  enabled.value = next
+  document.documentElement.classList.toggle('has-custom-cursor', next)
+  if (next) start()
+  else stop()
 }
 
 function loop() {
-  if (enabled.value && !reduced.value) {
-    smooth.x += (pointer.x - smooth.x) * 0.18
-    smooth.y += (pointer.y - smooth.y) * 0.18
+  raf = 0
+  if (!running || !enabled.value) return
 
-    const speed = Math.min(1, Math.hypot(pointer.vx, pointer.vy) / 40)
-    if (pointer.active && speed > 0.08) {
-      trail.value.unshift({
-        transform: `translate3d(${pointer.x}px, ${pointer.y}px, 0) scale(${0.4 + speed})`,
-        opacity: String(0.35 * speed),
-      })
-      if (trail.value.length > 10) trail.value.pop()
-    } else if (trail.value.length) {
-      trail.value = trail.value.slice(0, -1)
-    }
+  const core = coreRef.value
+  const ring = ringRef.value
+  if (!core || !ring) {
+    schedule()
+    return
   }
+
+  smoothX += (pointer.x - smoothX) * 0.18
+  smoothY += (pointer.y - smoothY) * 0.18
+
+  const opacity = pointer.active ? '1' : '0'
+  // direct DOM writes — no Vue reactive trail re-renders
+  core.style.transform = `translate3d(${pointer.x}px, ${pointer.y}px, 0)`
+  core.style.opacity = opacity
+  ring.style.transform = `translate3d(${smoothX}px, ${smoothY}px, 0)`
+  ring.style.opacity = opacity
+
+  schedule()
+}
+
+function schedule() {
+  if (!running || raf) return
   raf = requestAnimationFrame(loop)
+}
+
+function start() {
+  if (running || !enabled.value) return
+  running = true
+  smoothX = pointer.x
+  smoothY = pointer.y
+  schedule()
+}
+
+function stop() {
+  running = false
+  if (raf) {
+    cancelAnimationFrame(raf)
+    raf = 0
+  }
+}
+
+function onVisibility() {
+  if (document.hidden) stop()
+  else if (enabled.value) start()
 }
 
 watch(
@@ -62,11 +91,12 @@ watch(
 
 onMounted(() => {
   updateEnabled()
-  raf = requestAnimationFrame(loop)
+  document.addEventListener('visibilitychange', onVisibility)
 })
 
 onUnmounted(() => {
-  cancelAnimationFrame(raf)
+  stop()
+  document.removeEventListener('visibilitychange', onVisibility)
   document.documentElement.classList.remove('has-custom-cursor')
 })
 </script>
@@ -77,17 +107,18 @@ onUnmounted(() => {
   inset: 0;
   pointer-events: none;
   z-index: 9999;
+  contain: strict;
 }
 
 .cursor-core,
-.cursor-ring,
-.cursor-trail {
+.cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
   border-radius: 50%;
-  will-change: transform, opacity;
   pointer-events: none;
+  will-change: transform;
+  opacity: 0;
 }
 
 .cursor-core {
@@ -95,7 +126,7 @@ onUnmounted(() => {
   height: 8px;
   margin: -4px 0 0 -4px;
   background: var(--accent);
-  box-shadow: 0 0 18px var(--accent-glow), 0 0 40px var(--accent-glow);
+  box-shadow: 0 0 18px var(--accent-glow);
 }
 
 .cursor-ring {
@@ -103,15 +134,10 @@ onUnmounted(() => {
   height: 40px;
   margin: -20px 0 0 -20px;
   border: 1px solid color-mix(in srgb, var(--accent) 70%, transparent);
-  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent), transparent 70%);
-  transition: opacity 0.2s ease;
-}
-
-.cursor-trail {
-  width: 14px;
-  height: 14px;
-  margin: -7px 0 0 -7px;
-  background: color-mix(in srgb, var(--accent) 55%, transparent);
-  filter: blur(1px);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent) 16%, transparent),
+    transparent 70%
+  );
 }
 </style>

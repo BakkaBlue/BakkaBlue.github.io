@@ -100,7 +100,8 @@ html[data-theme='dark'] {
 body {
   font-family: var(--font-family);
   background: var(--bg-gradient);
-  background-attachment: fixed;
+  /* fixed attachment is expensive on mobile scroll — only desktop */
+  background-attachment: scroll;
   color: var(--text-primary);
   line-height: 1.7;
   min-height: 100vh;
@@ -108,6 +109,12 @@ body {
   transition: color 0.45s ease;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  body {
+    background-attachment: fixed;
+  }
 }
 
 a {

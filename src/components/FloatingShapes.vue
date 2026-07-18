@@ -25,6 +25,7 @@ const { preset } = useStylePreset()
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
+  contain: strict;
 }
 
 .floating-shapes.max .shape {
@@ -33,7 +34,23 @@ const { preset } = useStylePreset()
 }
 
 .floating-shapes.glass .shape {
-  filter: blur(130px);
+  filter: blur(120px);
   opacity: calc(var(--shape-opacity) * 0.85);
+}
+
+@media (max-width: 768px) {
+  .floating-shapes .shape {
+    filter: blur(70px);
+  }
+
+  .floating-shapes .shape-4 {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-shapes .shape {
+    animation: none !important;
+  }
 }
 </style>

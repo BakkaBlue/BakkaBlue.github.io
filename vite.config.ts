@@ -12,5 +12,9 @@ export default defineConfig({
   base: '/',
   build: {
     outDir: 'dist',
+    target: 'es2020',
+    cssCodeSplit: true,
+    modulePreload: { polyfill: false },
+    reportCompressedSize: false,
   },
 })
