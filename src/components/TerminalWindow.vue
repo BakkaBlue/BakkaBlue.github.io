@@ -190,10 +190,12 @@ defineExpose({
   cursor: text;
 }
 
-.term.cyan .term-body { --term-accent: #7dd3fc; }
-.term.violet .term-body { --term-accent: #c4b5fd; }
-.term.emerald .term-body { --term-accent: #6ee7b7; }
-.term.amber .term-body { --term-accent: #fcd34d; }
+.term.cyan .term-body,
+.term.violet .term-body,
+.term.emerald .term-body,
+.term.amber .term-body {
+  --term-accent: var(--accent);
+}
 
 @media (max-width: 720px) {
   .term {

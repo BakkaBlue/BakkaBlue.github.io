@@ -103,7 +103,7 @@ const totalContributions = ref(0)
 const activeDays = ref(0)
 const maxStreak = ref(0)
 
-const fallbackSrc = `https://ghchart.rshah.org/8eb6ff/${username}`
+const fallbackSrc = `https://ghchart.rshah.org/c8c8d0/${username}`
 
 const CELL = 11
 const GAP = 3
@@ -160,7 +160,7 @@ function parseAccent(): { r: number; g: number; b: number } {
       b: parseInt(raw.slice(5, 7), 16),
     }
   }
-  return { r: 142, g: 182, b: 255 }
+  return { r: 200, g: 200, b: 208 }
 }
 
 function paint() {
@@ -296,7 +296,7 @@ onMounted(() => {
   })
   mo.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ['data-theme', 'data-style'],
+    attributeFilter: ['data-theme'],
   })
 })
 

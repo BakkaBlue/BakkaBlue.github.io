@@ -264,8 +264,8 @@ function resetWindows() {
   border-radius: 28px;
   border: 1px solid var(--glass-border);
   background:
-    radial-gradient(700px 320px at 20% 15%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 60%),
-    radial-gradient(500px 280px at 80% 70%, rgba(124, 106, 214, 0.12), transparent 55%),
+    radial-gradient(700px 320px at 20% 15%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%),
+    radial-gradient(500px 280px at 80% 70%, rgba(120, 120, 130, 0.08), transparent 55%),
     color-mix(in srgb, var(--glass-bg) 70%, transparent);
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -291,13 +291,13 @@ function resetWindows() {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #6ee7b7;
-  box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.45);
+  background: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent-glow);
   animation: live 2s ease-out infinite;
 }
 
 @keyframes live {
-  0% { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.45); }
+  0% { box-shadow: 0 0 0 0 var(--accent-glow); }
   70% { box-shadow: 0 0 0 8px transparent; }
   100% { box-shadow: 0 0 0 0 transparent; }
 }
@@ -321,7 +321,7 @@ function resetWindows() {
 }
 
 .line.ok {
-  color: color-mix(in srgb, #6ee7b7 80%, white 10%);
+  color: color-mix(in srgb, var(--accent) 75%, white 20%);
 }
 
 .line.dim {
@@ -329,16 +329,16 @@ function resetWindows() {
 }
 
 .line.ai {
-  color: color-mix(in srgb, var(--term-accent, var(--accent)) 85%, white 10%);
+  color: color-mix(in srgb, var(--accent) 80%, white 15%);
 }
 
 .prompt {
-  color: #6ee7b7;
+  color: var(--accent);
   margin-right: 6px;
 }
 
 .path {
-  color: #7dd3fc;
+  color: color-mix(in srgb, var(--accent) 70%, white 30%);
   margin-right: 8px;
 }
 
@@ -352,8 +352,8 @@ function resetWindows() {
   opacity: 0.85;
 }
 
-.who.you { color: #fcd34d; }
-.who.ai { color: #c4b5fd; }
+.who.you { color: color-mix(in srgb, var(--text-primary) 80%, var(--accent)); }
+.who.ai { color: var(--accent); }
 
 .caret {
   display: inline-block;
@@ -374,16 +374,16 @@ function resetWindows() {
 }
 
 .plink {
-  color: #fcd34d;
+  color: var(--accent);
   text-decoration: none;
-  border-bottom: 1px dashed color-mix(in srgb, #fcd34d 35%, transparent);
+  border-bottom: 1px dashed color-mix(in srgb, var(--accent) 35%, transparent);
   width: fit-content;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .plink:hover {
-  color: #fde68a;
-  border-color: #fde68a;
+  color: var(--text-primary);
+  border-color: var(--text-primary);
 }
 
 .hero-dock {
@@ -412,7 +412,7 @@ function resetWindows() {
 }
 
 .dock-title span {
-  background: linear-gradient(120deg, #dbe7ff 0%, #8eb6ff 45%, #b8a7ff 100%);
+  background: linear-gradient(120deg, #f5f5f7 0%, #c8c8d0 48%, #9a9aa3 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

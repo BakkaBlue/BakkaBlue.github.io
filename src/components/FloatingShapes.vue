@@ -1,21 +1,13 @@
 <template>
-  <div
-    v-if="preset.shapes"
-    class="floating-shapes"
-    :class="preset.styleAttr"
-    aria-hidden="true"
-  >
+  <div class="floating-shapes" aria-hidden="true">
     <div class="shape shape-1"></div>
     <div class="shape shape-2"></div>
     <div class="shape shape-3"></div>
-    <div v-if="preset.styleAttr === 'max'" class="shape shape-4"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useStylePreset } from '@/composables/useStylePreset'
-
-const { preset } = useStylePreset()
+// ambient only
 </script>
 
 <style scoped>
@@ -28,23 +20,9 @@ const { preset } = useStylePreset()
   contain: strict;
 }
 
-.floating-shapes.max .shape {
-  filter: blur(90px);
-  opacity: calc(var(--shape-opacity) + 0.06);
-}
-
-.floating-shapes.glass .shape {
-  filter: blur(120px);
-  opacity: calc(var(--shape-opacity) * 0.85);
-}
-
 @media (max-width: 768px) {
   .floating-shapes .shape {
     filter: blur(70px);
-  }
-
-  .floating-shapes .shape-4 {
-    display: none;
   }
 }
 

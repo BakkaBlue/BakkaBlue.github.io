@@ -1,14 +1,12 @@
 <template>
-  <div v-if="preset.progress" class="scroll-progress" aria-hidden="true">
+  <div class="scroll-progress" aria-hidden="true">
     <div ref="barRef" class="scroll-progress__bar"></div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import { useStylePreset } from '@/composables/useStylePreset'
 
-const { preset } = useStylePreset()
 const barRef = ref<HTMLElement | null>(null)
 let ticking = false
 
@@ -19,8 +17,7 @@ function update() {
   const doc = document.documentElement
   const scrollTop = window.scrollY || doc.scrollTop
   const max = Math.max(1, doc.scrollHeight - window.innerHeight)
-  const pct = Math.min(100, (scrollTop / max) * 100)
-  bar.style.width = pct + '%'
+  bar.style.width = Math.min(100, (scrollTop / max) * 100) + '%'
 }
 
 function onScroll() {
@@ -47,7 +44,7 @@ onUnmounted(() => {
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 1px;
   z-index: 200;
   pointer-events: none;
 }
@@ -56,7 +53,7 @@ onUnmounted(() => {
   height: 100%;
   width: 0%;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  box-shadow: 0 0 12px var(--accent-glow);
+  opacity: 0.7;
   will-change: width;
 }
 </style>

@@ -3,10 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { usePrefersReducedMotion } from '@/composables/usePrefersReducedMotion'
-import { useStylePreset } from '@/composables/useStylePreset'
-import { usePointer } from '@/composables/usePointer'
 
 interface Particle {
   x: number
@@ -19,8 +17,6 @@ interface Particle {
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const { reduced } = usePrefersReducedMotion()
-const { preset } = useStylePreset()
-const pointer = usePointer()
 
 let ctx: CanvasRenderingContext2D | null = null
 let particles: Particle[] = []
@@ -28,43 +24,28 @@ let raf = 0
 let w = 0
 let h = 0
 let dpr = 1
-let accent = '#8eb6ff'
+let accent = 'rgba(200,200,208,0.9)'
 let running = false
 let visible = true
 
-// spatial grid for link queries
-const CELL = 90
+const CELL = 100
 let gridCols = 0
 let gridRows = 0
 const grid: number[][] = []
 
-function densityFactor() {
-  const d = preset.value.particleDensity
-  if (d === 'dense') return 22000
-  if (d === 'normal') return 36000
-  return 56000
-}
-
 function countForSize() {
-  if (!preset.value.particles) return 0
   const area = w * h
-  const base = Math.floor(area / densityFactor())
-  // hard caps — especially important on mobile / high-DPR
-  if (preset.value.particleDensity === 'dense') return Math.max(28, Math.min(70, base))
-  if (preset.value.particleDensity === 'normal') return Math.max(16, Math.min(42, base))
-  return Math.max(10, Math.min(28, base))
+  return Math.max(10, Math.min(26, Math.floor(area / 56000)))
 }
 
 function readAccent() {
-  accent =
-    getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() ||
-    '#8eb6ff'
+  const raw = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()
+  accent = raw || 'rgba(200,200,208,0.9)'
 }
 
 function resize() {
   const canvas = canvasRef.value
   if (!canvas) return
-  // cap DPR to 1.5 to cut fill-rate cost on retina
   dpr = Math.min(window.devicePixelRatio || 1, 1.5)
   w = window.innerWidth
   h = window.innerHeight
@@ -81,27 +62,19 @@ function resize() {
 
 function spawn() {
   const n = countForSize()
-  const speed =
-    preset.value.particleDensity === 'dense'
-      ? 0.22
-      : preset.value.particleDensity === 'normal'
-        ? 0.14
-        : 0.1
   particles = Array.from({ length: n }, () => ({
     x: Math.random() * w,
     y: Math.random() * h,
-    vx: (Math.random() - 0.5) * speed,
-    vy: (Math.random() - 0.5) * speed,
-    r: Math.random() * (preset.value.particleDensity === 'dense' ? 1.5 : 1.1) + 0.35,
-    a: Math.random() * (preset.value.particleDensity === 'dense' ? 0.36 : 0.24) + 0.08,
+    vx: (Math.random() - 0.5) * 0.1,
+    vy: (Math.random() - 0.5) * 0.1,
+    r: Math.random() * 1.0 + 0.35,
+    a: Math.random() * 0.22 + 0.06,
   }))
 }
 
 function rebuildGrid() {
   const size = gridCols * gridRows
-  if (grid.length !== size) {
-    grid.length = size
-  }
+  if (grid.length !== size) grid.length = size
   for (let i = 0; i < size; i++) {
     if (grid[i]) grid[i].length = 0
     else grid[i] = []
@@ -115,63 +88,34 @@ function rebuildGrid() {
 }
 
 function shouldRun() {
-  return (
-    visible &&
-    !reduced.value &&
-    preset.value.particles &&
-    !document.hidden &&
-    particles.length > 0
-  )
+  return visible && !reduced.value && !document.hidden && particles.length > 0
 }
 
 function step() {
   raf = 0
   if (!shouldRun()) {
-    // clear once when paused
     if (ctx) ctx.clearRect(0, 0, w, h)
     running = false
     return
   }
-
   if (!ctx) {
     schedule()
     return
   }
 
   ctx.clearRect(0, 0, w, h)
-
-  const linkDist =
-    preset.value.particleDensity === 'dense'
-      ? Math.min(130, w * 0.1)
-      : Math.min(100, w * 0.08)
-  const linkAlpha = preset.value.particleDensity === 'dense' ? 0.16 : 0.1
-  const pointerOn = preset.value.particlePointer && pointer.active
+  const linkDist = Math.min(96, w * 0.08)
+  const linkDistSq = linkDist * linkDist
 
   for (const p of particles) {
-    if (pointerOn) {
-      const dx = pointer.x - p.x
-      const dy = pointer.y - p.y
-      const distSq = dx * dx + dy * dy
-      if (distSq < 180 * 180 && distSq > 0.01) {
-        const dist = Math.sqrt(distSq)
-        const force = (180 - dist) / 180
-        p.vx -= (dx / dist) * force * 0.035
-        p.vy -= (dy / dist) * force * 0.035
-      }
-    }
-
     p.x += p.vx
     p.y += p.vy
-    p.vx *= 0.995
-    p.vy *= 0.995
-
     if (p.x < -10) p.x = w + 10
     else if (p.x > w + 10) p.x = -10
     if (p.y < -10) p.y = h + 10
     else if (p.y > h + 10) p.y = -10
   }
 
-  // draw dots in one style pass
   ctx.fillStyle = accent
   for (const p of particles) {
     ctx.globalAlpha = p.a
@@ -180,17 +124,13 @@ function step() {
     ctx.fill()
   }
 
-  // spatial-hash links — O(n * k) instead of O(n²)
   rebuildGrid()
   ctx.strokeStyle = accent
   ctx.lineWidth = 1
-  const linkDistSq = linkDist * linkDist
-
   for (let i = 0; i < particles.length; i++) {
     const a = particles[i]
     const cx = Math.min(gridCols - 1, Math.max(0, (a.x / CELL) | 0))
     const cy = Math.min(gridRows - 1, Math.max(0, (a.y / CELL) | 0))
-
     for (let oy = -1; oy <= 1; oy++) {
       for (let ox = -1; ox <= 1; ox++) {
         const nx = cx + ox
@@ -206,7 +146,7 @@ function step() {
           const distSq = dx * dx + dy * dy
           if (distSq < linkDistSq) {
             const dist = Math.sqrt(distSq)
-            ctx.globalAlpha = (1 - dist / linkDist) * linkAlpha
+            ctx.globalAlpha = (1 - dist / linkDist) * 0.1
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)
@@ -216,23 +156,17 @@ function step() {
       }
     }
   }
-
   ctx.globalAlpha = 1
   schedule()
 }
 
 function schedule() {
-  if (!running) return
-  if (raf) return
+  if (!running || raf) return
   raf = requestAnimationFrame(step)
 }
 
 function start() {
-  if (running) return
-  if (!shouldRun()) {
-    if (ctx) ctx.clearRect(0, 0, w, h)
-    return
-  }
+  if (running || !shouldRun()) return
   running = true
   schedule()
 }
@@ -251,10 +185,6 @@ function onVisibility() {
   else start()
 }
 
-function onThemeChange() {
-  readAccent()
-}
-
 let resizeTimer = 0
 function onResize() {
   window.clearTimeout(resizeTimer)
@@ -270,8 +200,6 @@ let mo: MutationObserver | null = null
 onMounted(() => {
   readAccent()
   resize()
-
-  // only animate while canvas roughly on-screen (always is, but cheap)
   io = new IntersectionObserver(
     (entries) => {
       visible = entries.some((e) => e.isIntersecting)
@@ -281,28 +209,15 @@ onMounted(() => {
     { threshold: 0 },
   )
   if (canvasRef.value) io.observe(canvasRef.value)
-
   window.addEventListener('resize', onResize, { passive: true })
   document.addEventListener('visibilitychange', onVisibility)
-
-  // theme / style attribute changes → refresh accent without per-frame getComputedStyle
-  mo = new MutationObserver(onThemeChange)
+  mo = new MutationObserver(readAccent)
   mo.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ['data-theme', 'data-style', 'class'],
+    attributeFilter: ['data-theme', 'class'],
   })
-
   start()
 })
-
-watch(
-  () => [preset.value.particleDensity, preset.value.particles],
-  () => {
-    spawn()
-    if (preset.value.particles) start()
-    else stop()
-  },
-)
 
 onUnmounted(() => {
   stop()
@@ -322,15 +237,7 @@ onUnmounted(() => {
   height: 100%;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.7;
-  contain: strict;
-}
-
-:global(html[data-style='max']) .particle-field {
-  opacity: 0.85;
-}
-
-:global(html[data-style='glass']) .particle-field {
   opacity: 0.55;
+  contain: strict;
 }
 </style>
