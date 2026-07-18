@@ -11,16 +11,7 @@
         </div>
       </header>
 
-      <div class="post-body glass-card">
-        <template v-for="(block, i) in post.body" :key="i">
-          <p v-if="block.type === 'p'">{{ block.text }}</p>
-          <h2 v-else-if="block.type === 'h2'">{{ block.text }}</h2>
-          <ul v-else-if="block.type === 'ul'">
-            <li v-for="(item, j) in block.items" :key="j">{{ item }}</li>
-          </ul>
-          <pre v-else-if="block.type === 'code'"><code>{{ block.text }}</code></pre>
-        </template>
-      </div>
+      <div class="post-body glass-card md-body" v-html="post.html"></div>
 
       <footer class="post-footer">
         <a href="/blog" class="glass-btn" @click.prevent="goBlog">返回列表</a>
@@ -30,7 +21,7 @@
 
     <div class="post-shell missing" v-else>
       <h1>文章不存在</h1>
-      <p>可能链接失效，或还没写出来。</p>
+      <p>可能链接失效，或 content/blog 里还没有对应的 .md。</p>
       <a href="/blog" class="glass-btn" @click.prevent="goBlog">去博客列表</a>
     </div>
   </article>
@@ -125,32 +116,55 @@ h1 {
   margin-bottom: 28px;
 }
 
-.post-body :deep(p),
-.post-body p {
+/* markdown HTML styles */
+.md-body :deep(p) {
   color: var(--text-secondary);
   font-size: 1.02rem;
   line-height: 1.9;
   margin-bottom: 1.1em;
 }
 
-.post-body h2 {
-  font-size: 1.2rem;
-  letter-spacing: -0.02em;
+.md-body :deep(h1),
+.md-body :deep(h2),
+.md-body :deep(h3) {
   color: var(--text-primary);
+  letter-spacing: -0.02em;
   margin: 1.6em 0 0.7em;
+  line-height: 1.3;
 }
 
-.post-body ul {
-  margin: 0 0 1.2em 1.1em;
+.md-body :deep(h1) { font-size: 1.35rem; }
+.md-body :deep(h2) { font-size: 1.2rem; }
+.md-body :deep(h3) { font-size: 1.08rem; }
+
+.md-body :deep(ul),
+.md-body :deep(ol) {
+  margin: 0 0 1.2em 1.15em;
   color: var(--text-secondary);
   line-height: 1.8;
 }
 
-.post-body li {
+.md-body :deep(li) {
   margin-bottom: 0.35em;
 }
 
-.post-body pre {
+.md-body :deep(a) {
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.md-body :deep(a:hover) {
+  color: var(--text-primary);
+}
+
+.md-body :deep(blockquote) {
+  margin: 0 0 1.2em;
+  padding: 0.2em 0 0.2em 1em;
+  border-left: 2px solid var(--glass-border-hover);
+  color: var(--text-muted);
+}
+
+.md-body :deep(pre) {
   margin: 0 0 1.2em;
   padding: 14px 16px;
   border-radius: 12px;
@@ -159,6 +173,30 @@ h1 {
   overflow: auto;
   font-size: 0.88rem;
   color: var(--text-secondary);
+}
+
+.md-body :deep(code) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.md-body :deep(:not(pre) > code) {
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+}
+
+.md-body :deep(hr) {
+  border: none;
+  border-top: 1px solid var(--glass-border);
+  margin: 1.8em 0;
+}
+
+.md-body :deep(img) {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 0.6em 0 1.2em;
 }
 
 .post-footer {
