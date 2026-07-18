@@ -273,7 +273,6 @@ async function load() {
 }
 
 let io: IntersectionObserver | null = null
-let mo: MutationObserver | null = null
 
 onMounted(() => {
   // lazy-activate when near viewport
@@ -289,20 +288,10 @@ onMounted(() => {
     { rootMargin: '200px 0px' },
   )
   if (sectionRef.value) io.observe(sectionRef.value)
-
-  // repaint on theme change
-  mo = new MutationObserver(() => {
-    if (cells.value.length) paint()
-  })
-  mo.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['data-theme'],
-  })
 })
 
 onUnmounted(() => {
   io?.disconnect()
-  mo?.disconnect()
 })
 </script>
 

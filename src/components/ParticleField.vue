@@ -195,7 +195,6 @@ function onResize() {
 }
 
 let io: IntersectionObserver | null = null
-let mo: MutationObserver | null = null
 
 onMounted(() => {
   readAccent()
@@ -211,11 +210,6 @@ onMounted(() => {
   if (canvasRef.value) io.observe(canvasRef.value)
   window.addEventListener('resize', onResize, { passive: true })
   document.addEventListener('visibilitychange', onVisibility)
-  mo = new MutationObserver(readAccent)
-  mo.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['data-theme', 'class'],
-  })
   start()
 })
 
@@ -225,7 +219,6 @@ onUnmounted(() => {
   window.removeEventListener('resize', onResize)
   document.removeEventListener('visibilitychange', onVisibility)
   io?.disconnect()
-  mo?.disconnect()
 })
 </script>
 

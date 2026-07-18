@@ -15,10 +15,6 @@
   background-size: 128px 128px;
 }
 
-:global([data-theme='dark']) .noise-overlay {
-  opacity: 0.036;
-}
-
 @media (max-width: 768px) {
   .noise-overlay {
     display: none;

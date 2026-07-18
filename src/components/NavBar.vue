@@ -5,23 +5,13 @@
       <div class="nav-links">
         <a v-for="item in links" :key="item.href" :href="item.href" class="nav-link">{{ item.label }}</a>
       </div>
-      <button
-        class="theme-toggle"
-        @click="toggleTheme"
-        :aria-label="isDark ? '切换到日间模式' : '切换到夜间模式'"
-        :title="isDark ? '切换到日间模式' : '切换到夜间模式'"
-      >
-        {{ isDark ? '日' : '夜' }}
-      </button>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useTheme } from '@/composables/useTheme'
 
-const { isDark, toggleTheme } = useTheme()
 const isScrolled = ref(false)
 
 const links = [
@@ -75,7 +65,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 12px 18px 12px 22px;
+  padding: 12px 22px;
 }
 
 .nav-brand {
@@ -102,25 +92,6 @@ onUnmounted(() => {
 .nav-link:hover {
   color: var(--text-primary);
   background: rgba(255, 255, 255, 0.05);
-}
-
-.theme-toggle {
-  min-width: 42px;
-  height: 36px;
-  border-radius: 999px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass-bg);
-  color: var(--text-secondary);
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
-}
-
-.theme-toggle:hover {
-  color: var(--text-primary);
-  background: var(--glass-bg-hover);
-  border-color: var(--glass-border-hover);
 }
 
 @media (max-width: 760px) {
