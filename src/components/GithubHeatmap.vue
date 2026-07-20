@@ -1,5 +1,5 @@
 <template>
-  <section class="section page-shell" ref="sectionRef">
+  <section class="section page-shell">
     <div class="section-inner">
       <header class="section-header heatmap-header">
         <div>
@@ -78,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 
 interface DayCell {
   date: string
@@ -90,7 +90,6 @@ const username = 'BakkaBlue'
 const CACHE_KEY = `cyan-gh-contrib-${username}-last`
 const CACHE_TTL = 6 * 60 * 60 * 1000 // 6h
 
-const sectionRef = ref<HTMLElement | null>(null)
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const scrollRef = ref<HTMLElement | null>(null)
 
@@ -272,16 +271,10 @@ async function load() {
   }
 }
 
-let io: IntersectionObserver | null = null
-
 onMounted(() => {
   // page-level: load immediately
   activated.value = true
   load()
-})
-
-onUnmounted(() => {
-  io?.disconnect()
 })
 </script>
 
