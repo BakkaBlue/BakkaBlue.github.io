@@ -78,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
 
 interface DayCell {
   date: string
@@ -102,9 +102,17 @@ const totalContributions = ref(0)
 const activeDays = ref(0)
 const maxStreak = ref(0)
 
-const fallbackSrc = `https://ghchart.rshah.org/c8c8d0/${username}`
+const isLight = computed(
+  () => document.documentElement.dataset.theme !== 'dark',
+)
 
-const CELL = 11
+// theme-aware fallback chart color (hex without #)
+const fallbackSrc = computed(() => {
+  const hex = isLight.value ? '0071e3' : '0a84ff'
+  return `https://ghchart.rshah.org/${hex}/${username}`
+})
+
+const CELL = 12
 const GAP = 3
 
 function levelFromCount(count: number) {
@@ -149,17 +157,55 @@ function writeCache(list: DayCell[]) {
   }
 }
 
-function parseAccent(): { r: number; g: number; b: number } {
-  const raw = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()
-  // #rrggbb
-  if (raw.startsWith('#') && raw.length >= 7) {
+function parseHexColor(raw: string): { r: number; g: number; b: number } | null {
+  const v = raw.trim()
+  if (v.startsWith('#') && v.length >= 7) {
     return {
-      r: parseInt(raw.slice(1, 3), 16),
-      g: parseInt(raw.slice(3, 5), 16),
-      b: parseInt(raw.slice(5, 7), 16),
+      r: parseInt(v.slice(1, 3), 16),
+      g: parseInt(v.slice(3, 5), 16),
+      b: parseInt(v.slice(5, 7), 16),
     }
   }
-  return { r: 200, g: 200, b: 208 }
+  return null
+}
+
+function mix(a: number, b: number, t: number) {
+  return Math.round(a + (b - a) * t)
+}
+
+/** Build high-contrast level colors for current theme */
+function levelColors(): string[] {
+  const theme = document.documentElement.dataset.theme
+  const light = theme !== 'dark'
+  const accentRaw = getComputedStyle(document.documentElement)
+    .getPropertyValue('--accent')
+    .trim()
+  const accent = parseHexColor(accentRaw) || (light
+    ? { r: 0, g: 113, b: 227 }
+    : { r: 10, g: 132, b: 255 })
+
+  if (light) {
+    // GitHub-like empty cell on light surfaces + strong blue ramp
+    const empty = '#ebedf0'
+    const base = { r: 235, g: 237, b: 240 } // empty base to mix from
+    const levels = [empty]
+    const stops = [0.28, 0.48, 0.7, 1]
+    for (const t of stops) {
+      levels.push(
+        `rgb(${mix(base.r, accent.r, t)}, ${mix(base.g, accent.g, t)}, ${mix(base.b, accent.b, t)})`,
+      )
+    }
+    return levels
+  }
+
+  // dark: empty is visible graphite, filled uses accent opacity ramp
+  return [
+    'rgba(255,255,255,0.08)',
+    `rgba(${accent.r},${accent.g},${accent.b},0.28)`,
+    `rgba(${accent.r},${accent.g},${accent.b},0.48)`,
+    `rgba(${accent.r},${accent.g},${accent.b},0.72)`,
+    `rgba(${accent.r},${accent.g},${accent.b},0.95)`,
+  ]
 }
 
 function paint() {
@@ -181,24 +227,19 @@ function paint() {
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
   ctx.clearRect(0, 0, cssW, cssH)
 
-  const { r, g, b } = parseAccent()
-  const alphas = [0.045, 0.22, 0.4, 0.62, 0.88]
+  const colors = levelColors()
+  const light = document.documentElement.dataset.theme !== 'dark'
 
-  // data is typically chronological Mon-Sun columns
   for (let i = 0; i < cells.value.length; i++) {
     const week = (i / 7) | 0
     const day = i % 7
-    const level = cells.value[i].level
+    const level = Math.min(4, Math.max(0, cells.value[i].level))
     const x = week * (CELL + GAP)
     const y = day * (CELL + GAP)
-    if (level <= 0) {
-      ctx.fillStyle = 'rgba(255,255,255,0.045)'
-    } else {
-      ctx.fillStyle = `rgba(${r},${g},${b},${alphas[level]})`
-    }
-    // rounded rect-ish via path for small cost, or simple rect
-    ctx.beginPath()
+
+    ctx.fillStyle = colors[level]
     const rr = 2
+    ctx.beginPath()
     ctx.moveTo(x + rr, y)
     ctx.arcTo(x + CELL, y, x + CELL, y + CELL, rr)
     ctx.arcTo(x + CELL, y + CELL, x, y + CELL, rr)
@@ -206,6 +247,13 @@ function paint() {
     ctx.arcTo(x, y, x + CELL, y, rr)
     ctx.closePath()
     ctx.fill()
+
+    // subtle edge so empty cells stay readable on white cards
+    if (light && level === 0) {
+      ctx.strokeStyle = 'rgba(27, 31, 35, 0.06)'
+      ctx.lineWidth = 1
+      ctx.stroke()
+    }
   }
 }
 
@@ -271,10 +319,26 @@ async function load() {
   }
 }
 
+let themeObs: MutationObserver | null = null
+
 onMounted(() => {
   // page-level: load immediately
   activated.value = true
   load()
+
+  // repaint when day/night theme changes
+  themeObs = new MutationObserver(() => {
+    if (cells.value.length) paint()
+  })
+  themeObs.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  })
+})
+
+onUnmounted(() => {
+  themeObs?.disconnect()
+  themeObs = null
 })
 </script>
 
@@ -362,17 +426,37 @@ onMounted(() => {
 }
 
 .cell {
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  display: inline-block;
+  box-sizing: border-box;
 }
 
-.lv-1 { background: color-mix(in srgb, var(--accent) 22%, rgba(255,255,255,0.04)); }
-.lv-2 { background: color-mix(in srgb, var(--accent) 40%, rgba(255,255,255,0.04)); }
-.lv-3 { background: color-mix(in srgb, var(--accent) 62%, rgba(255,255,255,0.04)); }
-.lv-4 { background: color-mix(in srgb, var(--accent) 88%, white 8%); }
+/* dark defaults */
+.lv-0 { background: rgba(255, 255, 255, 0.08); }
+.lv-1 { background: color-mix(in srgb, var(--accent) 28%, transparent); }
+.lv-2 { background: color-mix(in srgb, var(--accent) 48%, transparent); }
+.lv-3 { background: color-mix(in srgb, var(--accent) 72%, transparent); }
+.lv-4 { background: color-mix(in srgb, var(--accent) 95%, white 5%); }
+
+/* light: GitHub-like empty + solid blue ramp */
+:global(html[data-theme='light']) .lv-0 {
+  background: #ebedf0;
+  box-shadow: inset 0 0 0 1px rgba(27, 31, 35, 0.06);
+}
+:global(html[data-theme='light']) .lv-1 {
+  background: color-mix(in srgb, var(--accent) 32%, #ebedf0);
+}
+:global(html[data-theme='light']) .lv-2 {
+  background: color-mix(in srgb, var(--accent) 52%, #ebedf0);
+}
+:global(html[data-theme='light']) .lv-3 {
+  background: color-mix(in srgb, var(--accent) 74%, #ebedf0);
+}
+:global(html[data-theme='light']) .lv-4 {
+  background: var(--accent);
+}
 
 .heatmap-legend {
   display: flex;
@@ -382,10 +466,6 @@ onMounted(() => {
   margin-top: 14px;
   color: var(--text-muted);
   font-size: 0.75rem;
-}
-
-.heatmap-legend .cell {
-  display: inline-block;
 }
 
 .heatmap-fallback {
