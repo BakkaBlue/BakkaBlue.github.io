@@ -172,8 +172,8 @@ function seed() {
 
 async function typeActive(term: TermItem) {
   const script = scripts[(term.scriptIndex - 1) % scripts.length]
-  const charMs = reduced.value ? 0 : 15
-  const linePause = reduced.value ? 80 : 220
+  const charMs = reduced.value ? 0 : 42
+  const linePause = reduced.value ? 120 : 480
 
   term.shown = []
   term.typing = ''
@@ -183,7 +183,7 @@ async function typeActive(term: TermItem) {
     if (!alive || term.phase !== 'active') return
     if (line.kind === 'blank') {
       term.shown.push({ kind: 'blank' })
-      await wait(linePause * 0.45)
+      await wait(linePause * 0.5)
       continue
     }
     if (line.kind === 'cmd') {
@@ -203,18 +203,18 @@ async function typeActive(term: TermItem) {
       await wait(linePause)
     } else {
       term.shown.push({ kind: line.kind, text: line.text })
-      await wait(linePause * 0.7)
+      await wait(linePause * 0.85)
     }
   }
 
   term.done = true
-  await wait(reduced.value ? 400 : 900)
+  await wait(reduced.value ? 500 : 1400)
 }
 
 async function dropAndAdvance(active: TermItem) {
   if (active.phase !== 'active') return
   active.phase = 'fall'
-  await wait(reduced.value ? 180 : 680)
+  await wait(reduced.value ? 200 : 820)
 
   // remove fallen card
   items.value = items.value.filter((t) => t.uid !== active.uid)
@@ -279,28 +279,34 @@ onUnmounted(() => {
 <style scoped>
 .stage {
   position: relative;
-  height: 360px;
+  height: 380px;
   border-radius: var(--radius-xl);
   overflow: hidden;
   background:
-    radial-gradient(120% 90% at 20% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%),
+    radial-gradient(120% 90% at 30% 10%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%),
     linear-gradient(180deg, var(--bg-card), color-mix(in srgb, var(--bg-card) 88%, #000));
   border: 1px solid var(--border);
   box-shadow: var(--shadow-soft);
-  perspective: 1400px;
+  perspective: 1200px;
+  perspective-origin: 50% 45%;
 }
 
 .floor {
   position: absolute;
-  left: 8%;
-  right: 8%;
-  bottom: 8%;
-  height: 42%;
-  border-radius: 40%;
-  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--text-primary) 10%, transparent), transparent 70%);
-  filter: blur(8px);
-  opacity: 0.55;
-  transform: rotateX(70deg);
+  left: 5%;
+  right: 5%;
+  bottom: 6%;
+  height: 46%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--text-primary) 12%, transparent),
+    transparent 72%
+  );
+  filter: blur(10px);
+  opacity: 0.5;
+  transform: translateZ(-80px) rotateX(78deg) scale(1.15);
+  transform-style: preserve-3d;
 }
 
 .stack {
@@ -309,26 +315,37 @@ onUnmounted(() => {
   display: grid;
   place-items: center;
   transform-style: preserve-3d;
-  transform: rotateX(18deg) rotateZ(-18deg) rotateY(12deg) translateY(6px);
+  /* true 3D: yaw ~45° on horizontal plane + slight pitch for depth */
+  transform:
+    translate3d(0, 8px, 0)
+    rotateX(8deg)
+    rotateY(-42deg);
 }
 
 .term {
   --i: 0;
   position: absolute;
-  width: min(78%, 420px);
+  width: min(72%, 400px);
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
+  background: color-mix(in srgb, var(--bg-elevated) 94%, transparent);
+  transform-style: preserve-3d;
   box-shadow:
-    0 18px 40px rgba(0, 0, 0, 0.18),
-    0 2px 0 color-mix(in srgb, var(--text-primary) 6%, transparent) inset;
+    0 22px 48px rgba(0, 0, 0, 0.22),
+    12px 0 28px rgba(0, 0, 0, 0.08),
+    0 1px 0 color-mix(in srgb, var(--text-primary) 7%, transparent) inset;
+  /* queue recedes along Z into depth, slight X offset for side view */
   transform:
-    translate3d(calc(var(--i) * 18px), calc(var(--i) * -16px), calc(var(--i) * -28px))
-    scale(calc(1 - var(--i) * 0.045));
-  opacity: calc(1 - var(--i) * 0.14);
+    translate3d(
+      calc(var(--i) * -10px),
+      calc(var(--i) * -12px),
+      calc(var(--i) * -56px)
+    )
+    scale(calc(1 - var(--i) * 0.04));
+  opacity: calc(1 - var(--i) * 0.12);
   transition:
-    transform 0.7s var(--ease-out),
+    transform 0.75s var(--ease-out),
     opacity 0.55s var(--ease-out),
     filter 0.55s var(--ease-out);
   backdrop-filter: blur(8px);
@@ -431,22 +448,21 @@ onUnmounted(() => {
   0% {
     transform:
       translate3d(0, 0, 0)
-      scale(1)
-      rotateX(0deg);
+      scale(1);
     opacity: 1;
     filter: blur(0);
   }
-  55% {
-    opacity: 0.7;
+  40% {
+    opacity: 0.85;
   }
   100% {
+    /* drop down in world space while staying in the yawed stage */
     transform:
-      translate3d(18px, 180px, -40px)
-      scale(0.9)
-      rotateX(18deg)
-      rotateZ(-6deg);
+      translate3d(8px, 210px, 20px)
+      scale(0.92)
+      rotateX(12deg);
     opacity: 0;
-    filter: blur(2px);
+    filter: blur(1.5px);
   }
 }
 
@@ -469,15 +485,19 @@ onUnmounted(() => {
 
 @media (max-width: 760px) {
   .stage {
-    height: 300px;
+    height: 320px;
   }
 
   .stack {
-    transform: rotateX(14deg) rotateZ(-12deg) rotateY(8deg);
+    /* keep horizontal-plane yaw, softer pitch on small screens */
+    transform:
+      translate3d(0, 6px, 0)
+      rotateX(6deg)
+      rotateY(-34deg);
   }
 
   .term {
-    width: min(84%, 360px);
+    width: min(78%, 340px);
   }
 }
 
