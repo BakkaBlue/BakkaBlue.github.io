@@ -1,20 +1,30 @@
 <template>
   <section class="home page-shell">
-    <div class="hero card">
-      <p class="eyebrow">Personal site</p>
-      <h1>你好，我是 <span>Cyan</span></h1>
-      <p class="lead">
-        半吊子全栈 · AI 重度依赖者 · 野生硬件玩家。
-        这里放我的项目、笔记和一点点在线状态。
-      </p>
-      <div class="actions">
-        <a class="btn" href="/projects" @click.prevent="goProjects">查看项目</a>
-        <a class="btn-secondary" href="/blog" @click.prevent="goBlog">阅读博客</a>
+    <div class="hero-layout">
+      <div class="copy card">
+        <p class="eyebrow">Personal site</p>
+        <h1>你好，我是 <span>Cyan</span></h1>
+        <p class="lead">
+          半吊子全栈 · AI 重度依赖者 · 野生硬件玩家。
+          工作台在右侧滚动着：终端写完就会掉下去，下一扇补上来。
+        </p>
+        <div class="actions">
+          <a class="btn" href="/projects" @click.prevent="goProjects">查看项目</a>
+          <a class="btn-secondary" href="/blog" @click.prevent="goBlog">阅读博客</a>
+        </div>
       </div>
+
+      <TerminalQueue class="queue" />
     </div>
 
     <div class="quick-grid">
-      <a v-for="item in quick" :key="item.path" class="card quick" :href="item.path" @click.prevent="go(item.path)">
+      <a
+        v-for="item in quick"
+        :key="item.path"
+        class="card quick"
+        :href="item.path"
+        @click.prevent="go(item.path)"
+      >
         <span class="q-label">{{ item.label }}</span>
         <strong>{{ item.title }}</strong>
         <span class="q-go">打开 →</span>
@@ -24,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+import TerminalQueue from './TerminalQueue.vue'
 import { useAppRoute } from '@/composables/useAppRoute'
 
 const { go, goProjects, goBlog } = useAppRoute()
@@ -44,8 +55,18 @@ const quick = [
   padding-top: 8px;
 }
 
-.hero {
-  padding: 36px 32px;
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.copy {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .eyebrow {
@@ -56,7 +77,7 @@ const quick = [
 }
 
 h1 {
-  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
   letter-spacing: -0.045em;
   line-height: 1.05;
   font-weight: 700;
@@ -68,9 +89,9 @@ h1 span {
 }
 
 .lead {
-  max-width: 36rem;
+  max-width: 34rem;
   color: var(--text-secondary);
-  font-size: 1.12rem;
+  font-size: 1.05rem;
   line-height: 1.55;
   margin-bottom: 22px;
 }
@@ -79,6 +100,10 @@ h1 span {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.queue {
+  min-height: 360px;
 }
 
 .quick-grid {
@@ -92,7 +117,7 @@ h1 span {
   flex-direction: column;
   gap: 8px;
   padding: 18px;
-  min-height: 130px;
+  min-height: 120px;
   color: inherit;
 }
 
@@ -118,15 +143,19 @@ h1 span {
   font-size: 0.9rem;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 980px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+  }
+
   .quick-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (max-width: 560px) {
-  .hero {
-    padding: 26px 20px;
+  .copy {
+    padding: 24px 18px;
   }
 
   .quick-grid {
