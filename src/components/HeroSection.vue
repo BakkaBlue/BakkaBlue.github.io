@@ -6,7 +6,7 @@
         <h1>你好，我是 <span>Cyan</span></h1>
         <p class="lead">
           半吊子全栈 · AI 重度依赖者 · 野生硬件玩家。
-          工作台在右侧滚动着：终端写完就会掉下去，下一扇补上来。
+          右侧是悬浮在背景里的终端队列：打完就落下，下一扇补上。
         </p>
         <div class="actions">
           <a class="btn" href="/projects" @click.prevent="goProjects">查看项目</a>
@@ -14,7 +14,10 @@
         </div>
       </div>
 
-      <TerminalQueue class="queue" />
+      <!-- open stage: no card chrome, terminals float above ambient bg -->
+      <div class="queue-slot">
+        <TerminalQueue />
+      </div>
     </div>
 
     <div class="quick-grid">
@@ -57,12 +60,14 @@ const quick = [
 
 .hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
-  gap: 16px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 0.88fr) minmax(320px, 1.12fr);
+  gap: 8px 20px;
+  align-items: center;
 }
 
 .copy {
+  position: relative;
+  z-index: 2;
   padding: 32px 28px;
   display: flex;
   flex-direction: column;
@@ -102,11 +107,18 @@ h1 span {
   gap: 12px;
 }
 
-.queue {
-  min-height: 360px;
+.queue-slot {
+  position: relative;
+  z-index: 1;
+  min-height: 460px;
+  margin-right: -8px;
+  /* let terminals breathe into surrounding space */
+  overflow: visible;
 }
 
 .quick-grid {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
@@ -148,6 +160,11 @@ h1 span {
     grid-template-columns: 1fr;
   }
 
+  .queue-slot {
+    min-height: 400px;
+    margin-right: 0;
+  }
+
   .quick-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -156,6 +173,10 @@ h1 span {
 @media (max-width: 560px) {
   .copy {
     padding: 24px 18px;
+  }
+
+  .queue-slot {
+    min-height: 340px;
   }
 
   .quick-grid {

@@ -277,36 +277,36 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* Floating stage — no card frame, sits in the open background */
 .stage {
   position: relative;
-  height: 380px;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  background:
-    radial-gradient(120% 90% at 30% 10%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%),
-    linear-gradient(180deg, var(--bg-card), color-mix(in srgb, var(--bg-card) 88%, #000));
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-soft);
-  perspective: 1200px;
-  perspective-origin: 50% 45%;
+  width: 100%;
+  height: 460px;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  perspective: 1400px;
+  perspective-origin: 55% 40%;
 }
 
 .floor {
   position: absolute;
-  left: 5%;
-  right: 5%;
-  bottom: 6%;
-  height: 46%;
+  left: 12%;
+  right: 8%;
+  bottom: 4%;
+  height: 48%;
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    color-mix(in srgb, var(--text-primary) 12%, transparent),
-    transparent 72%
+    color-mix(in srgb, var(--text-primary) 10%, transparent),
+    transparent 74%
   );
-  filter: blur(10px);
-  opacity: 0.5;
-  transform: translateZ(-80px) rotateX(78deg) scale(1.15);
+  filter: blur(14px);
+  opacity: 0.35;
+  transform: translateZ(-120px) rotateX(82deg) scale(1.25);
   transform-style: preserve-3d;
+  pointer-events: none;
 }
 
 .stack {
@@ -315,45 +315,43 @@ onUnmounted(() => {
   display: grid;
   place-items: center;
   transform-style: preserve-3d;
-  /* true 3D: yaw ~45° on horizontal plane + slight pitch for depth */
+  /* yaw on horizontal plane + stronger pitch (俯角) */
   transform:
-    translate3d(0, 8px, 0)
-    rotateX(8deg)
-    rotateY(-42deg);
+    translate3d(8px, 18px, 0)
+    rotateX(28deg)
+    rotateY(-40deg);
 }
 
 .term {
   --i: 0;
   position: absolute;
-  width: min(72%, 400px);
-  border-radius: 14px;
+  width: min(92%, 520px);
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg-elevated) 94%, transparent);
+  background: color-mix(in srgb, var(--bg-elevated) 96%, transparent);
   transform-style: preserve-3d;
   box-shadow:
-    0 22px 48px rgba(0, 0, 0, 0.22),
-    12px 0 28px rgba(0, 0, 0, 0.08),
-    0 1px 0 color-mix(in srgb, var(--text-primary) 7%, transparent) inset;
-  /* queue recedes along Z into depth, slight X offset for side view */
+    0 28px 60px rgba(0, 0, 0, 0.22),
+    16px 8px 36px rgba(0, 0, 0, 0.1),
+    0 1px 0 color-mix(in srgb, var(--text-primary) 8%, transparent) inset;
+  /* queue recedes in depth */
   transform:
     translate3d(
-      calc(var(--i) * -10px),
-      calc(var(--i) * -12px),
-      calc(var(--i) * -56px)
+      calc(var(--i) * -14px),
+      calc(var(--i) * -18px),
+      calc(var(--i) * -72px)
     )
-    scale(calc(1 - var(--i) * 0.04));
-  opacity: calc(1 - var(--i) * 0.12);
+    scale(calc(1 - var(--i) * 0.035));
+  opacity: calc(1 - var(--i) * 0.1);
   transition:
     transform 0.75s var(--ease-out),
     opacity 0.55s var(--ease-out),
     filter 0.55s var(--ease-out);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 .term.queue {
-  filter: saturate(0.9);
+  filter: saturate(0.92) brightness(0.98);
 }
 
 .term.active {
@@ -361,28 +359,28 @@ onUnmounted(() => {
 }
 
 .term.fall {
-  animation: fall-away 0.7s var(--ease-out) forwards;
+  animation: fall-away 0.82s var(--ease-out) forwards;
   pointer-events: none;
 }
 
 .bar {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
-  padding: 9px 12px;
+  padding: 12px 14px;
   border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg-soft) 80%, transparent);
+  background: color-mix(in srgb, var(--bg-soft) 88%, transparent);
 }
 
 .dots {
   display: flex;
-  gap: 5px;
+  gap: 6px;
 }
 
 .dots i {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   display: block;
 }
@@ -394,7 +392,7 @@ onUnmounted(() => {
 .title {
   text-align: center;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   letter-spacing: 0.02em;
   overflow: hidden;
@@ -403,12 +401,12 @@ onUnmounted(() => {
 }
 
 .body {
-  min-height: 132px;
-  max-height: 150px;
-  padding: 12px 14px 14px;
+  min-height: 176px;
+  max-height: 200px;
+  padding: 16px 18px 18px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.78rem;
-  line-height: 1.65;
+  font-size: 0.95rem;
+  line-height: 1.7;
   color: var(--text-secondary);
   overflow: hidden;
 }
@@ -421,7 +419,7 @@ onUnmounted(() => {
 
 .prompt {
   color: var(--accent);
-  margin-right: 6px;
+  margin-right: 8px;
 }
 
 .caret {
@@ -446,21 +444,18 @@ onUnmounted(() => {
 
 @keyframes fall-away {
   0% {
-    transform:
-      translate3d(0, 0, 0)
-      scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
     opacity: 1;
     filter: blur(0);
   }
-  40% {
-    opacity: 0.85;
+  35% {
+    opacity: 0.9;
   }
   100% {
-    /* drop down in world space while staying in the yawed stage */
     transform:
-      translate3d(8px, 210px, 20px)
-      scale(0.92)
-      rotateX(12deg);
+      translate3d(10px, 240px, 24px)
+      scale(0.9)
+      rotateX(14deg);
     opacity: 0;
     filter: blur(1.5px);
   }
@@ -472,7 +467,7 @@ onUnmounted(() => {
 
 .stage.reduced .term {
   position: relative;
-  width: min(92%, 460px);
+  width: min(96%, 560px);
   transform: none !important;
   opacity: 1 !important;
   animation: none !important;
@@ -483,21 +478,49 @@ onUnmounted(() => {
   display: none;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 980px) {
   .stage {
-    height: 320px;
+    height: 400px;
   }
 
   .stack {
-    /* keep horizontal-plane yaw, softer pitch on small screens */
     transform:
-      translate3d(0, 6px, 0)
-      rotateX(6deg)
+      translate3d(0, 12px, 0)
+      rotateX(24deg)
       rotateY(-34deg);
   }
 
   .term {
-    width: min(78%, 340px);
+    width: min(88%, 460px);
+  }
+
+  .body {
+    font-size: 0.9rem;
+    min-height: 160px;
+  }
+}
+
+@media (max-width: 560px) {
+  .stage {
+    height: 340px;
+  }
+
+  .stack {
+    transform:
+      translate3d(0, 8px, 0)
+      rotateX(20deg)
+      rotateY(-28deg);
+  }
+
+  .term {
+    width: min(90%, 380px);
+  }
+
+  .body {
+    font-size: 0.86rem;
+    min-height: 140px;
+    max-height: 160px;
+    padding: 12px 14px;
   }
 }
 
