@@ -281,30 +281,30 @@ onUnmounted(() => {
 .stage {
   position: relative;
   width: 100%;
-  height: 460px;
+  height: 520px;
   overflow: visible;
   background: transparent;
   border: 0;
   box-shadow: none;
-  perspective: 1400px;
-  perspective-origin: 55% 40%;
+  perspective: 1500px;
+  perspective-origin: 55% 58%;
 }
 
 .floor {
   position: absolute;
-  left: 12%;
-  right: 8%;
-  bottom: 4%;
-  height: 48%;
+  left: 10%;
+  right: 6%;
+  bottom: 2%;
+  height: 52%;
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    color-mix(in srgb, var(--text-primary) 10%, transparent),
+    color-mix(in srgb, var(--text-primary) 11%, transparent),
     transparent 74%
   );
   filter: blur(14px);
-  opacity: 0.35;
-  transform: translateZ(-120px) rotateX(82deg) scale(1.25);
+  opacity: 0.32;
+  transform: translateZ(-140px) rotateX(82deg) scale(1.3);
   transform-style: preserve-3d;
   pointer-events: none;
 }
@@ -315,34 +315,34 @@ onUnmounted(() => {
   display: grid;
   place-items: center;
   transform-style: preserve-3d;
-  /* yaw on horizontal plane + stronger pitch (俯角) */
+  /* yaw on horizontal plane + elevation angle (仰角, looking slightly upward) */
   transform:
-    translate3d(8px, 18px, 0)
-    rotateX(28deg)
+    translate3d(10px, 10px, 0)
+    rotateX(-24deg)
     rotateY(-40deg);
 }
 
 .term {
   --i: 0;
   position: absolute;
-  width: min(92%, 520px);
+  width: min(98%, 600px);
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--bg-elevated) 96%, transparent);
   transform-style: preserve-3d;
   box-shadow:
-    0 28px 60px rgba(0, 0, 0, 0.22),
-    16px 8px 36px rgba(0, 0, 0, 0.1),
+    0 30px 64px rgba(0, 0, 0, 0.24),
+    18px 10px 40px rgba(0, 0, 0, 0.1),
     0 1px 0 color-mix(in srgb, var(--text-primary) 8%, transparent) inset;
   /* queue recedes in depth */
   transform:
     translate3d(
-      calc(var(--i) * -14px),
-      calc(var(--i) * -18px),
-      calc(var(--i) * -72px)
+      calc(var(--i) * -16px),
+      calc(var(--i) * -20px),
+      calc(var(--i) * -80px)
     )
-    scale(calc(1 - var(--i) * 0.035));
+    scale(calc(1 - var(--i) * 0.03));
   opacity: calc(1 - var(--i) * 0.1);
   transition:
     transform 0.75s var(--ease-out),
@@ -368,19 +368,19 @@ onUnmounted(() => {
   grid-template-columns: auto 1fr;
   gap: 12px;
   align-items: center;
-  padding: 12px 14px;
+  padding: 14px 16px;
   border-bottom: 1px solid var(--border);
   background: color-mix(in srgb, var(--bg-soft) 88%, transparent);
 }
 
 .dots {
   display: flex;
-  gap: 6px;
+  gap: 7px;
 }
 
 .dots i {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   display: block;
 }
@@ -392,7 +392,7 @@ onUnmounted(() => {
 .title {
   text-align: center;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.8rem;
+  font-size: 0.88rem;
   color: var(--text-muted);
   letter-spacing: 0.02em;
   overflow: hidden;
@@ -401,12 +401,12 @@ onUnmounted(() => {
 }
 
 .body {
-  min-height: 176px;
-  max-height: 200px;
-  padding: 16px 18px 18px;
+  min-height: 200px;
+  max-height: 230px;
+  padding: 18px 20px 20px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-size: 1.05rem;
+  line-height: 1.75;
   color: var(--text-secondary);
   overflow: hidden;
 }
@@ -452,10 +452,11 @@ onUnmounted(() => {
     opacity: 0.9;
   }
   100% {
+    /* drop downward while slightly rotating away under the elevated view */
     transform:
-      translate3d(10px, 240px, 24px)
+      translate3d(12px, 260px, 30px)
       scale(0.9)
-      rotateX(14deg);
+      rotateX(-10deg);
     opacity: 0;
     filter: blur(1.5px);
   }
@@ -467,7 +468,7 @@ onUnmounted(() => {
 
 .stage.reduced .term {
   position: relative;
-  width: min(96%, 560px);
+  width: min(98%, 640px);
   transform: none !important;
   opacity: 1 !important;
   animation: none !important;
@@ -480,47 +481,47 @@ onUnmounted(() => {
 
 @media (max-width: 980px) {
   .stage {
-    height: 400px;
-  }
-
-  .stack {
-    transform:
-      translate3d(0, 12px, 0)
-      rotateX(24deg)
-      rotateY(-34deg);
-  }
-
-  .term {
-    width: min(88%, 460px);
-  }
-
-  .body {
-    font-size: 0.9rem;
-    min-height: 160px;
-  }
-}
-
-@media (max-width: 560px) {
-  .stage {
-    height: 340px;
+    height: 460px;
   }
 
   .stack {
     transform:
       translate3d(0, 8px, 0)
-      rotateX(20deg)
+      rotateX(-20deg)
+      rotateY(-34deg);
+  }
+
+  .term {
+    width: min(94%, 540px);
+  }
+
+  .body {
+    font-size: 1rem;
+    min-height: 180px;
+  }
+}
+
+@media (max-width: 560px) {
+  .stage {
+    height: 380px;
+  }
+
+  .stack {
+    transform:
+      translate3d(0, 6px, 0)
+      rotateX(-16deg)
       rotateY(-28deg);
   }
 
   .term {
-    width: min(90%, 380px);
+    width: min(96%, 420px);
   }
 
   .body {
-    font-size: 0.86rem;
-    min-height: 140px;
-    max-height: 160px;
-    padding: 12px 14px;
+    font-size: 0.92rem;
+    min-height: 150px;
+    max-height: 180px;
+    padding: 14px 16px;
   }
 }
 

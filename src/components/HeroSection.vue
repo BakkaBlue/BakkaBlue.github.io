@@ -110,8 +110,8 @@ h1 span {
 .queue-slot {
   position: relative;
   z-index: 1;
-  min-height: 460px;
-  margin-right: -8px;
+  min-height: 520px;
+  margin-right: -12px;
   /* let terminals breathe into surrounding space */
   overflow: visible;
 }
@@ -161,7 +161,7 @@ h1 span {
   }
 
   .queue-slot {
-    min-height: 400px;
+    min-height: 460px;
     margin-right: 0;
   }
 
@@ -176,7 +176,7 @@ h1 span {
   }
 
   .queue-slot {
-    min-height: 340px;
+    min-height: 380px;
   }
 
   .quick-grid {
