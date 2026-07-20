@@ -1,5 +1,5 @@
 <template>
-  <section id="github" class="section" ref="sectionRef">
+  <section class="section page-shell" ref="sectionRef">
     <div class="section-inner">
       <header class="section-header heatmap-header">
         <div>
@@ -17,9 +17,9 @@
         </a>
       </header>
 
-      <div class="heatmap-panel glass-card reveal">
+      <div class="heatmap-panel card reveal visible">
         <div v-if="!activated || loading" class="heatmap-state">
-          {{ activated ? '正在加载贡献数据…' : '滚动到此处加载…' }}
+          {{ activated ? '正在加载贡献数据…' : '准备加载…' }}
         </div>
 
         <div v-else-if="error && !useFallback" class="heatmap-state">
@@ -275,19 +275,9 @@ async function load() {
 let io: IntersectionObserver | null = null
 
 onMounted(() => {
-  // lazy-activate when near viewport
-  io = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((e) => e.isIntersecting)) {
-        activated.value = true
-        load()
-        io?.disconnect()
-        io = null
-      }
-    },
-    { rootMargin: '200px 0px' },
-  )
-  if (sectionRef.value) io.observe(sectionRef.value)
+  // page-level: load immediately
+  activated.value = true
+  load()
 })
 
 onUnmounted(() => {
@@ -306,20 +296,13 @@ onUnmounted(() => {
 }
 
 .heatmap-profile {
-  color: var(--text-secondary);
+  color: var(--accent);
   font-size: 0.92rem;
   white-space: nowrap;
-  border-bottom: 1px solid transparent;
-  transition: color 0.25s ease, border-color 0.25s ease;
-}
-
-.heatmap-profile:hover {
-  color: var(--text-primary);
-  border-color: color-mix(in srgb, var(--text-primary) 30%, transparent);
 }
 
 .heatmap-panel {
-  padding: 28px 24px 22px;
+  padding: 22px;
   overflow: hidden;
 }
 

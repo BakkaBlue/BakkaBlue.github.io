@@ -1,25 +1,25 @@
 <template>
-  <section id="contact" class="section">
-    <div class="section-inner contact-grid">
-      <header class="section-header">
-        <p class="section-kicker">Connect</p>
-        <h2 class="section-title">找到我</h2>
-        <p class="section-desc">欢迎闲聊、提想法，或者只是路过打个招呼。</p>
-      </header>
+  <section class="section page-shell">
+    <header class="section-header">
+      <p class="section-kicker">Contact</p>
+      <h2 class="section-title">找到我</h2>
+      <p class="section-desc">欢迎闲聊、提想法，或者只是路过打个招呼。</p>
+    </header>
 
-      <div class="contact-links reveal">
-        <a
-          v-for="link in contactLinks"
-          :key="link.label"
-          :href="link.url"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="contact-item glass-card"
-        >
-          <span class="contact-label">{{ link.label }}</span>
-          <span class="contact-handle">{{ link.handle }}</span>
-        </a>
-      </div>
+    <div class="grid">
+      <a
+        v-for="(link, i) in contactLinks"
+        :key="link.label"
+        :href="link.url"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="card item reveal"
+        :class="'reveal-delay-' + (i + 1)"
+      >
+        <span class="label">{{ link.label }}</span>
+        <strong>{{ link.handle }}</strong>
+        <span class="go">Open →</span>
+      </a>
     </div>
   </section>
 </template>
@@ -34,52 +34,45 @@ const contactLinks = [
 </script>
 
 <style scoped>
-.contact-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  gap: 32px;
-  align-items: start;
-}
-
-.contact-links {
+.grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
-.contact-item {
+.item {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 20px 18px;
-  text-decoration: none;
+  padding: 20px;
+  min-height: 120px;
   color: inherit;
-  border-radius: 20px;
 }
 
-.contact-label {
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.item:hover {
+  transform: translateY(-2px);
+}
+
+.label {
   color: var(--text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-.contact-handle {
-  color: var(--text-secondary);
-  font-size: 0.98rem;
+strong {
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
 }
 
-.contact-item:hover .contact-handle {
-  color: var(--text-primary);
+.go {
+  margin-top: auto;
+  color: var(--accent);
+  font-size: 0.9rem;
 }
 
-@media (max-width: 860px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .contact-links {
+@media (max-width: 700px) {
+  .grid {
     grid-template-columns: 1fr;
   }
 }

@@ -1,46 +1,31 @@
 <template>
   <footer class="site-footer">
-    <div class="section-inner footer-inner">
-      <p class="footer-text">© 2024 Cyan</p>
-      <p class="footer-sub">Vue · Glassmorphism · Quiet details</p>
+    <div class="footer-inner">
+      <p>© 2026 Cyan</p>
+      <p class="sub">Personal site · Apple-inspired</p>
     </div>
   </footer>
 </template>
 
-<script setup lang="ts">
-// presentation only
-</script>
-
 <style scoped>
 .site-footer {
-  position: relative;
-  z-index: 1;
-  padding: 28px 28px 56px;
+  padding: 28px 0 12px;
+  margin-top: 20px;
 }
 
 .footer-inner {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  border-top: 1px solid var(--glass-border);
-  padding-top: 24px;
-}
-
-.footer-text,
-.footer-sub {
+  gap: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
   color: var(--text-muted);
-  font-size: 0.86rem;
-}
-
-.footer-sub {
-  letter-spacing: 0.06em;
+  font-size: 0.84rem;
 }
 
 @media (max-width: 640px) {
   .footer-inner {
     flex-direction: column;
-    align-items: flex-start;
   }
 }
 </style>

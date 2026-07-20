@@ -1,66 +1,9 @@
-/* ===== Ambient floating light — quiet mono ===== */
-@keyframes float1 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(20px, -14px, 0) scale(1.03); }
-}
-
-@keyframes float2 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(-16px, 12px, 0) scale(1.02); }
-}
-
-@keyframes float3 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(12px, 16px, 0) scale(0.99); }
-}
-
-.shape {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(110px);
-  opacity: var(--shape-opacity);
-  mix-blend-mode: var(--shape-mix-blend);
-  pointer-events: none;
-  z-index: 0;
-  transform: translateZ(0);
-}
-
-.shape-1 {
-  width: 420px;
-  height: 420px;
-  background: #7a7a88;
-  top: -140px;
-  left: -120px;
-  animation: float1 32s ease-in-out infinite;
-}
-
-.shape-2 {
-  width: 340px;
-  height: 340px;
-  background: #5c5c68;
-  top: 42%;
-  right: -100px;
-  animation: float2 36s ease-in-out infinite;
-  animation-delay: -8s;
-}
-
-.shape-3 {
-  width: 300px;
-  height: 300px;
-  background: #4e4e58;
-  bottom: 4%;
-  left: 28%;
-  animation: float3 40s ease-in-out infinite;
-  animation-delay: -14s;
-}
-
-/* ===== Reveal ===== */
 html.js .reveal {
   opacity: 0;
-  transform: translateY(22px);
+  transform: translateY(14px);
   transition:
-    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.55s var(--ease-out),
+    transform 0.6s var(--ease-out);
 }
 
 html.js .reveal.visible {
@@ -69,28 +12,34 @@ html.js .reveal.visible {
 }
 
 .reveal-delay-1 { transition-delay: 0ms; }
-.reveal-delay-2 { transition-delay: 90ms; }
-.reveal-delay-3 { transition-delay: 180ms; }
-.reveal-delay-4 { transition-delay: 270ms; }
+.reveal-delay-2 { transition-delay: 60ms; }
+.reveal-delay-3 { transition-delay: 120ms; }
+.reveal-delay-4 { transition-delay: 180ms; }
+.reveal-delay-5 { transition-delay: 240ms; }
+.reveal-delay-6 { transition-delay: 300ms; }
 
-@keyframes bounce-down {
-  0%, 100% { transform: translateY(0); opacity: 0.35; }
-  50% { transform: translateY(6px); opacity: 0.8; }
+.page-enter {
+  animation: page-in 0.45s var(--ease-out) both;
 }
 
-.scroll-indicator {
-  animation: bounce-down 2.4s ease-in-out infinite;
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shape {
-    animation: none !important;
-  }
-
   .reveal,
-  html.js .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  html.js .reveal,
+  .page-enter {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
   }
 }

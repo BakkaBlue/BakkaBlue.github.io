@@ -1,10 +1,10 @@
 <template>
-  <section class="blog-page">
+  <section class="section page-shell">
     <div class="blog-shell">
-      <header class="page-header">
-        <p class="kicker">Blog</p>
-        <h1>全部文章</h1>
-        <p class="sub">按时间倒序。短文居多，想到就写。</p>
+      <header class="section-header">
+        <p class="section-kicker">Blog</p>
+        <h2 class="section-title">全部文章</h2>
+        <p class="section-desc">按时间倒序。短文居多，想到就写。</p>
       </header>
 
       <div class="list">
@@ -12,7 +12,7 @@
           v-for="post in all"
           :key="post.slug"
           :href="`/blog/${post.slug}`"
-          class="item glass-card"
+          class="item card"
           @click.prevent="goPost(post.slug)"
         >
           <div class="item-top">
@@ -39,38 +39,8 @@ const all = computed(() => getAllPosts())
 </script>
 
 <style scoped>
-.blog-page {
-  position: relative;
-  z-index: 1;
-  padding: 120px 24px 80px;
-}
-
 .blog-shell {
   width: min(100%, 800px);
-  margin: 0 auto;
-}
-
-.page-header {
-  margin-bottom: 36px;
-}
-
-.kicker {
-  font-size: 0.78rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-
-h1 {
-  font-size: clamp(2rem, 4vw, 2.6rem);
-  letter-spacing: -0.04em;
-  margin-bottom: 10px;
-}
-
-.sub {
-  color: var(--text-secondary);
-  max-width: 40ch;
 }
 
 .list {
@@ -86,6 +56,10 @@ h1 {
   color: inherit;
 }
 
+.item:hover {
+  transform: translateY(-2px);
+}
+
 .item-top {
   display: flex;
   justify-content: space-between;
@@ -97,7 +71,6 @@ h1 {
 time {
   font-size: 0.8rem;
   color: var(--text-muted);
-  letter-spacing: 0.06em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -110,10 +83,8 @@ time {
 
 .tags span {
   font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--text-muted);
-  border: 1px solid var(--glass-border);
+  background: var(--bg-soft);
   border-radius: 999px;
   padding: 3px 8px;
 }

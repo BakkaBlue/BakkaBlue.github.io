@@ -1,30 +1,23 @@
 <template>
-  <section id="skills" class="section">
-    <div class="section-inner">
-      <header class="section-header">
-        <p class="section-kicker">Capabilities</p>
-        <h2 class="section-title">技能与工具箱</h2>
-        <p class="section-desc">少而精的主线，而不是堆满标签的工具墙。</p>
-      </header>
+  <section class="section page-shell">
+    <header class="section-header">
+      <p class="section-kicker">Skills</p>
+      <h2 class="section-title">技能与工具</h2>
+      <p class="section-desc">少而精的主线，而不是堆满标签的工具墙。</p>
+    </header>
 
-      <div class="skills-grid">
-        <article
-          v-for="(skill, i) in skills"
-          :key="skill.title"
-          class="skill-card glass-card reveal"
-          :class="'reveal-delay-' + (i + 1)"
-        >
-          <div class="skill-top">
-            <span class="skill-index">0{{ i + 1 }}</span>
-            <span class="skill-icon" aria-hidden="true">{{ skill.icon }}</span>
-          </div>
-          <h3 class="skill-title">{{ skill.title }}</h3>
-          <p class="skill-desc">{{ skill.desc }}</p>
-          <div class="skill-tags">
-            <span v-for="tag in skill.tags" :key="tag" class="skill-tag">{{ tag }}</span>
-          </div>
-        </article>
-      </div>
+    <div class="grid">
+      <article v-for="(skill, i) in skills" :key="skill.title" class="card item reveal" :class="'reveal-delay-' + (i + 1)">
+        <div class="top">
+          <span class="idx">0{{ i + 1 }}</span>
+          <span class="ico">{{ skill.icon }}</span>
+        </div>
+        <h3>{{ skill.title }}</h3>
+        <p>{{ skill.desc }}</p>
+        <div class="tags">
+          <span v-for="tag in skill.tags" :key="tag">{{ tag }}</span>
+        </div>
+      </article>
     </div>
   </section>
 </template>
@@ -53,83 +46,74 @@ const skills = [
 </script>
 
 <style scoped>
-.skills-grid {
+.grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  gap: 14px;
 }
 
-.skill-card {
-  padding: 28px 26px 30px;
-  min-height: 260px;
+.item {
+  padding: 22px;
+  min-height: 220px;
   display: flex;
   flex-direction: column;
 }
 
-.skill-top {
+.item:hover {
+  transform: translateY(-2px);
+}
+
+.top {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 
-.skill-index {
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
+.idx {
   color: var(--text-muted);
+  font-size: 0.8rem;
 }
 
-.skill-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--glass-border);
+.ico {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
   background: var(--accent-soft);
   color: var(--accent);
-  font-size: 0.95rem;
 }
 
-.skill-title {
-  font-size: 1.2rem;
-  font-weight: 600;
+h3 {
+  font-size: 1.15rem;
   letter-spacing: -0.02em;
-  margin-bottom: 10px;
-  color: var(--text-primary);
+  margin-bottom: 8px;
 }
 
-.skill-desc {
+p {
   color: var(--text-secondary);
-  font-size: 0.96rem;
-  line-height: 1.7;
-  margin-bottom: 22px;
+  line-height: 1.6;
   flex: 1;
+  margin-bottom: 16px;
 }
 
-.skill-tags {
+.tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.skill-tag {
+.tags span {
   font-size: 0.78rem;
   color: var(--text-muted);
-  border: 1px solid var(--glass-border);
+  background: var(--bg-soft);
   border-radius: 999px;
   padding: 5px 10px;
-  letter-spacing: 0.02em;
 }
 
 @media (max-width: 900px) {
-  .skills-grid {
+  .grid {
     grid-template-columns: 1fr;
-  }
-
-  .skill-card {
-    min-height: auto;
   }
 }
 </style>

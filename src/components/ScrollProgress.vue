@@ -40,20 +40,22 @@ onUnmounted(() => {
 
 <style scoped>
 .scroll-progress {
-  position: fixed;
-  top: 0;
+  position: sticky;
+  top: var(--topbar-h);
   left: 0;
   right: 0;
-  height: 1px;
-  z-index: 200;
+  height: 2px;
+  z-index: 25;
   pointer-events: none;
-  opacity: 0.55;
+  margin: 0 0 8px;
+  background: transparent;
 }
 
 .scroll-progress__bar {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
   will-change: width;
 }
 </style>

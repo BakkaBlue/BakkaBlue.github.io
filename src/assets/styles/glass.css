@@ -1,168 +1,41 @@
-/* ===== Glass primitives — quiet luxury ===== */
+/* Apple-style surface aliases for existing class names */
 .glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(18px) saturate(120%);
-  -webkit-backdrop-filter: blur(18px) saturate(120%);
-  border: 1px solid var(--glass-border);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
 }
 
 .glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px) saturate(120%);
-  -webkit-backdrop-filter: blur(20px) saturate(120%);
-  border: 1px solid var(--glass-border);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 32px;
-  box-shadow: var(--shadow);
-  transition:
-    background var(--transition-speed) ease,
-    border-color var(--transition-speed) ease,
-    box-shadow var(--transition-speed) ease,
-    transform var(--transition-speed) cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: var(--shadow-soft);
+  padding: 22px;
 }
 
-.glass-card:hover {
-  background: var(--glass-bg-hover);
-  border-color: var(--glass-border-hover);
-  box-shadow: var(--shadow), 0 0 0 1px rgba(255, 255, 255, 0.025) inset;
-  transform: translateY(-2px);
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
 }
 
-.glass-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid var(--glass-border);
-  border-radius: 999px;
-  padding: 11px 20px;
-  color: var(--text-primary);
-  font-size: 0.95rem;
-  font-family: var(--font-family);
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  cursor: pointer;
-  transition:
-    background var(--transition-speed) ease,
-    border-color var(--transition-speed) ease,
-    transform var(--transition-speed) ease,
-    box-shadow var(--transition-speed) ease;
-}
-
-.glass-btn:hover {
-  background: var(--glass-bg-hover);
-  border-color: var(--glass-border-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.glass-icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid var(--glass-border);
-  border-radius: 14px;
-  color: var(--text-primary);
-  font-size: 1.05rem;
-  cursor: pointer;
-  transition:
-    background var(--transition-speed) ease,
-    border-color var(--transition-speed) ease,
-    transform var(--transition-speed) ease,
-    box-shadow var(--transition-speed) ease;
-}
-
-.glass-icon-btn:hover {
-  background: var(--glass-bg-hover);
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--glass-border));
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
-}
-
-/* ===== Layout rhythm ===== */
-.section {
-  padding: var(--section-padding);
-  position: relative;
-  z-index: 1;
-  /* note: avoid content-visibility here — it fights scroll-reveal opacity */
-}
-
-/* cheaper glass on small screens / low-power */
-@media (max-width: 768px) {
-  .glass,
-  .glass-card,
-  .glass-btn,
-  .glass-icon-btn {
-    backdrop-filter: blur(12px) saturate(120%);
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-  }
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .glass,
-  .glass-card,
-  .glass-btn,
-  .glass-icon-btn {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: color-mix(in srgb, var(--body-bg) 88%, white 8%);
-  }
-}
-
-.section-inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-.section-header {
+.panel-head {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 40px;
-  max-width: 640px;
-}
-
-.section-kicker {
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  font-weight: 500;
-}
-
-.section-title {
-  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: -0.03em;
-  line-height: 1.2;
-  margin: 0;
-}
-
-.section-desc {
-  font-size: 1.02rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 46ch;
-}
-
-.section-title-center {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
   align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.section-title-center .section-desc {
-  text-align: center;
+.panel-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.panel-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
 }
