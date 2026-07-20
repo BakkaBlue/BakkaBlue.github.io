@@ -1,8 +1,9 @@
 <template>
-  <header class="topbar">
+  <header class="topbar" :class="{ scrolled: isScrolled }">
     <div class="left">
-      <h1>{{ pageTitle }}</h1>
-      <p>{{ subtitle }}</p>
+      <span class="crumb">Cyan</span>
+      <span class="sep" aria-hidden="true">/</span>
+      <span class="current">{{ pageTitle }}</span>
     </div>
 
     <button
@@ -16,31 +17,31 @@
     >
       <span class="track" :class="{ dark: isDark }">
         <span class="knob">{{ isDark ? '☾' : '☀' }}</span>
-        <span class="txt day">日</span>
-        <span class="txt night">夜</span>
       </span>
     </button>
   </header>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useAppRoute } from '@/composables/useAppRoute'
 import { useTheme } from '@/composables/useTheme'
 
-const { pageTitle, isHome, isSkills, isGithub, isProjects, isBlog, isBlogPost, isContact } =
-  useAppRoute()
+const { pageTitle } = useAppRoute()
 const { isDark, toggleTheme } = useTheme()
+const isScrolled = ref(false)
 
-const subtitle = computed(() => {
-  if (isHome.value) return '个人主页总览'
-  if (isSkills.value) return '能力与工具'
-  if (isGithub.value) return '贡献节奏'
-  if (isProjects.value) return '可打开的作品'
-  if (isBlogPost.value) return '阅读'
-  if (isBlog.value) return '笔记与想法'
-  if (isContact.value) return '找到我'
-  return ''
+function onScroll() {
+  isScrolled.value = window.scrollY > 8
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onScroll()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
 })
 </script>
 
@@ -52,26 +53,49 @@ const subtitle = computed(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  min-height: var(--topbar-h);
-  padding: 14px 4px 16px;
-  margin-bottom: 8px;
-  background: color-mix(in srgb, var(--bg-base) 82%, transparent);
-  backdrop-filter: saturate(180%) blur(16px);
-  -webkit-backdrop-filter: saturate(180%) blur(16px);
-  border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  gap: 12px;
+  min-height: 48px;
+  padding: 10px 2px;
+  margin-bottom: 4px;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out),
+    backdrop-filter 0.3s var(--ease-out);
 }
 
-.left h1 {
-  font-size: 1.35rem;
-  letter-spacing: -0.03em;
-  font-weight: 650;
+.topbar.scrolled {
+  background: color-mix(in srgb, var(--bg-base) 86%, transparent);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  border-bottom-color: color-mix(in srgb, var(--border) 70%, transparent);
 }
 
-.left p {
-  margin-top: 2px;
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
   color: var(--text-muted);
-  font-size: 0.86rem;
+  font-size: 0.9rem;
+}
+
+.crumb {
+  opacity: 0.8;
+}
+
+.sep {
+  opacity: 0.45;
+}
+
+.current {
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .theme-switch {
@@ -79,48 +103,52 @@ const subtitle = computed(() => {
   background: transparent;
   padding: 0;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .track {
   position: relative;
-  width: 76px;
-  height: 36px;
+  width: 48px;
+  height: 28px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: var(--bg-card);
-  box-shadow: var(--shadow-soft);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  padding: 0 10px;
+  background: var(--bg-soft);
+  display: block;
+  transition: background 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
 }
-
-.txt {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  z-index: 1;
-}
-
-.txt.day { text-align: left; }
-.txt.night { text-align: right; }
 
 .knob {
   position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 28px;
-  height: 28px;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 6px 16px var(--accent-glow);
-  transition: transform 0.4s var(--ease-spring);
+  font-size: 0.75rem;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 0.35s var(--ease-spring),
+    background 0.25s var(--ease-out),
+    color 0.25s var(--ease-out);
+}
+
+.track.dark {
+  background: color-mix(in srgb, var(--accent) 18%, var(--bg-soft));
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
 }
 
 .track.dark .knob {
-  transform: translateX(40px);
+  transform: translateX(20px);
+  background: var(--accent);
+  color: #fff;
+}
+
+.theme-switch:hover .track {
+  border-color: var(--border-strong);
 }
 
 .theme-switch:active .knob {
@@ -128,12 +156,12 @@ const subtitle = computed(() => {
 }
 
 .theme-switch:active .track.dark .knob {
-  transform: translateX(40px) scale(0.96);
+  transform: translateX(20px) scale(0.96);
 }
 
 @media (max-width: 960px) {
   .topbar {
-    padding-left: 52px;
+    padding-left: 48px;
   }
 }
 </style>

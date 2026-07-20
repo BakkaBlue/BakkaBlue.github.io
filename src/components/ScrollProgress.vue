@@ -41,14 +41,13 @@ onUnmounted(() => {
 <style scoped>
 .scroll-progress {
   position: sticky;
-  top: var(--topbar-h);
-  left: 0;
-  right: 0;
-  height: 2px;
-  z-index: 25;
+  top: 48px;
+  height: 1px;
+  z-index: 24;
   pointer-events: none;
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   background: transparent;
+  opacity: 0.7;
 }
 
 .scroll-progress__bar {

@@ -4,10 +4,9 @@
     <AppSidebar />
 
     <div class="main-frame">
-      <AppTopbar />
-      <ScrollProgress />
-
       <div class="content">
+        <AppTopbar />
+        <ScrollProgress />
         <main :key="name" class="page-shell">
           <HeroSection v-if="isHome" />
           <SkillCards v-else-if="isSkills" />
