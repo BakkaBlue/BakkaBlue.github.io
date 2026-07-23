@@ -340,7 +340,7 @@ onUnmounted(() => {
   */
   transform:
     translate(
-      calc(var(--i) * -16px),
+      calc(var(--i) * 18px),
       calc(var(--i) * -20px)
     )
     scale(calc(1 - var(--i) * 0.03));
@@ -454,7 +454,7 @@ onUnmounted(() => {
   }
   100% {
     /* same drop direction as original, screen-space only */
-    transform: translate(12px, 260px) scale(0.9);
+    transform: translate(16px, 260px) scale(0.9);
     opacity: 0;
     filter: blur(1.5px);
   }
