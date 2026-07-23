@@ -278,11 +278,17 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* Floating stage — orthographic (no perspective foreshortening) */
+/*
+  Orthographic-ish stack (CSS approximation of your reference):
+  - rotateY for side turn
+  - mild rotateX for pitch
+  - counter-scaleY to undo the "squashed flat" look
+  - queue offsets are screen-space only (no perspective / translateZ)
+*/
 .stage {
   position: relative;
   width: 100%;
-  height: 520px;
+  height: 560px;
   overflow: visible;
   background: transparent;
   border: 0;
@@ -291,19 +297,19 @@ onUnmounted(() => {
 
 .floor {
   position: absolute;
-  left: 14%;
-  right: 8%;
-  bottom: 8%;
-  height: 38%;
+  left: 16%;
+  right: 10%;
+  bottom: 6%;
+  height: 34%;
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    color-mix(in srgb, var(--text-primary) 10%, transparent),
+    color-mix(in srgb, var(--text-primary) 9%, transparent),
     transparent 74%
   );
-  filter: blur(16px);
-  opacity: 0.28;
-  transform: translateY(8px) scale(1.05, 0.55);
+  filter: blur(18px);
+  opacity: 0.24;
+  transform: translateY(10px) scale(1.08, 0.5);
   pointer-events: none;
 }
 
@@ -312,34 +318,40 @@ onUnmounted(() => {
   inset: 0;
   display: grid;
   place-items: center;
-  /* orthographic axonometric: yaw + elevation, no perspective */
-  transform:
-    translate3d(12px, 6px, 0)
-    rotateX(-22deg)
-    rotateY(-38deg);
   transform-style: flat;
+  /* side turn + pitch; scaleY restores readable height after rotateX */
+  transform:
+    translate3d(8px, 4px, 0)
+    rotateX(18deg)
+    rotateY(-42deg)
+    scaleY(1.22);
 }
 
 .term {
   --i: 0;
   position: absolute;
-  width: min(98%, 600px);
-  border-radius: 16px;
+  width: min(98%, 620px);
+  border-radius: 18px;
   overflow: hidden;
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg-elevated) 96%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+  background: color-mix(in srgb, var(--bg-elevated) 88%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
   box-shadow:
-    0 28px 56px rgba(0, 0, 0, 0.2),
-    16px 12px 36px rgba(0, 0, 0, 0.08),
-    0 1px 0 color-mix(in srgb, var(--text-primary) 8%, transparent) inset;
-  /* screen-space stack only — no translateZ */
+    0 30px 60px rgba(0, 0, 0, 0.28),
+    18px 14px 40px rgba(0, 0, 0, 0.12),
+    0 1px 0 color-mix(in srgb, var(--text-primary) 10%, transparent) inset;
+  /*
+    fan backward like the reference:
+    each next window shifts up-left and slightly smaller
+  */
   transform:
     translate(
-      calc(var(--i) * -22px),
-      calc(var(--i) * -28px)
+      calc(var(--i) * -34px),
+      calc(var(--i) * -30px)
     )
-    scale(calc(1 - var(--i) * 0.028));
-  opacity: calc(1 - var(--i) * 0.1);
+    scale(calc(1 - var(--i) * 0.035));
+  opacity: calc(1 - var(--i) * 0.08);
   transition:
     transform 0.75s var(--ease-out),
     opacity 0.55s var(--ease-out),
@@ -347,7 +359,7 @@ onUnmounted(() => {
 }
 
 .term.queue {
-  filter: saturate(0.92) brightness(0.98);
+  filter: saturate(0.95) brightness(0.98);
 }
 
 .term.active {
@@ -365,8 +377,8 @@ onUnmounted(() => {
   gap: 12px;
   align-items: center;
   padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg-soft) 88%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  background: color-mix(in srgb, var(--bg-soft) 70%, transparent);
 }
 
 .dots {
@@ -397,8 +409,8 @@ onUnmounted(() => {
 }
 
 .body {
-  min-height: 200px;
-  max-height: 230px;
+  min-height: 210px;
+  max-height: 240px;
   padding: 18px 20px 20px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 1.05rem;
@@ -444,11 +456,12 @@ onUnmounted(() => {
     opacity: 1;
     filter: blur(0);
   }
-  35% {
-    opacity: 0.9;
+  30% {
+    opacity: 0.92;
   }
   100% {
-    transform: translate(10px, 240px) scale(0.94);
+    /* drop down in screen space, keep ortho proportions */
+    transform: translate(8px, 250px) scale(0.95);
     opacity: 0;
     filter: blur(1px);
   }
@@ -473,46 +486,48 @@ onUnmounted(() => {
 
 @media (max-width: 980px) {
   .stage {
-    height: 460px;
-  }
-
-  .stack {
-    transform:
-      translate3d(0, 6px, 0)
-      rotateX(-18deg)
-      rotateY(-32deg);
-  }
-
-  .term {
-    width: min(94%, 540px);
-  }
-
-  .body {
-    font-size: 1rem;
-    min-height: 180px;
-  }
-}
-
-@media (max-width: 560px) {
-  .stage {
-    height: 380px;
+    height: 480px;
   }
 
   .stack {
     transform:
       translate3d(0, 4px, 0)
-      rotateX(-14deg)
-      rotateY(-26deg);
+      rotateX(16deg)
+      rotateY(-36deg)
+      scaleY(1.18);
   }
 
   .term {
-    width: min(96%, 420px);
+    width: min(96%, 560px);
+  }
+
+  .body {
+    font-size: 1rem;
+    min-height: 190px;
+  }
+}
+
+@media (max-width: 560px) {
+  .stage {
+    height: 400px;
+  }
+
+  .stack {
+    transform:
+      translate3d(0, 2px, 0)
+      rotateX(14deg)
+      rotateY(-30deg)
+      scaleY(1.14);
+  }
+
+  .term {
+    width: min(98%, 440px);
   }
 
   .body {
     font-size: 0.92rem;
-    min-height: 150px;
-    max-height: 180px;
+    min-height: 160px;
+    max-height: 190px;
     padding: 14px 16px;
   }
 }
