@@ -277,7 +277,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* Floating stage — no card frame, sits in the open background */
+/* Floating stage — orthographic (no perspective foreshortening) */
 .stage {
   position: relative;
   width: 100%;
@@ -286,26 +286,23 @@ onUnmounted(() => {
   background: transparent;
   border: 0;
   box-shadow: none;
-  perspective: 1500px;
-  perspective-origin: 55% 58%;
 }
 
 .floor {
   position: absolute;
-  left: 10%;
-  right: 6%;
-  bottom: 2%;
-  height: 52%;
+  left: 14%;
+  right: 8%;
+  bottom: 8%;
+  height: 38%;
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    color-mix(in srgb, var(--text-primary) 11%, transparent),
+    color-mix(in srgb, var(--text-primary) 10%, transparent),
     transparent 74%
   );
-  filter: blur(14px);
-  opacity: 0.32;
-  transform: translateZ(-140px) rotateX(82deg) scale(1.3);
-  transform-style: preserve-3d;
+  filter: blur(16px);
+  opacity: 0.28;
+  transform: translateY(8px) scale(1.05, 0.55);
   pointer-events: none;
 }
 
@@ -314,12 +311,12 @@ onUnmounted(() => {
   inset: 0;
   display: grid;
   place-items: center;
-  transform-style: preserve-3d;
-  /* yaw on horizontal plane + elevation angle (仰角, looking slightly upward) */
+  /* orthographic axonometric: yaw + elevation, no perspective */
   transform:
-    translate3d(10px, 10px, 0)
-    rotateX(-24deg)
-    rotateY(-40deg);
+    translate3d(12px, 6px, 0)
+    rotateX(-22deg)
+    rotateY(-38deg);
+  transform-style: flat;
 }
 
 .term {
@@ -330,19 +327,17 @@ onUnmounted(() => {
   overflow: hidden;
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--bg-elevated) 96%, transparent);
-  transform-style: preserve-3d;
   box-shadow:
-    0 30px 64px rgba(0, 0, 0, 0.24),
-    18px 10px 40px rgba(0, 0, 0, 0.1),
+    0 28px 56px rgba(0, 0, 0, 0.2),
+    16px 12px 36px rgba(0, 0, 0, 0.08),
     0 1px 0 color-mix(in srgb, var(--text-primary) 8%, transparent) inset;
-  /* queue recedes in depth */
+  /* screen-space stack only — no translateZ */
   transform:
-    translate3d(
-      calc(var(--i) * -16px),
-      calc(var(--i) * -20px),
-      calc(var(--i) * -80px)
+    translate(
+      calc(var(--i) * -22px),
+      calc(var(--i) * -28px)
     )
-    scale(calc(1 - var(--i) * 0.03));
+    scale(calc(1 - var(--i) * 0.028));
   opacity: calc(1 - var(--i) * 0.1);
   transition:
     transform 0.75s var(--ease-out),
@@ -444,7 +439,7 @@ onUnmounted(() => {
 
 @keyframes fall-away {
   0% {
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: translate(0, 0) scale(1);
     opacity: 1;
     filter: blur(0);
   }
@@ -452,13 +447,9 @@ onUnmounted(() => {
     opacity: 0.9;
   }
   100% {
-    /* drop downward while slightly rotating away under the elevated view */
-    transform:
-      translate3d(12px, 260px, 30px)
-      scale(0.9)
-      rotateX(-10deg);
+    transform: translate(10px, 240px) scale(0.94);
     opacity: 0;
-    filter: blur(1.5px);
+    filter: blur(1px);
   }
 }
 
@@ -486,9 +477,9 @@ onUnmounted(() => {
 
   .stack {
     transform:
-      translate3d(0, 8px, 0)
-      rotateX(-20deg)
-      rotateY(-34deg);
+      translate3d(0, 6px, 0)
+      rotateX(-18deg)
+      rotateY(-32deg);
   }
 
   .term {
@@ -508,9 +499,9 @@ onUnmounted(() => {
 
   .stack {
     transform:
-      translate3d(0, 6px, 0)
-      rotateX(-16deg)
-      rotateY(-28deg);
+      translate3d(0, 4px, 0)
+      rotateX(-14deg)
+      rotateY(-26deg);
   }
 
   .term {
