@@ -31,6 +31,13 @@
 <script setup lang="ts">
 const projects = [
   {
+    title: 'explodemoji',
+    desc: '自选 emoji，调爆炸样式，实时预览并导出 GIF',
+    link: 'explodemoji/',
+    linkText: '打开工具',
+    tag: 'Tool',
+  },
+  {
     title: 'Idle Realms · 放置王国',
     desc: '基于时间累积的多技能放置类 RPG',
     link: 'idle_realms/',

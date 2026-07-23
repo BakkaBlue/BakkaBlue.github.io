@@ -113,6 +113,7 @@ const scripts: Script[] = [
     tone: 'amber',
     lines: [
       { kind: 'cmd', text: 'ls ./projects' },
+      { kind: 'out', text: 'explodemoji/' },
       { kind: 'out', text: 'idle_realms/' },
       { kind: 'out', text: 'color_wordle/' },
       { kind: 'out', text: 'laohei-music/' },

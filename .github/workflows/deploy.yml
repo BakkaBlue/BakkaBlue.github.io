@@ -44,6 +44,15 @@ jobs:
         run: npm run build
         working-directory: projects/idle_realms
 
+      # ===== 构建 explodemoji =====
+      - name: Install explodemoji dependencies
+        run: npm ci
+        working-directory: projects/explodemoji
+
+      - name: Build explodemoji
+        run: npm run build
+        working-directory: projects/explodemoji
+
       # ===== 组装部署目录 =====
       - name: Assemble deploy directory
         run: |
@@ -60,6 +69,10 @@ jobs:
           # idle_realms 构建产物
           mkdir -p "$DEPLOY_DIR/idle_realms"
           cp -r projects/idle_realms/dist/* "$DEPLOY_DIR/idle_realms"
+
+          # explodemoji 构建产物
+          mkdir -p "$DEPLOY_DIR/explodemoji"
+          cp -r projects/explodemoji/dist/* "$DEPLOY_DIR/explodemoji"
 
           echo "=== 部署目录结构 ==="
           find "$DEPLOY_DIR" -type f | sort
