@@ -279,16 +279,13 @@ onUnmounted(() => {
 
 <style scoped>
 /*
-  Orthographic-ish stack (CSS approximation of your reference):
-  - rotateY for side turn
-  - mild rotateX for pitch
-  - counter-scaleY to undo the "squashed flat" look
-  - queue offsets are screen-space only (no perspective / translateZ)
+  Target look: stacked floating windows with mild side yaw + light pitch,
+  similar to the reference cards — soft shadow, rounded glass/black panels.
 */
 .stage {
   position: relative;
   width: 100%;
-  height: 560px;
+  height: 520px;
   overflow: visible;
   background: transparent;
   border: 0;
@@ -297,19 +294,19 @@ onUnmounted(() => {
 
 .floor {
   position: absolute;
-  left: 16%;
-  right: 10%;
-  bottom: 6%;
-  height: 34%;
+  left: 18%;
+  right: 12%;
+  bottom: 10%;
+  height: 28%;
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    color-mix(in srgb, var(--text-primary) 9%, transparent),
-    transparent 74%
+    rgba(0, 0, 0, 0.18),
+    transparent 72%
   );
-  filter: blur(18px);
-  opacity: 0.24;
-  transform: translateY(10px) scale(1.08, 0.5);
+  filter: blur(22px);
+  opacity: 0.55;
+  transform: translateY(12px) scale(1.05, 0.45);
   pointer-events: none;
 }
 
@@ -319,47 +316,48 @@ onUnmounted(() => {
   display: grid;
   place-items: center;
   transform-style: flat;
-  /* side turn + pitch; scaleY restores readable height after rotateX */
+  /* mild pitch + yaw; scaleY compensates rotateX compression */
   transform:
-    translate3d(8px, 4px, 0)
-    rotateX(18deg)
-    rotateY(-42deg)
-    scaleY(1.22);
+    translate3d(4px, 0, 0)
+    rotateX(12deg)
+    rotateY(-28deg)
+    scaleY(1.12);
 }
 
 .term {
   --i: 0;
   position: absolute;
-  width: min(98%, 620px);
-  border-radius: 18px;
+  width: min(96%, 560px);
+  border-radius: 22px;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
-  background: color-mix(in srgb, var(--bg-elevated) 88%, transparent);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid color-mix(in srgb, var(--border-strong) 70%, transparent);
+  background: color-mix(in srgb, #0b0b0d 92%, var(--bg-elevated));
+  color: #f2f2f2;
   box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.28),
-    18px 14px 40px rgba(0, 0, 0, 0.12),
-    0 1px 0 color-mix(in srgb, var(--text-primary) 10%, transparent) inset;
-  /*
-    fan backward like the reference:
-    each next window shifts up-left and slightly smaller
-  */
+    0 24px 50px rgba(0, 0, 0, 0.28),
+    10px 12px 28px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  /* fan: each deeper card peeks top-right, slightly smaller */
   transform:
     translate(
-      calc(var(--i) * -34px),
-      calc(var(--i) * -30px)
+      calc(var(--i) * 22px),
+      calc(var(--i) * -18px)
     )
-    scale(calc(1 - var(--i) * 0.035));
-  opacity: calc(1 - var(--i) * 0.08);
+    scale(calc(1 - var(--i) * 0.03));
+  opacity: calc(1 - var(--i) * 0.04);
   transition:
     transform 0.75s var(--ease-out),
     opacity 0.55s var(--ease-out),
     filter 0.55s var(--ease-out);
 }
 
+:global(html[data-theme='light']) .term {
+  background: color-mix(in srgb, #111214 94%, #000);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
 .term.queue {
-  filter: saturate(0.95) brightness(0.98);
+  filter: saturate(0.96) brightness(0.98);
 }
 
 .term.active {
@@ -373,12 +371,12 @@ onUnmounted(() => {
 
 .bar {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   gap: 12px;
   align-items: center;
-  padding: 14px 16px;
-  border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
-  background: color-mix(in srgb, var(--bg-soft) 70%, transparent);
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
 }
 
 .dots {
@@ -387,21 +385,25 @@ onUnmounted(() => {
 }
 
 .dots i {
-  width: 11px;
-  height: 11px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   display: block;
+  opacity: 0.9;
 }
 
-.dots .r { background: #ff5f57; }
-.dots .y { background: #febc2e; }
-.dots .g { background: #28c840; }
+/* monochrome dots like the reference */
+.dots .r,
+.dots .y,
+.dots .g {
+  background: rgba(255, 255, 255, 0.55);
+}
 
 .title {
   text-align: center;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.88rem;
-  color: var(--text-muted);
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.55);
   letter-spacing: 0.02em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -411,40 +413,42 @@ onUnmounted(() => {
 .body {
   min-height: 210px;
   max-height: 240px;
-  padding: 18px 20px 20px;
+  padding: 18px 20px 22px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 1.05rem;
   line-height: 1.75;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.78);
   overflow: hidden;
 }
 
 .line { word-break: break-word; }
-.line.cmd { color: var(--text-primary); }
-.line.ok { color: color-mix(in srgb, var(--success) 80%, var(--text-primary)); }
-.line.dim { color: var(--text-muted); }
-.line.out { color: var(--text-secondary); }
+.line.cmd { color: rgba(255, 255, 255, 0.92); }
+.line.ok { color: color-mix(in srgb, var(--success) 70%, white); }
+.line.dim { color: rgba(255, 255, 255, 0.42); }
+.line.out { color: rgba(255, 255, 255, 0.72); }
 
 .prompt {
-  color: var(--accent);
+  color: rgba(255, 255, 255, 0.7);
   margin-right: 8px;
 }
 
 .caret {
   display: inline-block;
   margin-left: 1px;
-  color: var(--accent);
+  color: rgba(255, 255, 255, 0.8);
   animation: blink 1s steps(1) infinite;
 }
 
 .term.blue .prompt,
-.term.blue .caret { color: var(--accent); }
+.term.blue .caret,
 .term.violet .prompt,
-.term.violet .caret { color: var(--accent-2); }
+.term.violet .caret,
 .term.green .prompt,
-.term.green .caret { color: var(--success); }
+.term.green .caret,
 .term.amber .prompt,
-.term.amber .caret { color: var(--warning); }
+.term.amber .caret {
+  color: rgba(255, 255, 255, 0.78);
+}
 
 @keyframes blink {
   50% { opacity: 0; }
@@ -456,12 +460,11 @@ onUnmounted(() => {
     opacity: 1;
     filter: blur(0);
   }
-  30% {
-    opacity: 0.92;
+  35% {
+    opacity: 0.9;
   }
   100% {
-    /* drop down in screen space, keep ortho proportions */
-    transform: translate(8px, 250px) scale(0.95);
+    transform: translate(12px, 230px) scale(0.96);
     opacity: 0;
     filter: blur(1px);
   }
@@ -473,7 +476,7 @@ onUnmounted(() => {
 
 .stage.reduced .term {
   position: relative;
-  width: min(98%, 640px);
+  width: min(98%, 620px);
   transform: none !important;
   opacity: 1 !important;
   animation: none !important;
@@ -486,19 +489,19 @@ onUnmounted(() => {
 
 @media (max-width: 980px) {
   .stage {
-    height: 480px;
+    height: 470px;
   }
 
   .stack {
     transform:
-      translate3d(0, 4px, 0)
-      rotateX(16deg)
-      rotateY(-36deg)
-      scaleY(1.18);
+      translate3d(0, 2px, 0)
+      rotateX(11deg)
+      rotateY(-24deg)
+      scaleY(1.1);
   }
 
   .term {
-    width: min(96%, 560px);
+    width: min(96%, 520px);
   }
 
   .body {
@@ -514,14 +517,14 @@ onUnmounted(() => {
 
   .stack {
     transform:
-      translate3d(0, 2px, 0)
-      rotateX(14deg)
-      rotateY(-30deg)
-      scaleY(1.14);
+      translate3d(0, 0, 0)
+      rotateX(10deg)
+      rotateY(-20deg)
+      scaleY(1.08);
   }
 
   .term {
-    width: min(98%, 440px);
+    width: min(98%, 430px);
   }
 
   .body {
