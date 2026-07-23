@@ -278,34 +278,32 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* Floating stage — original layout, orthographic (no perspective) */
+/* Floating orthographic stack — same-size cards, pseudo-3D by offset only */
 .stage {
   position: relative;
   width: 100%;
-  height: 520px;
+  height: 540px;
   overflow: visible;
   background: transparent;
   border: 0;
   box-shadow: none;
-  /* intentionally no perspective */
 }
 
 .floor {
   position: absolute;
-  left: 10%;
-  right: 6%;
-  bottom: 2%;
-  height: 52%;
+  left: 12%;
+  right: 8%;
+  bottom: 4%;
+  height: 42%;
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    color-mix(in srgb, var(--text-primary) 11%, transparent),
+    color-mix(in srgb, var(--text-primary) 10%, transparent),
     transparent 74%
   );
-  filter: blur(14px);
-  opacity: 0.32;
-  /* screen-space soft ground only */
-  transform: translateY(10px) scale(1.15, 0.55);
+  filter: blur(16px);
+  opacity: 0.28;
+  transform: translateY(12px) scale(1.12, 0.52);
   pointer-events: none;
 }
 
@@ -314,18 +312,19 @@ onUnmounted(() => {
   inset: 0;
   display: grid;
   place-items: center;
-  /* same orientation as original elevation style */
+  transform-style: flat;
+  /* keep original elevation/yaw; no perspective */
   transform:
-    translate3d(10px, 10px, 0)
+    translate3d(10px, 8px, 0)
     rotateX(-24deg)
     rotateY(-40deg);
-  transform-style: flat;
 }
 
 .term {
   --i: 0;
   position: absolute;
-  width: min(98%, 600px);
+  /* identical size for every card */
+  width: min(96%, 600px);
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border);
@@ -335,16 +334,15 @@ onUnmounted(() => {
     18px 10px 40px rgba(0, 0, 0, 0.1),
     0 1px 0 color-mix(in srgb, var(--text-primary) 8%, transparent) inset;
   /*
-    original queue offsets, without translateZ (that needs perspective).
-    keep the same screen-space movement so positions stay familiar.
+    pseudo-3D: same size, larger right-rear spacing.
+    deeper cards only offset — no scale shrink.
   */
   transform:
     translate(
-      calc(var(--i) * 18px),
-      calc(var(--i) * -20px)
-    )
-    scale(calc(1 - var(--i) * 0.03));
-  opacity: calc(1 - var(--i) * 0.1);
+      calc(var(--i) * 36px),
+      calc(var(--i) * -32px)
+    );
+  opacity: calc(1 - var(--i) * 0.06);
   transition:
     transform 0.75s var(--ease-out),
     opacity 0.55s var(--ease-out),
@@ -352,7 +350,7 @@ onUnmounted(() => {
 }
 
 .term.queue {
-  filter: saturate(0.92) brightness(0.98);
+  filter: saturate(0.95) brightness(0.985);
 }
 
 .term.active {
@@ -453,8 +451,7 @@ onUnmounted(() => {
     opacity: 0.9;
   }
   100% {
-    /* same drop direction as original, screen-space only */
-    transform: translate(16px, 260px) scale(0.9);
+    transform: translate(18px, 270px) scale(1);
     opacity: 0;
     filter: blur(1.5px);
   }
@@ -479,7 +476,7 @@ onUnmounted(() => {
 
 @media (max-width: 980px) {
   .stage {
-    height: 460px;
+    height: 470px;
   }
 
   .stack {
@@ -491,6 +488,11 @@ onUnmounted(() => {
 
   .term {
     width: min(94%, 540px);
+    transform:
+      translate(
+        calc(var(--i) * 30px),
+        calc(var(--i) * -28px)
+      );
   }
 
   .body {
@@ -501,7 +503,7 @@ onUnmounted(() => {
 
 @media (max-width: 560px) {
   .stage {
-    height: 380px;
+    height: 390px;
   }
 
   .stack {
@@ -513,6 +515,11 @@ onUnmounted(() => {
 
   .term {
     width: min(96%, 420px);
+    transform:
+      translate(
+        calc(var(--i) * 24px),
+        calc(var(--i) * -22px)
+      );
   }
 
   .body {
