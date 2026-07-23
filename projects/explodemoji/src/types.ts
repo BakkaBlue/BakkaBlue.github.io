@@ -30,10 +30,19 @@ export interface UvPoint {
 export interface Particle {
   x: number;
   y: number;
+  /** Depth: +z toward camera (appears larger). */
+  z: number;
   vx: number;
   vy: number;
+  vz: number;
+  /** Spin in the screen plane (radians). */
   rotation: number;
   angularVel: number;
+  /** Tilt for 2.5D tumble. */
+  rotX: number;
+  rotY: number;
+  angularVelX: number;
+  angularVelY: number;
   scale: number;
   alpha: number;
   /** Time since explosion started (not including hold). */
@@ -64,14 +73,17 @@ export const STYLE_LABELS: Record<StyleId, string> = {
 };
 
 export const STYLE_RECOMMENDED_GRAVITY: Record<StyleId, number> = {
-  burst: 680,
-  fountain: 900,
-  spiral: 420,
-  shatter: 1100,
+  burst: 780,
+  fountain: 920,
+  spiral: 560,
+  shatter: 1050,
 };
 
 /** Intact emoji hold before shards fly (seconds). */
 export const HOLD_DURATION = 0.5;
+
+/** Perspective focal length as fraction of min(canvas side). */
+export const PERSPECTIVE_FOCAL_FRAC = 1.35;
 
 /** Slider / clamp limits — wide for high-tension effects. */
 export const PARAM_LIMITS = {
@@ -92,13 +104,13 @@ export const DEFAULT_PARAMS: AppParams = {
   emoji: '💥',
   style: 'burst',
   particleCount: 49,
-  force: 1.85,
-  gravity: 680,
-  drag: 0.01,
-  spin: 2,
+  force: 2,
+  gravity: 780,
+  drag: 0.012,
+  spin: 2.2,
   scaleFrom: 1.05,
-  scaleTo: 0.55,
-  duration: 1.8,
+  scaleTo: 0.5,
+  duration: 2.1,
   fps: 24,
   width: 256,
   height: 256,

@@ -1,7 +1,7 @@
 import type { AppParams, Particle } from '../../types';
-import { createShardGrid } from '../particle';
+import { applySkyBlast, createShardGrid } from '../particle';
 
-/** Fast spiral whip with upward bias. */
+/** Spiral whip in the horizontal plane + sky loft + depth. */
 export function initSpiral(
   particles: Particle[],
   params: AppParams,
@@ -10,23 +10,26 @@ export function initSpiral(
   const shards = createShardGrid(params, rng);
   const cx = params.width / 2;
   const cy = params.height / 2;
-  const { force, spin } = params;
 
   for (const p of shards) {
+    applySkyBlast(p, params, rng, {
+      speed: 200 + rng() * 160,
+      loft: 280 + rng() * 160,
+      camBias: 0.5,
+      spinScale: 1.2,
+    });
+
     const dx = p.x - cx;
     const dy = p.y - cy;
     const dist = Math.hypot(dx, dy) || 1;
-    const nx = dx / dist;
-    const ny = dy / dist;
-    const tx = -ny;
-    const ty = nx;
-    const radial = (120 + rng() * 140) * force;
-    const tangential = (320 + rng() * 280) * force;
-    p.vx = nx * radial + tx * tangential;
-    p.vy = ny * radial + ty * tangential;
-    p.vy -= (180 + rng() * 160) * force;
-    p.angularVel = (4 + rng() * 6) * spin * (rng() < 0.5 ? -1 : 1);
-    p.life = params.duration * (0.76 + rng() * 0.34);
+    const tx = -dy / dist;
+    const ty = dx / dist;
+    const tangential = (240 + rng() * 200) * params.force;
+    p.vx += tx * tangential;
+    // mix a bit of screen-y into spiral so it isn't pure horizontal
+    p.vx += tx * tangential * 0.15;
+    p.vz += ty * tangential * 0.35;
+    p.angularVelY += (3 + rng() * 4) * params.spin * (rng() < 0.5 ? -1 : 1);
     particles.push(p);
   }
 }

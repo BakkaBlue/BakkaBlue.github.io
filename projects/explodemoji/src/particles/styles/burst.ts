@@ -1,35 +1,29 @@
 import type { AppParams, Particle } from '../../types';
-import { createShardGrid } from '../particle';
+import { applySkyBlast, createShardGrid } from '../particle';
 
-/** Radial burst with strong upward loft, then shards fall gently. */
+/** Full 3D spherical burst — every shard lofted skyward first. */
 export function initBurst(
   particles: Particle[],
   params: AppParams,
   rng: () => number,
 ): void {
   const shards = createShardGrid(params, rng);
-  const cx = params.width / 2;
-  const cy = params.height / 2;
-  const { force, spin } = params;
-  const span = Math.min(params.width, params.height);
-
   for (const p of shards) {
+    applySkyBlast(p, params, rng, {
+      speed: 340 + rng() * 260,
+      loft: 320 + rng() * 180,
+      camBias: 0.4,
+      spinScale: 1,
+    });
+    // slight outward planar push from shard's UV position
+    const cx = params.width / 2;
+    const cy = params.height / 2;
     const dx = p.x - cx;
     const dy = p.y - cy;
     const dist = Math.hypot(dx, dy) || 1;
-    const nx = dx / dist;
-    const ny = dy / dist;
-    // faster explosion kick
-    const speed =
-      (260 + rng() * 380) * force * (0.5 + dist / (span * 0.26));
-    const jitter = (rng() - 0.5) * 0.6 * force;
-    p.vx = nx * speed + -ny * jitter * 90;
-    p.vy = ny * speed + nx * jitter * 90;
-    // loft skyward so arcs read before the float-down
-    p.vy -= (220 + rng() * 200) * force;
-    p.angularVel = (rng() - 0.5) * 14 * spin;
-    // staggered life → layered fall
-    p.life = params.duration * (0.75 + rng() * 0.35);
+    const kick = (40 + rng() * 80) * params.force;
+    p.vx += (dx / dist) * kick;
+    p.vy += (dy / dist) * kick * 0.35;
     particles.push(p);
   }
 }

@@ -1,24 +1,24 @@
 import type { AppParams, Particle } from '../../types';
-import { createShardGrid } from '../particle';
+import { applySkyBlast, createShardGrid } from '../particle';
 
-/** Fast upward fountain; descent handled as float in the simulator. */
+/** Upward fountain with 3D depth scatter. */
 export function initFountain(
   particles: Particle[],
   params: AppParams,
   rng: () => number,
 ): void {
   const shards = createShardGrid(params, rng);
-  const { force, spin } = params;
-
   for (const p of shards) {
-    const angle = -Math.PI / 2 + (rng() - 0.5) * 1.05;
-    const speed = (420 + rng() * 420) * force;
-    p.vx = Math.cos(angle) * speed + (rng() - 0.5) * 120 * force;
-    p.vy = Math.sin(angle) * speed;
-    // extra sky loft
-    p.vy -= (80 + rng() * 100) * force;
-    p.angularVel = (rng() - 0.5) * 12 * spin;
-    p.life = params.duration * (0.78 + rng() * 0.32);
+    applySkyBlast(p, params, rng, {
+      speed: 220 + rng() * 180,
+      loft: 420 + rng() * 260,
+      camBias: 0.25,
+      spinScale: 0.9,
+    });
+    // squeeze more of the blast into the upper cone
+    p.vx *= 0.85;
+    p.vz *= 0.9;
+    p.vy -= 80 * params.force;
     particles.push(p);
   }
 }

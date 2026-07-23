@@ -19,11 +19,13 @@ export function createParticles(params: AppParams): Particle[] {
 }
 
 /**
- * Explosive while rising / early; soft float once falling (vy > 0).
- * Canvas y grows downward, so vy > 0 means descending.
+ * 3D explosion: fly skyward (+depth), then soft float fall.
+ * Canvas y grows downward → sky is negative vy; +z toward camera.
  */
 export function stepParticles(particles: Particle[], params: AppParams, dt: number): void {
   const isSpiral = params.style === 'spiral';
+  const span = Math.min(params.width, params.height);
+  const zLimit = span * 0.9;
 
   for (const p of particles) {
     p.age += dt;
@@ -33,40 +35,60 @@ export function stepParticles(particles: Particle[], params: AppParams, dt: numb
     }
 
     const t = p.age / p.life;
-    const falling = p.vy > 12;
+    // still climbing or early blast if moving up or only just cresting
+    const falling = p.vy > 18;
 
     if (isSpiral && !falling) {
-      const twist = 110 * params.force * dt;
-      const angle = Math.atan2(p.vy, p.vx);
-      p.vx += Math.cos(angle + Math.PI / 2) * twist;
-      p.vy += Math.sin(angle + Math.PI / 2) * twist;
+      const twist = 100 * params.force * dt;
+      // twist in XZ plane for 3D spiral feel
+      const ang = Math.atan2(p.vz, p.vx);
+      p.vx += Math.cos(ang + Math.PI / 2) * twist;
+      p.vz += Math.sin(ang + Math.PI / 2) * twist;
     }
 
     if (falling) {
-      // 飘落：重力减弱、阻力加大、自旋衰减 + 轻微左右摇摆
-      const gMul = 0.28;
-      const dragX = Math.min(0.22, params.drag * 4 + 0.018);
-      const dragY = Math.min(0.18, params.drag * 3 + 0.012);
+      // 飘落：弱重力、强阻力、深度也衰减，左右微晃
+      const gMul = 0.32;
+      const dragX = Math.min(0.24, params.drag * 4.2 + 0.02);
+      const dragY = Math.min(0.2, params.drag * 3.2 + 0.014);
+      const dragZ = Math.min(0.2, params.drag * 3.5 + 0.016);
       p.vy += params.gravity * gMul * dt;
       p.vx *= 1 - dragX;
       p.vy *= 1 - dragY;
-      // soft terminal-ish cap so they don't hammer down
-      const fallCap = 90 + params.gravity * 0.04;
+      p.vz *= 1 - dragZ;
+      const fallCap = 85 + params.gravity * 0.035;
       if (p.vy > fallCap) p.vy = fallCap;
-      p.angularVel *= Math.max(0, 1 - 2.2 * dt);
-      p.vx += Math.sin(p.age * 5.5 + p.x * 0.04) * (18 + 8 * params.force) * dt;
+      p.angularVel *= Math.max(0, 1 - 2.4 * dt);
+      p.angularVelX *= Math.max(0, 1 - 2.0 * dt);
+      p.angularVelY *= Math.max(0, 1 - 2.0 * dt);
+      p.vx += Math.sin(p.age * 5.2 + p.z * 0.02) * (16 + 7 * params.force) * dt;
+      p.vz += Math.cos(p.age * 4.4 + p.x * 0.03) * (12 + 5 * params.force) * dt;
     } else {
-      // 爆炸/上冲：更快冲出去；上升时阻力略小，拉高弧线
+      // 爆炸 / 上冲：保留动能，上升阻力小
       p.vy += params.gravity * dt;
-      p.vx *= 1 - params.drag * 0.85;
-      p.vy *= 1 - params.drag * 0.45;
+      p.vx *= 1 - params.drag * 0.7;
+      p.vy *= 1 - params.drag * 0.35;
+      p.vz *= 1 - params.drag * 0.55;
     }
 
     p.x += p.vx * dt;
     p.y += p.vy * dt;
+    p.z += p.vz * dt;
+    // soft depth clamp so perspective stays stable
+    if (p.z > zLimit) {
+      p.z = zLimit;
+      p.vz *= -0.15;
+    } else if (p.z < -zLimit * 0.7) {
+      p.z = -zLimit * 0.7;
+      p.vz *= -0.15;
+    }
+
     p.rotation += p.angularVel * dt;
+    p.rotX += p.angularVelX * dt;
+    p.rotY += p.angularVelY * dt;
+
+    // base size curve × life; perspective applied at draw time
     p.scale = lerp(params.scaleFrom, params.scaleTo, smoothstep(t)) * p.scaleMul;
-    // 飘落阶段再拉长一点可见时间：后半段更晚淡出
-    p.alpha = t < 0.78 ? 1 : 1 - (t - 0.78) / 0.22;
+    p.alpha = t < 0.8 ? 1 : 1 - (t - 0.8) / 0.2;
   }
 }

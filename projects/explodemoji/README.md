@@ -5,7 +5,7 @@
 - 纯前端（Vite + TypeScript + Canvas）
 - Twemoji 位图，跨平台外观一致
 - 四种样式：Burst / Fountain / Spiral / Shatter
-- **碎块爆炸**：一张 emoji 先定格 0.5s，再切成不规则碎片飞出
+- **3D 爆炸**：球面初速 + 深度透视分层；碎片先全部冲上天，再飘落
 - 浏览器端编码 GIF（[gifenc](https://github.com/mattdesl/gifenc)）
 
 ## 使用
@@ -44,7 +44,8 @@ npm run preview
 
 - 预览与导出共用同一套粒子 `init` / `step` / `drawFrame`，固定 seed 保证一致
 - 网格角点抖动 + 部分三角形碎块；clip 多边形绘制 UV 纹理
-- 时间线：`HOLD_DURATION(0.5s)` 完整图 → 高速上抛爆炸 → 下落飘落（降重力/增阻力）
+- 时间线：`HOLD_DURATION(0.5s)` 完整图 → 3D 冲天爆炸 → 下落飘落
+- 绘制：按 z 排序 + 透视缩放/位移，近大远小、翻面缩扁
 - Emoji 资源：jsDelivr 上的 Twemoji `72x72` PNG（运行时按需拉取，失败时 clip + 系统 emoji 兜底）
 - 导出时主线程分片 `quantize`，UI 显示帧进度
 

@@ -1,14 +1,20 @@
 import type { AppParams, Particle, UvPoint } from '../types';
 import { EMOJI_SIZE_FRAC } from '../types';
-import { clamp } from '../util/math';
+import { clamp, TAU } from '../util/math';
 
 export function makeParticle(
   partial: Partial<Particle> &
     Pick<Particle, 'x' | 'y' | 'vx' | 'vy' | 'uvPoly' | 'localPoly'>,
 ): Particle {
   return {
+    z: 0,
+    vz: 0,
     rotation: 0,
     angularVel: 0,
+    rotX: 0,
+    rotY: 0,
+    angularVelX: 0,
+    angularVelY: 0,
     scale: 1,
     alpha: 1,
     age: 0,
@@ -27,8 +33,66 @@ export function emojiDisplaySize(params: AppParams): number {
   return Math.min(params.width, params.height) * EMOJI_SIZE_FRAC;
 }
 
+/** Random unit vector on a sphere. */
+export function randomUnit3(rng: () => number): { x: number; y: number; z: number } {
+  const z = rng() * 2 - 1;
+  const t = rng() * TAU;
+  const r = Math.sqrt(Math.max(0, 1 - z * z));
+  return { x: r * Math.cos(t), y: r * Math.sin(t), z };
+}
+
 /**
- * Build irregular shards that tile one emoji at the canvas center.
+ * 3D blast: spherical kick + mandatory sky loft so every shard goes up first.
+ * World Y is canvas-down; sky loft is negative vy.
+ */
+export function applySkyBlast(
+  p: Particle,
+  params: AppParams,
+  rng: () => number,
+  opts: {
+    /** Base radial speed multiplier. */
+    speed: number;
+    /** Extra upward (sky) speed, always applied. */
+    loft: number;
+    /** Bias of sphere sample toward camera (+z). 0–1. */
+    camBias?: number;
+    /** Extra planar spin scale. */
+    spinScale?: number;
+  },
+): void {
+  const { force, spin } = params;
+  const dir = randomUnit3(rng);
+  // Prefer directions that aren't straight into the ground plane first
+  let dy = dir.y;
+  let dz = dir.z;
+  const camBias = opts.camBias ?? 0.35;
+  dz = dz * (1 - camBias) + camBias * (0.35 + rng() * 0.65);
+  // Normalize xz + adjusted y roughly
+  const len = Math.hypot(dir.x, dy, dz) || 1;
+  const nx = dir.x / len;
+  const ny = dy / len;
+  const nz = dz / len;
+
+  const speed = opts.speed * force * (0.75 + rng() * 0.55);
+  p.vx = nx * speed;
+  p.vy = ny * speed;
+  p.vz = nz * speed;
+
+  // All shards bounce skyward first
+  const loft = opts.loft * force * (0.85 + rng() * 0.4);
+  p.vy -= loft;
+
+  const spinScale = opts.spinScale ?? 1;
+  p.angularVel = (rng() - 0.5) * 16 * spin * spinScale;
+  p.angularVelX = (rng() - 0.5) * 10 * spin * spinScale;
+  p.angularVelY = (rng() - 0.5) * 10 * spin * spinScale;
+  p.rotX = (rng() - 0.5) * 0.2;
+  p.rotY = (rng() - 0.5) * 0.2;
+  p.life = params.duration * (0.78 + rng() * 0.35);
+}
+
+/**
+ * Build irregular shards that tile one emoji at the canvas center (z=0 plane).
  * Grid corner points are jittered so cells become uneven quads (not neat squares).
  */
 export function createShardGrid(
@@ -41,9 +105,8 @@ export function createShardGrid(
   const cy = height / 2;
   const size = emojiDisplaySize(params);
 
-  // (side+1)² shared UV corners; edges stay on the border, interior is jittered.
   const pts: UvPoint[][] = [];
-  const jitter = 0.38 / side; // strong irregularity, still non-crossing for most seeds
+  const jitter = 0.38 / side;
 
   for (let r = 0; r <= side; r++) {
     const row: UvPoint[] = [];
@@ -56,7 +119,6 @@ export function createShardGrid(
       if (r > 0 && r < side) {
         v += (rng() - 0.5) * 2 * jitter;
       }
-      // keep interior points away from borders enough to reduce inverted quads
       if (c > 0 && c < side) u = clamp(u, 0.02, 0.98);
       if (r > 0 && r < side) v = clamp(v, 0.02, 0.98);
       row.push({ u, v });
@@ -64,7 +126,6 @@ export function createShardGrid(
     pts.push(row);
   }
 
-  // Extra chaos: randomly push some interior corners harder
   for (let r = 1; r < side; r++) {
     for (let c = 1; c < side; c++) {
       if (rng() < 0.45) {
@@ -79,7 +140,6 @@ export function createShardGrid(
 
   for (let row = 0; row < side; row++) {
     for (let col = 0; col < side; col++) {
-      // corners clockwise: TL, TR, BR, BL
       let uvPoly: UvPoint[] = [
         { ...pts[row][col] },
         { ...pts[row][col + 1] },
@@ -87,7 +147,6 @@ export function createShardGrid(
         { ...pts[row + 1][col] },
       ];
 
-      // ~30% cells: collapse one corner toward diagonal → triangle-ish shard
       if (rng() < 0.3) {
         const k = Math.floor(rng() * 4);
         const prev = uvPoly[(k + 3) % 4];
@@ -96,9 +155,7 @@ export function createShardGrid(
           u: (prev.u + next.u) * 0.5 + (rng() - 0.5) * jitter * 0.5,
           v: (prev.v + next.v) * 0.5 + (rng() - 0.5) * jitter * 0.5,
         };
-        // drop near-duplicate by merging k into a 3-point poly
         const merged = uvPoly.filter((_, i) => i !== k);
-        // keep 4 points with k replaced is fine for fill; prefer triangle:
         uvPoly = [merged[0], merged[1], merged[2]];
       }
 
@@ -123,8 +180,10 @@ export function createShardGrid(
         makeParticle({
           x: worldX,
           y: worldY,
+          z: 0,
           vx: 0,
           vy: 0,
+          vz: 0,
           rotation: 0,
           angularVel: 0,
           life: duration * (0.85 + rng() * 0.15),

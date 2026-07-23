@@ -1,5 +1,6 @@
 import type { AppParams, Particle } from '../types';
-import { EMOJI_SIZE_FRAC } from '../types';
+import { EMOJI_SIZE_FRAC, PERSPECTIVE_FOCAL_FRAC } from '../types';
+import { clamp } from '../util/math';
 
 export interface DrawOptions {
   /** When true, draw one intact emoji (pre-explosion hold). */
@@ -26,24 +27,41 @@ export function drawFrame(
   const fullSize = Math.min(width, height) * EMOJI_SIZE_FRAC;
   const cx = width / 2;
   const cy = height / 2;
+  const focal = Math.min(width, height) * PERSPECTIVE_FOCAL_FRAC;
 
   if (options.holding) {
     drawIntactEmoji(ctx, cx, cy, fullSize * params.scaleFrom, image, emojiFallback);
     return;
   }
 
-  for (const p of particles) {
-    if (p.alpha <= 0.01) continue;
+  // Far (small / -z) first → near (large / +z) last for correct occlusion
+  const ordered = particles
+    .map((p, i) => ({ p, i }))
+    .filter(({ p }) => p.alpha > 0.01)
+    .sort((a, b) => a.p.z - b.p.z || a.i - b.i);
 
-    const s = p.scale;
+  for (const { p } of ordered) {
+    // perspective: +z toward camera → larger & more foreshortened from center
+    const zClamped = clamp(p.z, -focal * 0.55, focal * 0.72);
+    const persp = focal / (focal - zClamped);
+    const sx = cx + (p.x - cx) * persp;
+    const sy = cy + (p.y - cy) * persp;
+    const s = p.scale * persp;
+
+    // depth cue: far shards slightly dimmer
+    const depthAlpha = clamp(0.55 + (zClamped / focal) * 0.55, 0.45, 1);
+    const tiltY = Math.cos(p.rotY);
+    const tiltX = Math.cos(p.rotX);
+    // foreshorten when tumbling edge-on
+    const face = clamp(Math.abs(tiltX * tiltY), 0.22, 1);
 
     ctx.save();
-    ctx.globalAlpha = p.alpha;
-    ctx.translate(p.x, p.y);
+    ctx.globalAlpha = p.alpha * depthAlpha;
+    ctx.translate(sx, sy);
     ctx.rotate(p.rotation);
-    ctx.scale(s, s);
+    // approximate 3D tumble with non-uniform scale
+    ctx.scale(s * (0.55 + 0.45 * Math.abs(Math.cos(p.rotY))), s * face);
 
-    // Clip to irregular shard polygon (local space at scale=1)
     const poly = p.localPoly;
     if (poly.length >= 3) {
       ctx.beginPath();
@@ -55,8 +73,6 @@ export function drawFrame(
       ctx.clip();
     }
 
-    // Map full emoji so UV 0–1 covers [-fullSize/2, fullSize/2] relative to emoji center.
-    // Particle sits at UV centroid; emoji center in particle local space:
     const midU =
       p.uvPoly.reduce((a, q) => a + q.u, 0) / Math.max(1, p.uvPoly.length);
     const midV =
