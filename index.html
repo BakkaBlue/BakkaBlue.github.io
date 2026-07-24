@@ -6,10 +6,39 @@
   <title>Cyan · 个人主页</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
   </noscript>
+  <!-- Early appearance boot (localStorage) to reduce FOUC before Vue mounts -->
+  <script>
+    (function () {
+      try {
+        var root = document.documentElement
+        var raw = localStorage.getItem('cyan-appearance')
+        var mode = 'system'
+        if (raw) {
+          var store = JSON.parse(raw)
+          var profile = (store.profiles || []).find(function (p) { return p.id === store.activeProfileId })
+            || (store.profiles || [])[0]
+          if (profile && profile.settings && profile.settings.themeMode) {
+            mode = profile.settings.themeMode
+          }
+        } else {
+          var legacy = localStorage.getItem('cyan-theme')
+          if (legacy === 'dark' || legacy === 'light') mode = legacy
+        }
+        var resolved = mode
+        if (mode === 'system') {
+          resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+        if (resolved === 'dark' || resolved === 'light') {
+          root.dataset.theme = resolved
+          root.style.colorScheme = resolved
+        }
+      } catch (e) { /* ignore */ }
+    })()
+  </script>
 </head>
 <body>
   <!-- GitHub Pages SPA path restore for /blog -->

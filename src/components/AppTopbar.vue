@@ -6,29 +6,41 @@
       <span class="current">{{ pageTitle }}</span>
     </div>
 
-    <button
-      class="theme-switch"
-      type="button"
-      role="switch"
-      :aria-checked="isDark"
-      :aria-label="isDark ? '切换到日间模式' : '切换到夜间模式'"
-      :title="isDark ? '切换到日间模式' : '切换到夜间模式'"
-      @click="toggleTheme"
-    >
-      <span class="track" :class="{ dark: isDark }">
-        <span class="knob">{{ isDark ? '☾' : '☀' }}</span>
-      </span>
-    </button>
+    <div class="actions">
+      <button
+        class="settings-btn"
+        type="button"
+        aria-label="主题设置"
+        title="主题设置"
+        @click="openPanel"
+      >
+        <span class="gear" aria-hidden="true">⚙</span>
+      </button>
+
+      <button
+        class="theme-switch"
+        type="button"
+        role="switch"
+        :aria-checked="isDark"
+        :aria-label="isDark ? '切换到日间模式' : '切换到夜间模式'"
+        :title="isDark ? '切换到日间模式' : '切换到夜间模式'"
+        @click="toggleTheme"
+      >
+        <span class="track" :class="{ dark: isDark }">
+          <span class="knob">{{ isDark ? '☾' : '☀' }}</span>
+        </span>
+      </button>
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useAppRoute } from '@/composables/useAppRoute'
-import { useTheme } from '@/composables/useTheme'
+import { useAppearance } from '@/composables/useAppearance'
 
 const { pageTitle } = useAppRoute()
-const { isDark, toggleTheme } = useTheme()
+const { isDark, toggleTheme, openPanel } = useAppearance()
 const isScrolled = ref(false)
 
 function onScroll() {
@@ -96,6 +108,38 @@ onUnmounted(() => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.settings-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text-secondary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: 0.25s var(--ease-out);
+}
+
+.settings-btn:hover {
+  background: var(--bg-soft-hover);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.gear {
+  font-size: 0.95rem;
+  line-height: 1;
+  transform: translateY(-0.5px);
 }
 
 .theme-switch {

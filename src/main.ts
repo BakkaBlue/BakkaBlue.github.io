@@ -4,12 +4,12 @@ import App from './App.vue'
 import './assets/styles/variables.css'
 import './assets/styles/glass.css'
 import './assets/styles/animations.css'
-import { useTheme } from './composables/useTheme'
+import { useAppearance } from './composables/useAppearance'
 
 // reveal CSS only hides after JS boot
 document.documentElement.classList.add('js')
 
-// boot theme before mount to avoid flash
-useTheme()
+// boot multi-profile appearance before mount to avoid flash
+useAppearance()
 
 createApp(App).mount('#app')

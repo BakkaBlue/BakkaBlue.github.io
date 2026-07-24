@@ -19,6 +19,8 @@
         <SiteFooter />
       </div>
     </div>
+
+    <ThemeSettingsPanel />
   </div>
 </template>
 
@@ -29,8 +31,9 @@ import AppSidebar from './components/AppSidebar.vue'
 import AppTopbar from './components/AppTopbar.vue'
 import ScrollProgress from './components/ScrollProgress.vue'
 import HeroSection from './components/HeroSection.vue'
+import ThemeSettingsPanel from './components/ThemeSettingsPanel.vue'
 import { useAppRoute } from './composables/useAppRoute'
-import { useTheme } from './composables/useTheme'
+import { useAppearance } from './composables/useAppearance'
 
 const SkillCards = defineAsyncComponent(() => import('./components/SkillCards.vue'))
 const GithubHeatmap = defineAsyncComponent(() => import('./components/GithubHeatmap.vue'))
@@ -52,7 +55,7 @@ const {
   blogSlug,
   pageTitle,
 } = useAppRoute()
-useTheme()
+useAppearance()
 
 let io: IntersectionObserver | null = null
 let mo: MutationObserver | null = null
@@ -143,7 +146,7 @@ onUnmounted(() => {
   z-index: 1;
   margin-left: var(--sidebar-w);
   min-height: 100vh;
-  padding: 0 28px 28px;
+  padding: 0 var(--content-pad-x, 28px) calc(28px * var(--density-scale, 1));
 }
 
 .content {

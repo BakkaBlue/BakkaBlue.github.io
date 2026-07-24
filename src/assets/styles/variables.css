@@ -28,12 +28,19 @@ html[data-theme='light'] {
   --radius-lg: 18px;
   --radius-md: 14px;
   --radius-sm: 10px;
+  --radius-scale: 1;
   --font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI',
     'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
   --max-width: 1080px;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
   --transition-speed: 0.35s;
+
+  /* appearance system (overridden by useAppearance) */
+  --density-scale: 1;
+  --type-scale: 1;
+  --ui-gap: 12px;
+  --content-pad-x: 28px;
 
   /* legacy aliases used by older components */
   --glass-bg: var(--bg-card);
@@ -92,6 +99,7 @@ html {
 
 body {
   font-family: var(--font-family);
+  font-size: calc(1rem * var(--type-scale, 1));
   background: var(--bg-base);
   color: var(--text-primary);
   line-height: 1.55;
