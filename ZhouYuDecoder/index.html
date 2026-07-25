@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZhouYuDecoder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>ZhouYuDecoder</h1>
+      <p class="subtitle">fixed content decoder</p>
+    </header>
+
+    <div class="codec-bar">
+      <button class="codec-btn active" data-codec="base64">Base64</button>
+      <button class="codec-btn" data-codec="hex">Hex</button>
+      <button class="codec-btn" data-codec="binary">Binary</button>
+      <button class="codec-btn" data-codec="caesar">Caesar</button>
+      <button class="codec-btn" data-codec="rot13">ROT13</button>
+      <button class="codec-btn" data-codec="morse">Morse</button>
+      <button class="codec-btn" data-codec="url">URL</button>
+      <button class="codec-btn" data-codec="reverse">Reverse</button>
+      <button class="codec-btn" data-codec="unicode">Unicode</button>
+    </div>
+
+    <div class="param-row" id="caesarParams" style="display:none;">
+      <label for="caesarShift">shift</label>
+      <input type="number" id="caesarShift" value="3" min="1" max="25" />
+    </div>
+
+    <div class="mode-toggle">
+      <button class="mode-btn active" data-mode="decode">Decode</button>
+      <button class="mode-btn" data-mode="encode">Encode</button>
+    </div>
+
+    <div class="io-area">
+      <div class="io-box">
+        <label>Input</label>
+        <textarea id="input" rows="6" placeholder="paste content here..."></textarea>
+      </div>
+      <button class="swap-btn" id="swapBtn" title="swap input/output">&#x21C5;</button>
+      <div class="io-box">
+        <label>Output</label>
+        <textarea id="output" rows="6" readonly placeholder="decoded result will appear here..."></textarea>
+        <button class="copy-btn" id="copyBtn">Copy</button>
+      </div>
+    </div>
+
+    <div class="presets">
+      <p class="presets-title">Presets</p>
+      <div class="preset-list" id="presetList"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

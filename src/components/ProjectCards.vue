@@ -58,6 +58,13 @@ const projects = [
     linkText: '听歌去',
     tag: 'Music',
   },
+  {
+    title: 'ZhouYuDecoder',
+    desc: '固定内容解码器，支持 Base64 / Hex / Morse 等多种编码',
+    link: 'ZhouYuDecoder/',
+    linkText: '打开解码器',
+    tag: 'Tool',
+  },
 ]
 </script>
 
