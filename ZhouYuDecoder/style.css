@@ -64,6 +64,17 @@ h1 {
   color: #e8a87c;
 }
 
+.codec-btn-zy {
+  border-color: #3a2a2a;
+  color: #c75b3a;
+}
+
+.codec-btn-zy.active {
+  border-color: #c75b3a;
+  color: #c75b3a;
+  background: #1c1410;
+}
+
 .param-row {
   display: flex;
   align-items: center;
@@ -84,6 +95,65 @@ h1 {
   font-family: inherit;
   font-size: 0.82rem;
   text-align: center;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #2a2a2a;
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 2px;
+  bottom: 2px;
+  background: #6a5a4a;
+  border-radius: 50%;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: #3a2218;
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(16px);
+  background: #c75b3a;
+}
+
+.zy-hint {
+  font-size: 0.78rem;
+  color: #c75b3a;
+  min-width: 42px;
+}
+
+.zy-sep {
+  color: #2a2a2a;
+  font-size: 0.7rem;
+}
+
+.zy-rules {
+  font-size: 0.7rem;
+  color: #4a3a2a;
 }
 
 .mode-toggle {

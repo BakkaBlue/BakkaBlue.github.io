@@ -23,11 +23,23 @@
       <button class="codec-btn" data-codec="url">URL</button>
       <button class="codec-btn" data-codec="reverse">Reverse</button>
       <button class="codec-btn" data-codec="unicode">Unicode</button>
+      <button class="codec-btn codec-btn-zy" data-codec="zhouyu">周语</button>
     </div>
 
     <div class="param-row" id="caesarParams" style="display:none;">
       <label for="caesarShift">shift</label>
       <input type="number" id="caesarShift" value="3" min="1" max="25" />
+    </div>
+
+    <div class="param-row" id="zhouyuParams" style="display:none;">
+      <label for="katakanaShape">katakana</label>
+      <label class="toggle-switch">
+        <input type="checkbox" id="katakanaShape" checked />
+        <span class="toggle-slider"></span>
+      </label>
+      <span class="zy-hint" id="zyHint">shape</span>
+      <span class="zy-sep">|</span>
+      <span class="zy-rules">hiragana&rarr;romaji &middot; katakana&rarr;hanzi &middot; chinese kept</span>
     </div>
 
     <div class="mode-toggle">
