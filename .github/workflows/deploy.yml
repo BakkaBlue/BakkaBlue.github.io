@@ -67,6 +67,8 @@ jobs:
           # static projects
           cp -r color_wordle "$DEPLOY_DIR/color_wordle"
           cp -r laohei-music "$DEPLOY_DIR/laohei-music"
+          cp -r ZhouYuDecoder "$DEPLOY_DIR/ZhouYuDecoder"
+          rm -f "$DEPLOY_DIR/ZhouYuDecoder/deepseek_html_20260725_0fb28b.html"
 
           # built apps
           mkdir -p "$DEPLOY_DIR/idle_realms" "$DEPLOY_DIR/explodemoji"
