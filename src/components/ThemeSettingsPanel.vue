@@ -14,6 +14,7 @@
           aria-labelledby="theme-settings-title"
           tabindex="-1"
           @keydown.esc.stop.prevent="closePanel"
+          @keydown="onKeydown"
         >
           <header class="panel-head">
             <div>
@@ -235,6 +236,7 @@ const densityOptions = DENSITY_OPTIONS
 
 const editName = ref('')
 const panelRef = ref<HTMLElement | null>(null)
+let lastFocus: HTMLElement | null = null
 
 watch(
   () => activeProfile.value?.id,
@@ -247,11 +249,35 @@ watch(
 watch(panelOpen, async (open) => {
   document.body.style.overflow = open ? 'hidden' : ''
   if (open) {
+    lastFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
     editName.value = activeProfile.value?.name ?? ''
     await nextTick()
     panelRef.value?.focus()
+  } else {
+    lastFocus?.focus?.()
+    lastFocus = null
   }
 })
+
+/** Keep Tab inside the dialog so focus can't wander behind the scrim. */
+function onKeydown(e: KeyboardEvent) {
+  if (e.key !== 'Tab') return
+  const panel = panelRef.value
+  if (!panel) return
+  const focusables = panel.querySelectorAll<HTMLElement>(
+    'button, input, [href], [tabindex]:not([tabindex="-1"])',
+  )
+  if (!focusables.length) return
+  const first = focusables[0]
+  const last = focusables[focusables.length - 1]
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault()
+    last.focus()
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault()
+    first.focus()
+  }
+}
 
 onUnmounted(() => {
   document.body.style.overflow = ''

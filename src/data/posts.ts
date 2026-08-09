@@ -43,8 +43,10 @@ function loadPosts(): BlogPost[] {
   const list: BlogPost[] = []
 
   for (const [path, mod] of Object.entries(modules)) {
-    const attrs = mod?.attributes ?? {}
     const slug = slugFromPath(path)
+    // content/blog/README.md is the directory guide, not a post
+    if (slug.toLowerCase() === 'readme') continue
+    const attrs = mod?.attributes ?? {}
     const title = String(attrs.title ?? slug)
     const date = String(attrs.date ?? '1970-01-01')
     const excerpt = String(attrs.excerpt ?? '')

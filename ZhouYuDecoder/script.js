@@ -128,7 +128,15 @@ function decodeZhouyu(text, shapeMode) {
   let i = 0
   while (i < chars.length) {
     const ch = chars[i]
-    const phMatch = phs.find(p => processed.substring(i, i + p.ph.length) === p.ph)
+    // compare placeholder code-point by code-point (i is a code-point index,
+    // so a substring() scan would misalign when surrogate pairs precede it)
+    const phMatch = phs.find(p => {
+      if (i + p.ph.length > chars.length) return false
+      for (let k = 0; k < p.ph.length; k++) {
+        if (chars[i + k] !== p.ph[k]) return false
+      }
+      return true
+    })
     if (phMatch) { result += phMatch.rep; i += phMatch.ph.length; continue }
 
     if (isHiragana(ch)) {
@@ -176,11 +184,11 @@ const codecs = {
   },
   hex: {
     encode: t => Array.from(new TextEncoder().encode(t)).map(b => b.toString(16).padStart(2,'0')).join(' '),
-    decode: t => { try { return new TextDecoder().decode(new Uint8Array(t.trim().split(/\s+/).map(h => parseInt(h,16)))) } catch { return '[decode error]' } },
+    decode: t => { try { const bytes = t.trim().split(/\s+/).map(h => parseInt(h,16)); if (bytes.some(Number.isNaN)) return '[decode error]'; return new TextDecoder().decode(new Uint8Array(bytes)) } catch { return '[decode error]' } },
   },
   binary: {
     encode: t => Array.from(new TextEncoder().encode(t)).map(b => b.toString(2).padStart(8,'0')).join(' '),
-    decode: t => { try { return new TextDecoder().decode(new Uint8Array(t.trim().split(/\s+/).map(b => parseInt(b,2)))) } catch { return '[decode error]' } },
+    decode: t => { try { const bytes = t.trim().split(/\s+/).map(b => parseInt(b,2)); if (bytes.some(Number.isNaN)) return '[decode error]'; return new TextDecoder().decode(new Uint8Array(bytes)) } catch { return '[decode error]' } },
   },
   caesar: {
     encode: (t, s) => t.replace(/[a-zA-Z]/g, c => {

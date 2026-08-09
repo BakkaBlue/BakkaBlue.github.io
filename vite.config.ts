@@ -20,10 +20,6 @@ function markdownBlogPlugin(): Plugin {
     enforce: 'pre',
     transform(code, id) {
       if (!id.endsWith('.md')) return null
-      // only transform project markdown, not deps
-      if (!id.includes('content') && !id.includes('blog')) {
-        // still allow any .md in repo root content paths
-      }
 
       const { attributes, body } = fm<Record<string, unknown>>(code)
       const html = md.render(body)

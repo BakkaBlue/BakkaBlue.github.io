@@ -22,11 +22,6 @@
           {{ activated ? '正在加载贡献数据…' : '准备加载…' }}
         </div>
 
-        <div v-else-if="error && !useFallback" class="heatmap-state">
-          暂时无法拉取热力图，
-          <button class="retry" type="button" @click="load">重试</button>
-        </div>
-
         <div v-else-if="useFallback" class="heatmap-fallback">
           <img
             :src="fallbackSrc"
@@ -38,6 +33,10 @@
         </div>
 
         <template v-else>
+          <div v-if="error" class="heatmap-stale">
+            贡献数据可能已过期，
+            <button class="retry" type="button" @click="load">重新拉取</button>
+          </div>
           <div class="heatmap-meta">
             <div class="meta-item">
               <span class="meta-value">{{ totalContributions.toLocaleString() }}</span>
@@ -102,9 +101,9 @@ const totalContributions = ref(0)
 const activeDays = ref(0)
 const maxStreak = ref(0)
 
-const isLight = computed(
-  () => document.documentElement.dataset.theme !== 'dark',
-)
+// reactive copy of html[data-theme] so fallback colors update when the theme flips
+const themeName = ref(document.documentElement.dataset.theme ?? '')
+const isLight = computed(() => themeName.value !== 'dark')
 
 // theme-aware fallback chart color (hex without #)
 const fallbackSrc = computed(() => {
@@ -311,10 +310,8 @@ async function load() {
     paint()
     if (scrollRef.value) scrollRef.value.scrollLeft = scrollRef.value.scrollWidth
   } catch {
-    if (!cells.value.length) {
-      useFallback.value = true
-      error.value = true
-    }
+    error.value = true
+    if (!cells.value.length) useFallback.value = true
     loading.value = false
   }
 }
@@ -328,6 +325,7 @@ onMounted(() => {
 
   // repaint when day/night theme changes
   themeObs = new MutationObserver(() => {
+    themeName.value = document.documentElement.dataset.theme ?? ''
     if (cells.value.length) paint()
   })
   themeObs.observe(document.documentElement, {
@@ -381,6 +379,16 @@ onUnmounted(() => {
   font: inherit;
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.heatmap-stale {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 14px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
 }
 
 .heatmap-meta {

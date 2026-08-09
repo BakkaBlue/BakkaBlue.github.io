@@ -129,9 +129,7 @@ let alive = true
 let timer: number | null = null
 
 const visible = computed(() =>
-  [...items.value]
-    .filter((t) => t.phase !== 'fall' || true)
-    .sort((a, b) => a.slot - b.slot || a.uid - b.uid),
+  [...items.value].sort((a, b) => a.slot - b.slot || a.uid - b.uid),
 )
 
 function clearTimer() {

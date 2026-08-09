@@ -37,7 +37,16 @@ function parsePath(pathname: string): AppRoute {
   if (path === '/contact') return { name: 'contact' }
   if (path === '/blog') return { name: 'blog' }
   const m = path.match(/^\/blog\/([^/]+)$/)
-  if (m) return { name: 'blog-post', slug: decodeURIComponent(m[1]) }
+  if (m) {
+    // malformed %-encoding (e.g. /blog/%) throws in decodeURIComponent — keep raw slug
+    let slug = m[1]
+    try {
+      slug = decodeURIComponent(m[1])
+    } catch {
+      /* keep raw */
+    }
+    return { name: 'blog-post', slug }
+  }
   return { name: 'home' }
 }
 
