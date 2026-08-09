@@ -9,3 +9,5 @@ tsconfig.tsbuildinfo
 .claude
 .codegraph
 .superpowers
+# stray export from an LLM chat — must never be deployed
+ZhouYuDecoder/deepseek_html_*.html
